@@ -1,4 +1,4 @@
-import express, {Application , Request, Response } from 'express';
+import express, {Application, Request, Response} from 'express';
 import bodyParse from 'body-parser';
 // import morgan from 'morgan'
 import compression from 'compression';
@@ -10,14 +10,14 @@ import AuthRoutes from './Routes/AuthRoutes';
 class App {
     public app: Application;
 
-    constructor(){
+    constructor() {
         this.app = express();
         this.plugins();
         this.routes();
         dotenv();
     }
 
-    protected plugins():void{
+    protected plugins(): void {
         this.app.use(bodyParse.json());
         // this.app.use(bodyParse.urlencoded({extended: false}));
         // this.app.use(morgan('dev'));
@@ -26,13 +26,13 @@ class App {
         this.app.use(cors());
     }
 
-    protected routes(): void{
+    protected routes(): void {
         this.app.use('/api/auth', AuthRoutes);
     }
 
 }
 
-const port: number = 3030;
+const port: number = 8080;
 const app = new App().app;
 
 app.listen(port, () => {
