@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "tsc": "rm -rf build/ && tsc",
+    "tsc": "tsc",
     "ts": "rm -rf build/ && tsc -w",
     "dev": "nodemon ./build/index.js",
     "start": "node ./build/index.js"
