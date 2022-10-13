@@ -8,7 +8,7 @@ export class AuthRoutes extends BaseRoutes {
     public routes(): void{
         this.router.post('/signup', validate, AuthController.signup);
         this.router.post('/signin', AuthController.signin);
-        this.router.post('/profile', auth,AuthController.profile);
+        this.router.post('/profile', auth, AuthController.profile);
     }
 }
 
