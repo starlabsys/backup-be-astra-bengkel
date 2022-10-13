@@ -1,6 +1,6 @@
 import express, {Application , Request, Response } from 'express';
 import bodyParse from 'body-parser';
-import morgan from 'morgan'
+// import morgan from 'morgan'
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -20,7 +20,7 @@ class App {
     protected plugins():void{
         this.app.use(bodyParse.json());
         // this.app.use(bodyParse.urlencoded({extended: false}));
-        this.app.use(morgan('dev'));
+        // this.app.use(morgan('dev'));
         this.app.use(compression());
         this.app.use(helmet());
         this.app.use(cors());
@@ -37,5 +37,5 @@ const app = new App().app;
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-    
+
 })
