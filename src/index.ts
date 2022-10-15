@@ -27,7 +27,13 @@ class App {
     }
 
     protected routes(): void {
+        this.app.route("/").get((req: Request, res: Response) => {
+            return res.status(200).json({
+                "message": "success"
+            })
+        });
         this.app.use('/api/auth', AuthRoutes);
+
     }
 
 }
@@ -37,5 +43,4 @@ const app = new App().app;
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-
 })
