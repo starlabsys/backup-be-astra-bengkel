@@ -70,10 +70,8 @@ class AuthController {
     }
 
     signin=async(req: Request, res: Response): Promise<Response> => {
-        // res.send('signin');
         let {username, password} = req.body;
 
-        // console.log(email);
 
         let transaction = await sequelize.transaction();
 
