@@ -25,6 +25,7 @@ class AuthController {
         
         if(findUser){
             return res.status(401).json({
+                status : false,
                 message: "Username already exists"
             });
         }
