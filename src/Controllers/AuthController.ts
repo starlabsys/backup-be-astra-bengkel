@@ -21,10 +21,12 @@ class AuthController {
 
         let findUser = await db.Users.findOne({where: {username: username}},{transaction: t});
 
-        console.log(findUser);
+        // console.log(findUser);
         
         if(findUser){
-            return res.send('Email already exists');
+            return res.status(401).json({
+                message: "Username already exists"
+            });
         }
 
         const hashPassword = await bcrypt.hash(password, 10);
@@ -84,24 +86,35 @@ class AuthController {
             });
     
             if (!person) {
-                return res.send("User not found");
+                return res.status(401).json({
+                    status: false,
+                    message: "User not found"
+                });
             }
     
             const validPassword = await bcrypt.compare(password, person.password);
     
             if(!validPassword){
-                return res.send("Invalid password");
+                return res.status(401).json({
+                    status: false,
+                    message: "Invalid Username & Password"
+                })
             }
     
             const token = Authentication.generateToken(person.id, person.username, person.password, person.role);
     
-            return res.status(200).send({
+            transaction.commit();
+            return res.status(201).json({
+                status: true,
+                message: "Login Success",
                 person,
                 token
             })
             
         } catch (error) {
             // throw new Error();
+
+            transaction.rollback();
 
             return res.status(401).send({
                 status: false,
