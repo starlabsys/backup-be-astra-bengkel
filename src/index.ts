@@ -6,6 +6,8 @@ import helmet from 'helmet';
 import cors from 'cors';
 import {config as dotenv} from 'dotenv';
 import AuthRoutes from './Routes/AuthRoutes';
+import PartsRoutes from './Routes/PartsRoutes';
+import PkbRoutes from './Routes/PkbRoutes';
 
 class App {
     public app: Application;
@@ -33,6 +35,8 @@ class App {
             })
         });
         this.app.use('/api/auth', AuthRoutes);
+        this.app.use('/api/parts', PartsRoutes);
+        this.app.use('/api/pkb', PkbRoutes);
 
     }
 

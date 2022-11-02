@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import Authentication from "../utils/Authentication";
-import mysql from 'mysql2';
 import { sequelize } from "../db/models";
 const db = require('../db/models');
 const mysql2 = require('mysql2')
@@ -108,12 +107,13 @@ class AuthController {
             return res.status(201).json({
                 status: true,
                 message: "Login Success",
-                person,
-                token
+                data: {
+                    person,
+                    token
+                }
             })
             
         } catch (error) {
-            // throw new Error();
 
             transaction.rollback();
 
