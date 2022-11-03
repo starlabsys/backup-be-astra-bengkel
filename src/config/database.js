@@ -22,6 +22,6 @@ module.exports = {
     host: "db-ta-mysql-sgp1-88822-do-user-12614603-0.b.db.ondigitalocean.com",
     dialect: "mysql",
     port: 25060,
-    ssl: true
+    ssl: true,
   },
 };
