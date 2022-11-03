@@ -25,11 +25,7 @@ class App {
         // this.app.use(bodyParse.urlencoded({extended: false}));
         // this.app.use(morgan('dev'));
         this.app.use( compression() );
-        this.app.use( helmet(
-            {
-                crossOriginResourcePolicy : false,
-            }
-        ) );
+        this.app.use( helmet() );
         this.app.use( cors( {
             origin : [ 'https://fe-astra-n7eav.ondigitalocean.app', 'http://localhost:3000' ],
             methods : [ 'GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH' ]
