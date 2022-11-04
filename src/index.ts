@@ -26,7 +26,13 @@ class App {
         // this.app.use(morgan('dev'));
         this.app.use( compression() );
         this.app.use( helmet() );
-        this.app.use( cors() );
+        this.app.use( cors(
+            {
+                origin : '*',
+                methods : 'GET,PUT,PATCH,POST,DELETE',
+                allowedHeaders : 'Content-Type, Authorization, Origin, X-Requested-With, Accept',
+            }
+        ) );
     }
 
     protected routes() : void {
