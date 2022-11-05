@@ -62,9 +62,10 @@ class PartsController {
         let t = await sequelize.transaction();
 
         try {
-            let {parts_name, parts_qty, parts_price, parts_id } = req.body;
+            let {parts_name, parts_qty, parts_price, parts_id,parts_code } = req.body;
     
             const updateParts = await db.Parts.update({
+                parts_code,
                 parts_name,
                 parts_qty,
                 parts_price,
