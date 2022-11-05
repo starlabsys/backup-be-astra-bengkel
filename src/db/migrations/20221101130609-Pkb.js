@@ -80,6 +80,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      is_deleted: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
     });
   },
 
@@ -88,7 +100,7 @@ module.exports = {
      * Add reverting commands here.
      *
      * Example:
-     * await queryInterface.dropTable('users');
      */
+    await queryInterface.dropTable("pkb");
   },
 };

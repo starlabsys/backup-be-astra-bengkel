@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Parts.init(
     {
+      parts_code: DataTypes.STRING,
       parts_name: DataTypes.STRING,
       parts_qty: DataTypes.STRING,
       parts_price: DataTypes.STRING,

@@ -75,40 +75,47 @@ class AuthController {
         let {username, password} = req.body;
 
 
-        let transaction = await sequelize.transaction();
-        
-        const person = await db.Users.findOne({
-            where: {
-                username: username
-            }
-        });
 
-        if (!person) {
-            return res.status(401).json({
-                status: false,
-                message: "User not found"
+        try {
+            const person = await db.Users.findOne({
+                where: {
+                    username: username
+                }
             });
-        }
-
-        const validPassword = await bcrypt.compare(password, person.password);
-
-        if(!validPassword){
-            return res.status(401).json({
+    
+            if (!person) {
+                return res.status(401).json({
+                    status: false,
+                    message: "User not found"
+                });
+            }
+    
+            const validPassword = await bcrypt.compare(password, person.password);
+    
+            if(!validPassword){
+                return res.status(401).json({
+                    status: false,
+                    message: "Invalid Username & Password"
+                })
+            }
+    
+            const token = Authentication.generateToken(person.id, person.username, person.password, person.role);
+    
+            return res.status(201).json({
+                status: true,
+                message: "Login Success",
+                data: {
+                    person,
+                    token
+                }
+            })    
+            
+        } catch (error) {
+            return res.status(400).json({
                 status: false,
-                message: "Invalid Username & Password"
+                message: "Connection Error"
             })
         }
-
-        const token = Authentication.generateToken(person.id, person.username, person.password, person.role);
-
-        return res.status(201).json({
-            status: true,
-            message: "Login Success",
-            data: {
-                person,
-                token
-            }
-        })    
     }
 
     profile = async(req: Request, res: Response): Promise<Response> => {

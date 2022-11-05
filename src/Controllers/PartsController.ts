@@ -9,13 +9,23 @@ const mysql2 = require('mysql2')
 class PartsController {
     index = async(req: Request, res: Response): Promise<Response> => {
         // 
-        let data = await db.Parts.findAll();
+        // console.log("test");
 
-        // res.send(data);
-        return res.status(200).json({
-            status: true,
-            data: data
-        })
+        try {
+            let data = await db.Parts.findAll();
+    
+            // res.send(data);
+            return res.status(200).json({
+                status: true,
+                data: data
+            })
+        } catch (error) {
+            return res.status(401).json({
+                status: false,
+                message: error
+            })
+        }
+        
     }
 
     store = async(req: Request, res: Response): Promise<Response> => {
@@ -23,9 +33,10 @@ class PartsController {
         let t = await sequelize.transaction();
 
         try {
-            let {parts_name, parts_qty, parts_price,} = req.body;
+            let {parts_code,parts_name, parts_qty, parts_price} = req.body;
     
             const createParts = await db.Parts.create({
+                parts_code,
                 parts_name,
                 parts_qty,
                 parts_price,

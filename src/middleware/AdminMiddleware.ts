@@ -12,8 +12,12 @@ export const authAdmin = (req: Request, res: Response, next: NextFunction): any 
     try{
         const credential : string | object = jwt.verify(token, secretKey);
 
+        console.log(credential);
+        
+        // console.log(req.app.locals.credential);
         if(credential){
             req.app.locals.credential = credential;
+            
 
             if(req.app.locals.credential.roles === 'SuperAdmin'){
                 // console.log("true");
