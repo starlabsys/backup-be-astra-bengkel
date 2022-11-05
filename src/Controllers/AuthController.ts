@@ -76,53 +76,39 @@ class AuthController {
 
 
         let transaction = await sequelize.transaction();
-
-        try {
-
-            const person = await db.Users.findOne({
-                where: {
-                    username: username
-                }
-            });
-    
-            if (!person) {
-                return res.status(401).json({
-                    status: false,
-                    message: "User not found"
-                });
+        
+        const person = await db.Users.findOne({
+            where: {
+                username: username
             }
-    
-            const validPassword = await bcrypt.compare(password, person.password);
-    
-            if(!validPassword){
-                return res.status(401).json({
-                    status: false,
-                    message: "Invalid Username & Password"
-                })
-            }
-    
-            const token = Authentication.generateToken(person.id, person.username, person.password, person.role);
-    
-            transaction.commit();
-            return res.status(201).json({
-                status: true,
-                message: "Login Success",
-                data: {
-                    person,
-                    token
-                }
-            })
-            
-        } catch (error) {
+        });
 
-            transaction.rollback();
-
-            return res.status(401).send({
+        if (!person) {
+            return res.status(401).json({
                 status: false,
-                message: "Can't create user"
+                message: "User not found"
+            });
+        }
+
+        const validPassword = await bcrypt.compare(password, person.password);
+
+        if(!validPassword){
+            return res.status(401).json({
+                status: false,
+                message: "Invalid Username & Password"
             })
         }
-        
+
+        const token = Authentication.generateToken(person.id, person.username, person.password, person.role);
+
+        return res.status(201).json({
+            status: true,
+            message: "Login Success",
+            data: {
+                person,
+                token
+            }
+        })    
     }
 
     profile = async(req: Request, res: Response): Promise<Response> => {

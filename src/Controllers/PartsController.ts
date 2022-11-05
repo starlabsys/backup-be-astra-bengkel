@@ -11,6 +11,7 @@ class PartsController {
         // 
         let data = await db.Parts.findAll();
 
+        // res.send(data);
         return res.status(200).json({
             status: true,
             data: data
