@@ -8,6 +8,7 @@ import { config as dotenv } from 'dotenv';
 import AuthRoutes from './Routes/AuthRoutes';
 import PartsRoutes from './Routes/PartsRoutes';
 import PkbRoutes from './Routes/PkbRoutes';
+import VehicleRoutes from './Routes/VehicleRoutes';
 
 
 class App {
@@ -44,6 +45,7 @@ class App {
         this.app.use( '/api/auth', AuthRoutes );
         this.app.use( '/api/parts', PartsRoutes );
         this.app.use( '/api/pkb', PkbRoutes );
+        this.app.use('/api/vehicle', VehicleRoutes )
 
     }
 
