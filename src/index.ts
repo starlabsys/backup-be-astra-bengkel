@@ -42,10 +42,10 @@ class App {
                 "message" : "success"
             } )
         } );
-        this.app.use( '/api/auth', AuthRoutes );
-        this.app.use( '/api/parts', PartsRoutes );
-        this.app.use( '/api/pkb', PkbRoutes );
-        this.app.use('/api/vehicle', VehicleRoutes )
+        this.app.use( '/api/auth', cors(), AuthRoutes );
+        this.app.use( '/api/parts', cors(),PartsRoutes );
+        this.app.use( '/api/pkb', cors(), PkbRoutes );
+        this.app.use('/api/vehicle', cors(), VehicleRoutes )
 
     }
 
