@@ -76,6 +76,11 @@ class AuthController {
     //     res.header("Access-Control-Allow-Origin", "*");
     //    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     //    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+            res.setHeader("X-Frame-Options", "ALLOWALL");
+        res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        res.setHeader("Access-Control-Allow-Methods", "POST, GET");
+        res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         let {username, password} = req.body;
 
 
