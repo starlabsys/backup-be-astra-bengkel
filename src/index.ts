@@ -30,7 +30,7 @@ class App {
         this.app.use( helmet() );
         this.app.use( cors(
             {
-                origin : '*',
+                origin : '*, http://localhost:3000',
                 methods : 'GET,PUT,PATCH,POST,DELETE',
                 allowedHeaders : 'Content-Type, Authorization, Origin, X-Requested-With, Accept',
                 preflightContinue : false,
