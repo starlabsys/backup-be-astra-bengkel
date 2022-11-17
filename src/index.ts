@@ -9,6 +9,7 @@ import AuthRoutes from './Routes/AuthRoutes';
 import PartsRoutes from './Routes/PartsRoutes';
 import PkbRoutes from './Routes/PkbRoutes';
 import VehicleRoutes from './Routes/VehicleRoutes';
+import WorkshopRoutes from './Routes/WorkshopRoutes';
 
 
 class App {
@@ -32,6 +33,8 @@ class App {
                 origin : '*',
                 methods : 'GET,PUT,PATCH,POST,DELETE',
                 allowedHeaders : 'Content-Type, Authorization, Origin, X-Requested-With, Accept',
+                preflightContinue : false,
+                optionsSuccessStatus : 204
             }
         ) );
     }
@@ -46,6 +49,7 @@ class App {
         this.app.use( '/api/parts', cors(),PartsRoutes );
         this.app.use( '/api/pkb', cors(), PkbRoutes );
         this.app.use('/api/vehicle', cors(), VehicleRoutes )
+        this.app.use('/api/workshop', cors(), WorkshopRoutes )
 
     }
 
