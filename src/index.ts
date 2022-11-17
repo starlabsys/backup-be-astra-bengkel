@@ -34,7 +34,6 @@ class App {
                 origin : '*',
                 methods : [ 'GET', 'POST', 'PUT', 'DELETE' ],
                 allowedHeaders : [ 'Content-Type', 'Authorization', 'Accept' ],
-                credentials : true,
             }
         ) );
         // this.app.options( '*', cors( {
