@@ -72,7 +72,10 @@ class AuthController {
     }
 
     signin=async(req: Request, res: Response): Promise<Response> => {
-        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.header("Access-Control-Allow-Origin", "*");
+       res.header("Access-Control-Allow-Headers", "X-Requested-With");
+       res.header('Access-Control-Allow-Headers', 'Content-Type');
         let {username, password} = req.body;
 
 
