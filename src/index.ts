@@ -9,6 +9,7 @@ import AuthRoutes from './Routes/AuthRoutes';
 import PartsRoutes from './Routes/PartsRoutes';
 import PkbRoutes from './Routes/PkbRoutes';
 import VehicleRoutes from './Routes/VehicleRoutes';
+
 // import WorkshopRoutes from './Routes/WorkshopRoutes';
 
 
@@ -29,37 +30,30 @@ class App {
         this.app.use( compression() );
         this.app.use( helmet() );
         this.app.use( cors(
-        //     {
-        //     allowedHeaders: [
-        //         'Origin',
-        //         'X-Requested-With',
-        //         'Content-Type',
-        //         'Accept',
-        //         'X-Access-Token',
-        //     ],
-        //     credentials: true,
-        //     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-        //     origin: 'http://localhost:3000',
-        //     preflightContinue: false,
-        // }
-        ));
-        this.app.options('*', cors({
-            origin: true,
-            optionsSuccessStatus: 200,
-            credentials: true,
-        }))
+            {
+                origin : '*',
+                methods : [ 'GET', 'POST', 'PUT', 'DELETE' ],
+                allowedHeaders : [ 'Content-Type', 'Authorization' ],
+                credentials : true,
+            }
+        ) );
+        // this.app.options( '*', cors( {
+        //     origin : true,
+        //     optionsSuccessStatus : 200,
+        //     credentials : true,
+        // } ) )
     }
 
     protected routes() : void {
-        this.app.route( "/" ).get( ( req : Request, res : Response) => {
+        this.app.route( "/" ).get( ( req : Request, res : Response ) => {
             return res.status( 200 ).json( {
                 "message" : "success"
             } )
         } );
         this.app.use( '/api/auth', cors(), AuthRoutes );
-        this.app.use( '/api/parts', cors(),PartsRoutes );
+        this.app.use( '/api/parts', cors(), PartsRoutes );
         this.app.use( '/api/pkb', cors(), PkbRoutes );
-        this.app.use('/api/vehicle', cors(), VehicleRoutes )
+        this.app.use( '/api/vehicle', cors(), VehicleRoutes )
         // this.app.use('/api/workshop', cors(), WorkshopRoutes )
 
     }
