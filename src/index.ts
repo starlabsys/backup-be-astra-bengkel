@@ -9,6 +9,7 @@ import AuthRoutes from './Routes/AuthRoutes';
 import PartsRoutes from './Routes/PartsRoutes';
 import PkbRoutes from './Routes/PkbRoutes';
 import VehicleRoutes from './Routes/VehicleRoutes';
+import bodyParser from "body-parser";
 
 // import WorkshopRoutes from './Routes/WorkshopRoutes';
 
@@ -24,15 +25,14 @@ class App {
     }
 
     protected plugins() : void {
-        this.app.use( bodyParse.json() );
-        // this.app.use(bodyParse.urlencoded({extended: false}));
-        // this.app.use(morgan('dev'));
+        this.app.use( express.urlencoded() )
+        this.app.use( express.json() )
         this.app.use( compression() );
         this.app.use( helmet() );
         this.app.use( cors(
             {
                 origin : '*',
-                methods : [ 'GET', 'POST', 'PUT', 'DELETE' ],
+                methods : [ 'GET', 'POST', 'PUT', 'PATCH', 'DELETE' ],
                 allowedHeaders : [ 'Content-Type', 'Authorization', 'Accept' ],
             }
         ) );
@@ -63,5 +63,7 @@ const port : number = 8080;
 const app = new App().app;
 
 app.listen( port, () => {
+    console.log( `Server is running on port ${ process.env.NODE_ENV }` );
+    console.log( `Server is running on port ${ process.env.DB_HOST }` );
     console.log( `Server is running on port ${ port }` );
 } )
