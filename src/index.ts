@@ -30,13 +30,21 @@ class App {
         this.app.use( helmet() );
         this.app.use( cors(
             {
-                origin : 'http://localhost:3000',
-                credentials : true,
-                // access-control-allow-origin : '*,http://localhost:3000',
-                methods : 'GET,PUT,PATCH,POST,DELETE',
-                allowedHeaders : 'Content-Type, Authorization, Origin, X-Requested-With, Accept',
-                preflightContinue : false,
-                optionsSuccessStatus : 204
+
+                allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
+                exposedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
+                origin: '*',
+                methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+                preflightContinue: false,
+                optionsSuccessStatus: 204
+
+                // origin : 'http://localhost:3000',
+                // credentials : true,
+                // // access-control-allow-origin : '*,http://localhost:3000',
+                // methods : 'GET,PUT,PATCH,POST,DELETE',
+                // allowedHeaders : 'Content-Type, Authorization, Origin, X-Requested-With, Accept',
+                // preflightContinue : false,
+                // optionsSuccessStatus : 204
             }
         ) );
     }
