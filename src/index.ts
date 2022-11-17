@@ -28,26 +28,19 @@ class App {
         // this.app.use(morgan('dev'));
         this.app.use( compression() );
         this.app.use( helmet() );
-        this.app.use( cors(
-            {
-
-                // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-                // exposedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-                origin: true,
-                // methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-                // preflightContinue: false,
-                optionsSuccessStatus: 204,
-                credentials: true
-
-                // origin : 'http://localhost:3000',
-                // credentials : true,
-                // // access-control-allow-origin : '*,http://localhost:3000',
-                // methods : 'GET,PUT,PATCH,POST,DELETE',
-                // allowedHeaders : 'Content-Type, Authorization, Origin, X-Requested-With, Accept',
-                // preflightContinue : false,
-                // optionsSuccessStatus : 204
-            }
-        ));
+        this.app.use( cors({
+            allowedHeaders: [
+                'Origin',
+                'X-Requested-With',
+                'Content-Type',
+                'Accept',
+                'X-Access-Token',
+            ],
+            credentials: true,
+            methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+            origin: 'http://localhost:3000',
+            preflightContinue: false,
+        }));
         this.app.options('*', cors({
             origin: true,
             optionsSuccessStatus: 200,
