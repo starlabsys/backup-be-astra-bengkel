@@ -33,10 +33,11 @@ class App {
 
                 allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
                 exposedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-                origin: '*',
+                origin: true,
                 methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
                 preflightContinue: false,
-                optionsSuccessStatus: 204
+                optionsSuccessStatus: 204,
+                credentials: true
 
                 // origin : 'http://localhost:3000',
                 // credentials : true,
@@ -46,11 +47,16 @@ class App {
                 // preflightContinue : false,
                 // optionsSuccessStatus : 204
             }
-        ) );
+        ));
+        this.app.options('*', cors({
+            origin: true,
+            optionsSuccessStatus: 200,
+            credentials: true,
+        }))
     }
 
     protected routes() : void {
-        this.app.route( "/" ).get( ( req : Request, res : Response ) => {
+        this.app.route( "/" ).get( ( req : Request, res : Response) => {
             return res.status( 200 ).json( {
                 "message" : "success"
             } )
