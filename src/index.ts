@@ -31,11 +31,11 @@ class App {
         this.app.use( cors(
             {
 
-                allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-                exposedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
+                // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
+                // exposedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
                 origin: true,
-                methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-                preflightContinue: false,
+                // methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+                // preflightContinue: false,
                 optionsSuccessStatus: 204,
                 credentials: true
 

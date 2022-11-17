@@ -34,7 +34,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="8d6b1cb8-3601-4e00-a487-00167ffca27c" object-ref="schemas/db-astra/tables/DetailUsers" />
+      <object connection-id="8d6b1cb8-3601-4e00-a487-00167ffca27c" object-ref="schemas/db-astra/tables/Parts" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
