@@ -49,7 +49,7 @@ class App {
         this.app.use( '/api/parts', cors(),PartsRoutes );
         this.app.use( '/api/pkb', cors(), PkbRoutes );
         this.app.use('/api/vehicle', cors(), VehicleRoutes )
-        this.app.use('/api/workshop', cors(), WorkshopRoutes )
+        // this.app.use('/api/workshop', cors(), WorkshopRoutes )
 
     }
 
