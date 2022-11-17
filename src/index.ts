@@ -63,7 +63,5 @@ const port : number = 8080;
 const app = new App().app;
 
 app.listen( port, () => {
-    console.log( `Server is running on port ${ process.env.NODE_ENV }` );
-    console.log( `Server is running on port ${ process.env.DB_HOST }` );
     console.log( `Server is running on port ${ port }` );
 } )
