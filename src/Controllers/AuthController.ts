@@ -143,30 +143,30 @@ class AuthController {
         const secretKey = "dgi-secret-live:15C06B55-B31C-4A1C-BC23-085C23504F28"
         const cry = crypto.createHash('sha256').update(apiKey+secretKey+timeStamp).digest('hex');
         const cry1 = crypto.createHash('sha256').update(apiKey+secretKey+dayUnix).digest('hex');
-        console.log(cry+" / "+cry1);
+        // console.log(cry+" / "+cry1);
         
 
-        // try{
-        //     const data = await axios.post('https://astraapps.astra.co.id/dmsahassapi/dgi-api/v2/spk/read',{
-        //         "fromTime" : "2022-08-01 00:00:00",
-        //         "toTime" : "2022-08-04 23:59:59",
-        //         "dealerId" : "07533",
-        //         "deliveryDocumentId" : "",
-        //         "idSPK" : "",
-        //         "idCustomer" : ""
-        //     }, {headers: {
-        //             'content-type': 'application/json',
-        //             'Accept': 'application/json',
-        //             'X-Request-Time': timeStamp,
-        //             'DGI-API-Key': apiKey,
-        //             'DGI-API-Token': cry
-        //         }
-        //     })
-        //     res.send(data.data);
+        try{
+            const data = await axios.post('https://astraapps.astra.co.id/dmsahassapi/dgi-api/v2/spk/read',{
+                "fromTime" : "2022-08-01 00:00:00",
+                "toTime" : "2022-08-04 23:59:59",
+                "dealerId" : "07533",
+                "deliveryDocumentId" : "",
+                "idSPK" : "",
+                "idCustomer" : ""
+            }, {headers: {
+                    'content-type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Request-Time': timeStamp,
+                    'DGI-API-Key': apiKey,
+                    'DGI-API-Token': cry
+                }
+            })
+            res.send(data.data);
 
-        // }catch(error){
-        //     console.log(error);
-        // }
+        }catch(error){
+            console.log(error);
+        }
         // console.log(data);
         
         // CryptoJS.HmacSHA256(apiKey + secretKey + timeStamp);
