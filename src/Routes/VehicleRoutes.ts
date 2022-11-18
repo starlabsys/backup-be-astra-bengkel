@@ -10,7 +10,9 @@ import BaseRoutes from "./BaseRoutes";
 export class VehicleRoutes extends BaseRoutes {
     public routes(): void{
         this.router.get('/', auth, VehicleController.index);
-        this.router.post('/', validate, auth,VehicleController.store);
+        this.router.post('/',  auth,validate,VehicleController.store);
+        this.router.patch('/:id',  auth,validate, VehicleController.update);
+        this.router.delete('/:id',  auth, VehicleController.delete);
         // this.router.post('/profile', auth, AuthController.profile);
     }
 }

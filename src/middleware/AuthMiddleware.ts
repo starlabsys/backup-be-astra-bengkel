@@ -3,7 +3,10 @@ import jwt from 'jsonwebtoken';
 
 export const auth = (req: Request, res: Response, next: NextFunction): any => {
     if(!req.headers.authorization){
-        return res.status(401).send('Unauthorized request');
+        return res.status(401).json({
+            status: false,
+            message: Object('Unauthorized request')
+        });
     }
 
     let secretKey = process.env.SECRET_KEY || 'secretKey';

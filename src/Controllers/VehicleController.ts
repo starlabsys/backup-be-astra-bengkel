@@ -75,16 +75,42 @@ class VehicleController {
         let t = await sequelize.transaction();
 
         try {
-            let {parts_name, parts_qty, parts_price, parts_id,parts_code } = req.body;
-    
-            const updateParts = await db.Parts.update({
-                parts_code,
-                parts_name,
-                parts_qty,
-                parts_price,
+            let {no_polisi,
+                no_rangka,
+                no_mesin,
+                kode_tipe_unit,
+                tahun_motor,
+                informasi_bensin,
+                km_terakhir,
+                tipe_coming_customer } = req.body;
+
+                let id = req.params.id;
+
+            let findVehicle = await db.Motorcycle.findOne({
+                where: {
+                    id
+                }
+            });
+
+            if (!findVehicle) {
+                return res.status(401).json({
+                    status: false,
+                    message: Object("Vehicle Not Found")
+                })
+            }
+                
+            const updateParts = await db.Motorcycle.update({
+                no_polisi,
+                no_rangka,
+                no_mesin,
+                kode_tipe_unit,
+                tahun_motor,
+                informasi_bensin,
+                km_terakhir,
+                tipe_coming_customer,
             },{
                 where: {
-                    id: parts_id
+                    id
                 }
             })
     
@@ -92,14 +118,14 @@ class VehicleController {
             
             return res.status(201).json({
                 status: true,
-                message: "Parts updated successfully"
+                message: Object("Vehicle updated successfully")
             });
             
         } catch (error) {
             t.rollback();
             return res.status(401).json({
                 status : false,
-                message: "Cant Update Parts"
+                message: Object("Cant Update Vehicle")
             })
         }
     }
@@ -109,10 +135,23 @@ class VehicleController {
 
         try {
             let { id } = req.params;
-    
-            const deleteParts = await db.Parts.destroy({
+
+            let findVehicle = await db.Motorcycle.findOne({
                 where: {
-                    id: id
+                    id
+                }
+            })
+
+            if (!findVehicle) {
+                return res.status(401).json({
+                    status: false,
+                    message: Object("Vehicle Not Found")
+                })
+            }
+    
+            const deleteParts = await db.Motorcycle.destroy({
+                where: {
+                    id
                 }
             })
     
@@ -120,14 +159,14 @@ class VehicleController {
             
             return res.status(201).json({
                 status: true,
-                message: "Parts deleted successfully"
+                message: "Vehicle deleted successfully"
             });
             
         } catch (error) {
             t.rollback();
             return res.status(401).json({
                 status : false,
-                message: "Cant Delete Parts"
+                message: "Cant Delete Vehicle"
             })
         }
     }
