@@ -2,6 +2,11 @@ import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import Authentication from "../utils/Authentication";
 import { sequelize } from "../db/models";
+// import CryptoJS from "crypto-js";
+import crypto from "crypto"
+// import { Axios } from "axios";
+import axios from "axios";
+
 
 
 const db = require( '../db/models' );
@@ -121,6 +126,50 @@ class AuthController {
     profile = async ( req : Request, res : Response ) : Promise<Response> => {
         let credential = req.app.locals.credential;
         return res.send( credential );
+    }
+
+    test = async(req: Request, res: Response) => {
+
+        // const date = new Date();
+        const DateN = new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' });
+        const timeStamp = Math.floor(new Date(DateN).getTime() / 1000);
+
+         const day = new Date()
+        const dateString = `${ day.getDate() } ${ day.toLocaleString( 'id', { month : 'short' } ) } ${ day.getFullYear() } ${ day.getHours() }:${ day.getMinutes() }:${ day.getSeconds() } (GMT+7/WIB)`
+        const dayUnix = Math.floor( new Date( dateString ).getTime() / 1000 )
+        // console.log(timeStamp+" / " +dayUnix);
+        
+        const apiKey = "dgi-key-live:52ADFCEE-18BE-470E-9772-4E76EB0CDF00";
+        const secretKey = "dgi-secret-live:15C06B55-B31C-4A1C-BC23-085C23504F28"
+        const cry = crypto.createHash('sha256').update(apiKey+secretKey+timeStamp).digest('hex');
+        const cry1 = crypto.createHash('sha256').update(apiKey+secretKey+dayUnix).digest('hex');
+        console.log(cry+" / "+cry1);
+        
+
+        // try{
+        //     const data = await axios.post('https://astraapps.astra.co.id/dmsahassapi/dgi-api/v2/spk/read',{
+        //         "fromTime" : "2022-08-01 00:00:00",
+        //         "toTime" : "2022-08-04 23:59:59",
+        //         "dealerId" : "07533",
+        //         "deliveryDocumentId" : "",
+        //         "idSPK" : "",
+        //         "idCustomer" : ""
+        //     }, {headers: {
+        //             'content-type': 'application/json',
+        //             'Accept': 'application/json',
+        //             'X-Request-Time': timeStamp,
+        //             'DGI-API-Key': apiKey,
+        //             'DGI-API-Token': cry
+        //         }
+        //     })
+        //     res.send(data.data);
+
+        // }catch(error){
+        //     console.log(error);
+        // }
+        // console.log(data);
+        
+        // CryptoJS.HmacSHA256(apiKey + secretKey + timeStamp);
     }
 }
 
