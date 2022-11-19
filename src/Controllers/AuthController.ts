@@ -130,36 +130,67 @@ class AuthController {
 
     test = async(req: Request, res: Response) => {
 
-        // const date = new Date();
-        const DateN = new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' });
+        const apiKey = "52ADFCEE-18BE-470E-9772-4E76EB0CDF00"
+        const secretKey = "15C06B55-B31C-4A1C-BC23-085C23504F28"
+        const day = new Date()
+        const DateN = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Brunei' });
         const timeStamp = Math.floor(new Date(DateN).getTime() / 1000);
 
-         const day = new Date()
         const dateString = `${ day.getDate() } ${ day.toLocaleString( 'id', { month : 'short' } ) } ${ day.getFullYear() } ${ day.getHours() }:${ day.getMinutes() }:${ day.getSeconds() } (GMT+7/WIB)`
+        // console.log(dateString)
+        
         const dayUnix = Math.floor( new Date( dateString ).getTime() / 1000 )
+        const dataString = new TextEncoder().encode( apiKey + secretKey + 1567645682 );
+        console.log(dataString);
+        
+        const hastMac = crypto.createHash( "sha256" ).update( dataString ).digest( "hex" );
+        const hastMac1 = crypto.createHash( "sha256" ).update( "dgi-key-live:h3oiu8b54que"+"dgi-secret-live:dTvCnLh58A"+timeStamp ).digest("hex");
+
+        console.log( hastMac+" / "+hastMac1 );
+        
+
+        // // const date = new Date();
+        // // const DateN = new Date().toLocaleString('en-US', { timeZone: 'Asia/Brunei' });
+        // const DateN = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Brunei' });
+        // // console.log(DateN+" "+Date1);
+        
+        // // const Date2 = new Date().toLocaleString('en-US', { timeZone: 'Asia/Brunei' });
+        // const timeStamp = Math.floor(new Date(DateN).getTime() / 1000);
+        // // console.log(timeStamp);
+        
+
+        //  const day = new Date()
+        // const dateString = `${ day.getDate() } ${ day.toLocaleString( 'id', { month : 'short' } ) } ${ day.getFullYear() } ${ day.getHours() }:${ day.getMinutes() }:${ day.getSeconds() } (GMT+7/WIB)`
+        // const dayUnix = Math.floor( new Date( '09/05/2019 08:08:03' ).getTime() / 1000 )
         // console.log(timeStamp+" / " +dayUnix);
         
-        const apiKey = "dgi-key-live:52ADFCEE-18BE-470E-9772-4E76EB0CDF00";
-        const secretKey = "dgi-secret-live:15C06B55-B31C-4A1C-BC23-085C23504F28"
-        const cry = crypto.createHash('sha256').update(apiKey+secretKey+timeStamp).digest('hex');
-        const cry1 = crypto.createHash('sha256').update(apiKey+secretKey+dayUnix).digest('hex');
-        // console.log(cry+" / "+cry1);
+        // const apiKey = "dgi-key-live:52ADFCEE-18BE-470E-9772-4E76EB0CDF00";
+        // const secretKey = "dgi-secret-live:15C06B55-B31C-4A1C-BC23-085C23504F28"
+        // const cry = crypto.createHash('sha256').update(apiKey+secretKey+1567645682).digest('hex');
+        // // const cry1 = crypto.createHash('sha256').update(apiKey+secretKey+1567645682).digest('hex');
+        // console.log(cry);
         
 
         try{
-            const data = await axios.post('https://astraapps.astra.co.id/dmsahassapi/dgi-api/v2/spk/read',{
-                "fromTime" : "2022-08-01 00:00:00",
-                "toTime" : "2022-08-04 23:59:59",
-                "dealerId" : "07533",
-                "deliveryDocumentId" : "",
-                "idSPK" : "",
-                "idCustomer" : ""
+            const data = await axios.post('https://devproxy.astra.co.id/api_gateway/astra-api-developer/dmsahassapi-qa/dgi-api/v1/prsp/read',{
+                // "fromTime" : "2022-08-01 00:00:00",
+                // "toTime" : "2022-08-04 23:59:59",
+                // "dealerId" : "07533",
+                // "deliveryDocumentId" : "",
+                // "idSPK" : "",
+                // "idCustomer" : ""
+                "fromTime": "2019-01-15 12:31:00", 
+                "toTime": "2019-01-21 15:50:00", 
+                "dealerId": "07533", 
+                "idProspect ": "H2Z/12345/19/03/PSP/0001/00001", 
+                "idSalesPeople ": "122536" 
+
             }, {headers: {
                     'content-type': 'application/json',
                     'Accept': 'application/json',
                     'X-Request-Time': timeStamp,
-                    'DGI-API-Key': apiKey,
-                    'DGI-API-Token': cry
+                    'DGI-API-Key': "dgi-key-live:h3oiu8b54que   ",
+                    'DGI-API-Token': hastMac1
                 }
             })
             res.send(data.data);

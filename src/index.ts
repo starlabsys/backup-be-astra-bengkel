@@ -12,6 +12,7 @@ import VehicleRoutes from './Routes/VehicleRoutes';
 import bodyParser from "body-parser";
 
 import WorkshopRoutes from './Routes/WorkshopRoutes';
+import MechanicRoutes from './Routes/MechanicRoutes';
 
 
 class App {
@@ -54,6 +55,7 @@ class App {
         this.app.use( '/api/pkb', cors(), PkbRoutes );
         this.app.use( '/api/vehicle', cors(), VehicleRoutes )
         this.app.use('/api/workshop', cors(), WorkshopRoutes )
+        this.app.use('/api/mechanic', cors(), MechanicRoutes)
 
     }
 

@@ -1,15 +1,12 @@
 import { Request, Response } from "express";
-// import bcrypt from 'bcrypt';
-// import Authentication from "../utils/Authentication";
 import { sequelize } from "../db/models";
-import parts from "../db/models/parts";
 const db = require('../db/models');
 const mysql2 = require('mysql2')
 
-class WorkshopController {
+class MechanicController {
     index = async(req: Request, res: Response): Promise<Response> => {
         // 
-        let data = await db.workshops.findAll();
+        let data = await db.mechanic.findAll();
 
         return res.status(200).json({
             status: true,
@@ -22,23 +19,29 @@ class WorkshopController {
         let t = await sequelize.transaction();
 
         try {
-            let {user_id, dealer_number,dealer_name, address, data_1, data_2, data_3} = req.body;
+            let {
+                workshop_id,
+                mechanic_name,
+                mechanic_number,
+                mechanic_gender,
+                mechanic_phone,
+                mechanic_address,
+            } = req.body;
     
-            const createWorkshop = await db.workshops.create({
-                user_id,
-                dealer_number,
-                dealer_name,
-                address,
-                data_1: JSON.stringify(data_1),
-                data_2,
-                data_3,
+            const createWorkshop = await db.mechanic.create({
+                workshop_id,
+                mechanic_name,
+                mechanic_number,
+                mechanic_gender,
+                mechanic_phone,
+                mechanic_address,
             })
     
             await t.commit();
             
             return res.status(201).json({
                 status: true,
-                message: "Workshops created successfully"
+                message: "Mechanic created successfully"
             });
             
         } catch (error) {
@@ -46,7 +49,7 @@ class WorkshopController {
             t.rollback();
             return res.status(401).json({
                 status : false,
-                message: "Cant Create Workshops"
+                message: "Cant Create Mechanic"
             })
         }
 
@@ -55,31 +58,37 @@ class WorkshopController {
         let t = await sequelize.transaction();
 
         try {
-            let { user_id, dealer_number,dealer_name, address, data_1, data_2, data_3 } = req.body;
+            let { 
+                workshop_id,
+                mechanic_name,
+                mechanic_number,
+                mechanic_gender,
+                mechanic_phone,
+                mechanic_address,
+             } = req.body;
             
             const id = req.params.id;
 
-            const findWorkshop = await db.workshops.findOne({
+            const findMechanic = await db.mechanic.findOne({
                 where: {
                     id
                 }
             })
 
-            if (!findWorkshop) {
+            if (!findMechanic) {
                 return res.status(404).json({
                     status: false,
-                    message: "Workshop not found"
+                    message: "Mechanic not found"
                 })
             }
                 
-            const updateParts = await db.workshops.update({
-                user_id,
-                dealer_number,
-                dealer_name,
-                address,
-                data_1: JSON.stringify(data_1),
-                data_2,
-                data_3,
+            const updateMechanic = await db.mechanic.update({
+                workshop_id,
+                mechanic_name,
+                mechanic_number,
+                mechanic_gender,
+                mechanic_phone,
+                mechanic_address,
             },{
                 where: {
                     id
@@ -90,14 +99,14 @@ class WorkshopController {
             
             return res.status(201).json({
                 status: true,
-                message: "Workshop updated successfully"
+                message: "Mechanic updated successfully"
             });
             
         } catch (error) {
             t.rollback();
             return res.status(401).json({
                 status : false,
-                message: "Cant Update Workshop"
+                message: "Cant Update Mechanic"
             })
         }
     }
@@ -108,7 +117,7 @@ class WorkshopController {
         try {
             let { id } = req.params;
     
-            const deleteWorkshop = await db.workshops.destroy({
+            const deleteWorkshop = await db.mechanic.destroy({
                 where: {
                     id: id
                 }
@@ -118,17 +127,17 @@ class WorkshopController {
             
             return res.status(201).json({
                 status: true,
-                message: "Workshops deleted successfully"
+                message: "Mechanic deleted successfully"
             });
             
         } catch (error) {
             t.rollback();
             return res.status(401).json({
                 status : false,
-                message: "Cant Delete Workshops"
+                message: "Cant Delete Mechanic"
             })
         }
     }
 }
 
-export default new WorkshopController();
+export default new MechanicController();
