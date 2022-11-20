@@ -6,33 +6,27 @@ import axios, { AxiosResponse} from "axios";
 import crypto from 'crypto'
 
 import apiService from "../Services/ApiService";
+import ResponseCode from "../utils/ResponseCode";
 // import parts from "../db/models/parts";
 const db = require('../db/models');
 const mysql2 = require('mysql2')
 
 class PartsController {
-    index = async(req: Request, res: Response): Promise<Response> => {
+    index = async(req: Request, res: Response) => {
         // 
         // console.log("test");
 
         try {
             let data = await db.Parts.findAll();
     
-            // res.send(data);
-            return res.status(200).json({
-                status: true,
-                data: data
-            })
+            ResponseCode.successGet("Success Get Data", data, res);
         } catch (error) {
-            return res.status(401).json({
-                status: false,
-                message: error
-            })
+            ResponseCode.errorPost("Failed Get Data", error, res);
         }
         
     }
 
-    store = async(req: Request, res: Response): Promise<Response> => {
+    store = async(req: Request, res: Response) => {
 
         let t = await sequelize.transaction();
 
@@ -47,23 +41,18 @@ class PartsController {
             })
     
             await t.commit();
-            
-            return res.status(201).json({
-                status: true,
-                message: "Parts created successfully"
-            });
+
+            ResponseCode.successPost("Success Create Data", req, res);
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Create Parts"
-            })
+
+            ResponseCode.errorPost("Failed Create Data", req, res);
         }
 
     }
     
-    update = async(req: Request, res: Response): Promise<Response> => {
+    update = async(req: Request, res: Response) => {
         let t = await sequelize.transaction();
 
         try {
@@ -81,22 +70,17 @@ class PartsController {
             })
     
             await t.commit();
-            
-            return res.status(201).json({
-                status: true,
-                message: "Parts updated successfully"
-            });
+
+            ResponseCode.successPost("Success Update Data", req, res);
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Update Parts"
-            })
+
+            ResponseCode.errorPost("Failed Update Data", req, res);
         }
     }
 
-    delete = async(req: Request, res: Response): Promise<Response> => {
+    delete = async(req: Request, res: Response) => {
         let t = await sequelize.transaction();
 
         try {
@@ -110,21 +94,15 @@ class PartsController {
     
             await t.commit();
             
-            return res.status(201).json({
-                status: true,
-                message: "Parts deleted successfully"
-            });
+            ResponseCode.successPost("Success Delete Data", req, res);
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Delete Parts"
-            })
+            ResponseCode.errorPost("Failed Delete Data", req, res);
         }
     }
 
-    test = async(req: Request, res: Response): Promise<Response>=> {
+    test = async(req: Request, res: Response)=> {
         // let data = apiService.BaseApi('2198j02', '1982jj2');
 
     // let result = axios.get('https://jsonplaceholder.typicode.com/todos/1')

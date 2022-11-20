@@ -6,6 +6,7 @@ import { sequelize } from "../db/models";
 import crypto from "crypto"
 // import { Axios } from "axios";
 import axios from "axios";
+import ResponseCode from "../utils/ResponseCode";
 
 
 
@@ -16,7 +17,7 @@ const mysql2 = require( 'mysql2' )
 // const { users } = DB;
 
 class AuthController {
-    signup = async ( req : Request, res : Response ) : Promise<Response> => {
+    signup = async ( req : Request, res : Response ) => {
         // throw new Error('Method not implemented.');
         // return res.send("Auth Index");
         const t = await sequelize.transaction();
@@ -30,10 +31,7 @@ class AuthController {
         // console.log(findUser);
 
         if ( findUser ) {
-            return res.status( 401 ).json( {
-                status : false,
-                message : "Username already exists"
-            } );
+            ResponseCode.errorPost("Username Already Exist", req, res);
         }
 
         const hashPassword = await bcrypt.hash( password, 10 );
@@ -61,24 +59,17 @@ class AuthController {
 
             await t.commit();
 
-            return res.status( 201 ).send( {
-                status : true,
-                message : "User created successfully"
-            } );
+            ResponseCode.successPost("Success Create Data", req, res);
 
         } catch ( error ) {
 
-            console.log( error );
-
             await t.rollback();
-            return res.status( 401 ).send( {
-                status : false,
-                message : "Cant Create User"
-            } );
+
+            ResponseCode.errorPost("Failed Create Data", req, res);
         }
     }
 
-    signin = async ( req : Request, res : Response ) : Promise<Response> => {
+    signin = async ( req : Request, res : Response ) => {
         let { username, password } = req.body;
 
         try {
@@ -89,43 +80,33 @@ class AuthController {
             } );
 
             if ( !person ) {
-                return res.status( 401 ).json( {
-                    status : false,
-                    message : "User not found"
-                } );
+                ResponseCode.errorPost("Username Not Found", req, res);
             }
 
             const validPassword = await bcrypt.compare( password, person.password );
 
             if ( !validPassword ) {
-                return res.status( 401 ).json( {
-                    status : false,
-                    message : "Invalid Username & Password"
-                } )
+                ResponseCode.unauthorized("Username / Wrong Password", req, res);
             }
 
             const token = Authentication.generateToken( person.id, person.username, person.password, person.role );
 
-            return res.status( 201 ).json( {
-                status : true,
-                message : "Login Success",
-                data : {
-                    person,
-                    token
-                }
-            } )
+            let dataUser = {
+                person,
+                token
+            }
+
+            ResponseCode.successGet("Success Login", dataUser, res);
 
         } catch ( error ) {
-            return res.status( 400 ).json( {
-                status : false,
-                message : error
-            } )
+            ResponseCode.errorPost("Failed Login", req, res);
         }
     }
 
-    profile = async ( req : Request, res : Response ) : Promise<Response> => {
+    profile = async ( req : Request, res : Response ) => {
         let credential = req.app.locals.credential;
-        return res.send( credential );
+        
+        ResponseCode.successGet("Success Get Data", credential, res);
     }
 
     test = async(req: Request, res: Response) => {

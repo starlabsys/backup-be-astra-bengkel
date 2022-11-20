@@ -5,7 +5,7 @@ export const auth = (req: Request, res: Response, next: NextFunction): any => {
     if(!req.headers.authorization){
         return res.status(401).json({
             status: false,
-            message: Object('Unauthorized request')
+            message: "Unauthorized",
         });
     }
 
@@ -20,8 +20,14 @@ export const auth = (req: Request, res: Response, next: NextFunction): any => {
             return next();
         }
 
-        return res.send("Invalid token");
+        return res.status(401).json({
+            status: false,
+            message: 'Invalid token'
+        })
     }catch(err){
-        return res.send(err);
+        return res.status(401).json({
+            status: false,
+            message: err
+        });
     }
 }

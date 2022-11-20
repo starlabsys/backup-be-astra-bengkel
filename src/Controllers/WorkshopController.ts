@@ -3,21 +3,20 @@ import { Request, Response } from "express";
 // import Authentication from "../utils/Authentication";
 import { sequelize } from "../db/models";
 import parts from "../db/models/parts";
+import ResponseCode from "../utils/ResponseCode";
 const db = require('../db/models');
 const mysql2 = require('mysql2')
 
 class WorkshopController {
-    index = async(req: Request, res: Response): Promise<Response> => {
+    index = async(req: Request, res: Response) => {
         // 
         let data = await db.workshops.findAll();
 
-        return res.status(200).json({
-            status: true,
-            data: data
-        })
+
+        ResponseCode.successGet("Success Get Data", data, res);
     }
 
-    store = async(req: Request, res: Response): Promise<Response> => {
+    store = async(req: Request, res: Response) => {
 
         let t = await sequelize.transaction();
 
@@ -36,22 +35,15 @@ class WorkshopController {
     
             await t.commit();
             
-            return res.status(201).json({
-                status: true,
-                message: "Workshops created successfully"
-            });
+            ResponseCode.successPost("Success Create Data", req, res);
             
         } catch (error) {
-            console.log(error);
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Create Workshops"
-            })
+            ResponseCode.errorPost("Failed Create Data", req, res);
         }
 
     }
-    update = async(req: Request, res: Response): Promise<Response> => {
+    update = async(req: Request, res: Response) => {
         let t = await sequelize.transaction();
 
         try {
@@ -66,10 +58,7 @@ class WorkshopController {
             })
 
             if (!findWorkshop) {
-                return res.status(404).json({
-                    status: false,
-                    message: "Workshop not found"
-                })
+                ResponseCode.errorPost("Workshop Not Found", req, res);
             }
                 
             const updateParts = await db.workshops.update({
@@ -88,21 +77,15 @@ class WorkshopController {
     
             await t.commit();
             
-            return res.status(201).json({
-                status: true,
-                message: "Workshop updated successfully"
-            });
+            ResponseCode.successPost("Success Update Data", req, res);
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Update Workshop"
-            })
+            ResponseCode.errorPost("Failed Update Data", req, res);
         }
     }
 
-    delete = async(req: Request, res: Response): Promise<Response> => {
+    delete = async(req: Request, res: Response) => {
         let t = await sequelize.transaction();
 
         try {
@@ -116,17 +99,12 @@ class WorkshopController {
     
             await t.commit();
             
-            return res.status(201).json({
-                status: true,
-                message: "Workshops deleted successfully"
-            });
+            ResponseCode.successPost("Success Delete Data", req, res);
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Delete Workshops"
-            })
+
+            ResponseCode.errorPost("Failed Delete Data", req, res);
         }
     }
 }

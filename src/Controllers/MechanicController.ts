@@ -1,20 +1,18 @@
 import { Request, Response } from "express";
 import { sequelize } from "../db/models";
+import ResponseCode from "../utils/ResponseCode";
 const db = require('../db/models');
 const mysql2 = require('mysql2')
 
 class MechanicController {
-    index = async(req: Request, res: Response): Promise<Response> => {
+    index = async(req: Request, res: Response) => {
         // 
         let data = await db.mechanic.findAll();
 
-        return res.status(200).json({
-            status: true,
-            data: data
-        })
+        ResponseCode.successGet("Success Get Data", data, res);
     }
 
-    store = async(req: Request, res: Response): Promise<Response> => {
+    store = async(req: Request, res: Response) => {
 
         let t = await sequelize.transaction();
 
@@ -39,22 +37,17 @@ class MechanicController {
     
             await t.commit();
             
-            return res.status(201).json({
-                status: true,
-                message: "Mechanic created successfully"
-            });
+            ResponseCode.successPost("Success Create Data", req, res);
             
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Create Mechanic"
-            })
+            
+            ResponseCode.errorPost("Failed Create Data", req, res);
         }
 
     }
-    update = async(req: Request, res: Response): Promise<Response> => {
+    update = async(req: Request, res: Response) => {
         let t = await sequelize.transaction();
 
         try {
@@ -76,10 +69,8 @@ class MechanicController {
             })
 
             if (!findMechanic) {
-                return res.status(404).json({
-                    status: false,
-                    message: "Mechanic not found"
-                })
+                
+                ResponseCode.errorPost("Mechanic not found", req, res);
             }
                 
             const updateMechanic = await db.mechanic.update({
@@ -97,21 +88,15 @@ class MechanicController {
     
             await t.commit();
             
-            return res.status(201).json({
-                status: true,
-                message: "Mechanic updated successfully"
-            });
+            ResponseCode.successPost("Mechanic updated successfully", req, res);
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Update Mechanic"
-            })
+            ResponseCode.errorPost("Failed Update Data", req, res);
         }
     }
 
-    delete = async(req: Request, res: Response): Promise<Response> => {
+    delete = async(req: Request, res: Response) => {
         let t = await sequelize.transaction();
 
         try {
@@ -124,18 +109,13 @@ class MechanicController {
             })
     
             await t.commit();
-            
-            return res.status(201).json({
-                status: true,
-                message: "Mechanic deleted successfully"
-            });
+
+            ResponseCode.successPost("Success Delete Data", req, res);
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Delete Mechanic"
-            })
+
+            ResponseCode.errorPost("Failed Delete Data", req, res);
         }
     }
 }

@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const workshop = require("./workshop");
 module.exports = (sequelize, DataTypes) => {
   class Mechanic extends Model {
     /**
@@ -7,8 +8,13 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    // workshop_id?:BigInt,
     static associate(models) {
       // define association here
+      //   Mechanic.hasMany(models.workshop, {
+      //     foreignKey: "workshop_id",
+      //     as: "mechanics",
+      //   });
     }
   }
 
@@ -29,6 +35,17 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "mechanics",
     }
   );
+  const mWorkshop = sequelize.define(
+    "workshops",
+    { name: DataTypes.STRING },
+    { timestamps: false }
+  );
+
+  // mWorkshop.;
+
+  // Mechanic.hasOne(workshop, {
+  //   foreignKey: "workshop_id",
+  // });
   //
   return Mechanic;
 };

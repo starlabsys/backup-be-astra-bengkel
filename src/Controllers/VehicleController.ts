@@ -1,34 +1,23 @@
 import { Request, Response } from "express";
 import { sequelize } from "../db/models";
+import ResponseCode from "../utils/ResponseCode";
 const db = require('../db/models');
 const mysql2 = require('mysql2')
 
 class VehicleController {
-    index = async(req: Request, res: Response): Promise<Response> => {
-        // 
-        // console.log("test");
-
+    index = async(req: Request, res: Response) => {
         try {
             let data = await db.Motorcycle.findAll();
-    
-            // res.send(data);
-            console.log(data);
-            
-            return res.status(200).json({
-                status: true,
-                data: data
-            })
 
+            ResponseCode.successGet("Success Get Data", data, res);
+            
         } catch (error) {
-            return res.status(401).json({
-                status: false,
-                message: error
-            })
+            ResponseCode.errorPost("Failed Get Data", error, res);
         }
         
     }
 
-    store = async(req: Request, res: Response): Promise<Response> => {
+    store = async(req: Request, res: Response) => {
 
         let t = await sequelize.transaction();
 
@@ -57,21 +46,15 @@ class VehicleController {
     
             await t.commit();
             
-            return res.status(201).json({
-                status: true,
-                message: "Vehice Has Been Created"
-            });
+            ResponseCode.successPost("Success Create Data", req, res);
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Vehicle Cant Created"
-            })
+            ResponseCode.errorPost("Failed Create Data", error, res);
         }
 
     }
-    update = async(req: Request, res: Response): Promise<Response> => {
+    update = async(req: Request, res: Response) => {
         let t = await sequelize.transaction();
 
         try {
@@ -93,10 +76,7 @@ class VehicleController {
             });
 
             if (!findVehicle) {
-                return res.status(401).json({
-                    status: false,
-                    message: Object("Vehicle Not Found")
-                })
+                ResponseCode.errorPost("Data Not Found", req, res);
             }
                 
             const updateParts = await db.Motorcycle.update({
@@ -115,22 +95,18 @@ class VehicleController {
             })
     
             await t.commit();
+
+            ResponseCode.successPost("Success Update Data", req, res);
             
-            return res.status(201).json({
-                status: true,
-                message: Object("Vehicle updated successfully")
-            });
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: Object("Cant Update Vehicle")
-            })
+
+            ResponseCode.errorPost("Failed Update Data", error, res);
         }
     }
 
-    delete = async(req: Request, res: Response): Promise<Response> => {
+    delete = async(req: Request, res: Response) => {
         let t = await sequelize.transaction();
 
         try {
@@ -143,10 +119,7 @@ class VehicleController {
             })
 
             if (!findVehicle) {
-                return res.status(401).json({
-                    status: false,
-                    message: Object("Vehicle Not Found")
-                })
+                ResponseCode.successGet("Data Not Found", req, res);
             }
     
             const deleteParts = await db.Motorcycle.destroy({
@@ -157,17 +130,11 @@ class VehicleController {
     
             await t.commit();
             
-            return res.status(201).json({
-                status: true,
-                message: "Vehicle deleted successfully"
-            });
+            ResponseCode.successPost("Success Delete Data", req, res);
             
         } catch (error) {
             t.rollback();
-            return res.status(401).json({
-                status : false,
-                message: "Cant Delete Vehicle"
-            })
+            ResponseCode.errorPost("Failed Delete Data", error, res);
         }
     }
 }
