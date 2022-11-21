@@ -13,6 +13,7 @@ export class PartsRoutes extends BaseRoutes {
         this.router.delete('/delete/:id', authAdmin, PartsController.delete);
 
         this.router.get('/test', PartsController.test);
+        this.router.post('/excel', PartsController.excel);
         // this.router.post('/signin', AuthController.signin);
         // this.router.post('/profile', auth, AuthController.profile);
     }
