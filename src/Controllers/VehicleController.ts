@@ -10,6 +10,7 @@ class VehicleController {
         const page = parseInt(req.query.page) || 0;
         const limit = parseInt(req.query.limit) || 10;
         // const search = req.query.search_query || "";
+        // 
         console.log(req.query.page+" "+req.query.limit);
         const offset = limit * page;
 
