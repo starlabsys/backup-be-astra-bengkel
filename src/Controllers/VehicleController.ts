@@ -5,9 +5,36 @@ const db = require('../db/models');
 const mysql2 = require('mysql2')
 
 class VehicleController {
-    index = async(req: Request, res: Response) => {
+    index = async(req: any, res: Response) => {
+
+        const page = parseInt(req.query.page) || 0;
+        const limit = parseInt(req.query.limit) || 10;
+        // const search = req.query.search_query || "";
+        console.log(req.query.page+" "+req.query.limit);
+        const offset = limit * page;
+
+        
         try {
-            let data = await db.Motorcycle.findAll();
+            const totalRows = await db.Motorcycle.count(); 
+    
+            const totalPage = Math.ceil(totalRows / limit);
+
+            const result = await db.Motorcycle.findAll({
+                offset: offset,
+                limit: limit,
+                order:[
+                    ['id', 'DESC']
+                ]
+            });
+
+            console.log(result);
+            const data = {
+                totalRows,
+                totalPage,
+                result
+            }
+            
+            // let data = await db.Motorcycle.findAll();
 
             ResponseCode.successGet("Success Get Data", data, res);
             
@@ -21,6 +48,8 @@ class VehicleController {
 
         let t = await sequelize.transaction();
 
+        
+
         try {
             let {
                 no_polisi,
@@ -32,6 +61,17 @@ class VehicleController {
                 km_terakhir,
                 tipe_coming_customer,
             } = req.body;
+
+            let findVehicle = await db.Motorcycle.findOne({
+                where: {
+                    no_mesin,
+                    no_rangka,
+                }
+            });
+
+            if (findVehicle) {
+                ResponseCode.errorPost("Vehicle Already Exist", req, res);
+            }
     
             const createVehicle = await db.Motorcycle.create({
                 no_polisi,
