@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { sequelize } from "../db/models";
+import {Op} from "sequelize";
 import ResponseCode from "../utils/ResponseCode";
 const db = require('../db/models');
 const mysql2 = require('mysql2')
@@ -9,18 +10,62 @@ class VehicleController {
 
         const page = parseInt(req.query.page) || 0;
         const limit = parseInt(req.query.limit) || 10;
-        // const search = req.query.search_query || "";
+        const search = req.query.search || "";
         // 
-        console.log(req.query.page+" "+req.query.limit);
+        // console.log(req.query.page+" "+req.query.limit+" "+req.query.search);
         const offset = limit * page;
 
+        // console.log(search);
+        
         
         try {
-            const totalRows = await db.Motorcycle.count(); 
+            const totalRows = await db.Motorcycle.count({
+                where:{
+                    [Op.or]: [{no_polisi:{
+                        [Op.like]: '%'+search+'%'
+                    }},{no_rangka:{
+                        [Op.like]: '%'+search+'%'
+                    }},{no_mesin:{
+                        [Op.like]: '%'+search+'%'
+                    }},{kode_tipe_unit:{
+                        [Op.like]: '%'+search+'%'
+                    }},{tahun_motor:{
+                        [Op.like]: '%'+search+'%'
+                    }},{informasi_bensin:{
+                        [Op.like]: '%'+search+'%'
+                    }},{km_terakhir:{
+                        [Op.like]: '%'+search+'%'
+                    }}, {tipe_coming_customer:{
+                        [Op.like]: '%'+search+'%'
+                    }}],
+                }
+            }); 
+
+            console.log(totalRows);
+            
     
             const totalPage = Math.ceil(totalRows / limit);
 
             const result = await db.Motorcycle.findAll({
+                where: {
+                    [Op.or]: [{no_polisi:{
+                        [Op.like]: '%'+search+'%'
+                    }},{no_rangka:{
+                        [Op.like]: '%'+search+'%'
+                    }},{no_mesin:{
+                        [Op.like]: '%'+search+'%'
+                    }},{kode_tipe_unit:{
+                        [Op.like]: '%'+search+'%'
+                    }},{tahun_motor:{
+                        [Op.like]: '%'+search+'%'
+                    }},{informasi_bensin:{
+                        [Op.like]: '%'+search+'%'
+                    }},{km_terakhir:{
+                        [Op.like]: '%'+search+'%'
+                    }}, {tipe_coming_customer:{
+                        [Op.like]: '%'+search+'%'
+                    }}],
+                },
                 offset: offset,
                 limit: limit,
                 order:[
@@ -28,7 +73,10 @@ class VehicleController {
                 ]
             });
 
-            console.log(result);
+            // console.log(result.length);
+            
+
+            // console.log(result);
             const data = {
                 totalRows,
                 totalPage,
@@ -40,6 +88,7 @@ class VehicleController {
             ResponseCode.successGet("Success Get Data", data, res);
             
         } catch (error) {
+            console.log(error);
             ResponseCode.errorPost("Failed Get Data", error, res);
         }
         
