@@ -103,51 +103,52 @@ class PartsController {
     }
 
     test = async (req: Request, res: Response) => {
-        // let data = apiService.BaseApi('2198j02', '1982jj2');
 
-        // let result = axios.get('https://jsonplaceholder.typicode.com/todos/1')
-        // let result: AxiosResponse = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
-
-        const baseUrl = "https://astraapps.astra.co.id/dmsahassapi/";
+        const baseUrl = "https://astraapigc.astra.co.id/dmsahassapi/dgi-api/v2/bast/read";
         const apiKey = "dgi-key-live:FC4827D4-E68C-4417-A609-8C79FA148D46"
         const secretKey = "dgi-secret-live:79681AA3-41B2-4034-AE01-505A3A380981"
         const day = new Date()
         const dateString = `${day.getDate()} ${day.toLocaleString('id', { month: 'short' })} ${day.getFullYear()} ${day.getHours()}:${day.getMinutes()}:${day.getSeconds()} (GMT+7/WIB)`
         const dayUnix = Math.floor(new Date(dateString).getTime() / 1000)
-        const dataString = new TextEncoder().encode(apiKey + secretKey + dateString);
+
+        const dataString = new TextEncoder().encode(apiKey + secretKey + dayUnix);
         const hashMac = crypto.createHash("sha256").update(dataString).digest("hex");
 
-        // const result: AxiosResponse = await axios.post(baseUrl + 'dgi-api/v2/pkb/read', {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         // 'Authorization': hashMac,
-        //         'X-Request-Time': dayUnix,
-        //         'DGI-Api-Key' : apiKey,
-        //         'DGI-API-Token' : hashMac
-        //     },
-        //     data:{
-        //         "fromTime": "2021-09-22 00:00:01",
-        //         "toTime": "2021-09-22 23:59:59",
-        //         "dealerId": "07533",
-        //         "noWorkOrder": "02179-PKB-21000108"
-        //     }
-        // }).then((response) => {
-        //     console.log(response.data);
-        //     return res.status(200).json({
-        //         status: true,
-        //         data: response.data
-        //     });
-        // }).catch((error) => {
-        //     return res.status(401).json({
-        //         status: false,
-        //         message: error.response.data
-        //     })
-        // })
+        const AxiosResponse = await axios.post(baseUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Request-Time': dayUnix,
+                'DGI-Api-Key' : apiKey,
+                'DGI-API-Token' : hashMac
+            },
+            data:{
+  "fromTime" : "2021-08-01 00:00:00",
+  "toTime" : "2021-08-04 23:59:59",
+  "dealerId" : "07533 ",
+  "deliveryDocumentId" : "",
+  "idSPK" : "",
+  "idCustomer" : ""
+}
+
+        }).then((response) => {
+            console.log(response.data);
+            return res.status(200).json({
+                status: true,
+                data: response.data
+            });
+        }).catch((error) => {
+            console.log(error.response.data);
+            
+            return res.status(401).json({
+                status: false,
+                message: error.response.data
+            })
+        })
 
         // console.log(result.data);
-        return res.status(200).json({
-            data: 'esult.dat'
-        })
+        // return res.status(200).json({
+        //     data: 'esult.dat'
+        // })
 
     }
 

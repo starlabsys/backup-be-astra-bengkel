@@ -121,23 +121,22 @@ class AuthController {
         // console.log(dateString)
         
         const dayUnix = Math.floor( new Date( dateString ).getTime() / 1000 )
-        const dataString = new TextEncoder().encode( apiKey + secretKey + 1567645682 );
+        const dataString = new TextEncoder().encode( apiKey + secretKey + dayUnix );
         console.log(dataString);
         
         const hastMac = crypto.createHash( "sha256" ).update( dataString ).digest( "hex" );
         const hastMac1 = crypto.createHash( "sha256" ).update( "dgi-key-live:h3oiu8b54que"+"dgi-secret-live:dTvCnLh58A"+timeStamp ).digest("hex");
 
-        console.log( hastMac+" / "+hastMac1 );
         
-
+        
         // // const date = new Date();
         // // const DateN = new Date().toLocaleString('en-US', { timeZone: 'Asia/Brunei' });
         // const DateN = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Brunei' });
         // // console.log(DateN+" "+Date1);
         
-        // // const Date2 = new Date().toLocaleString('en-US', { timeZone: 'Asia/Brunei' });
-        // const timeStamp = Math.floor(new Date(DateN).getTime() / 1000);
-        // // console.log(timeStamp);
+        const Date2 = new Date().toLocaleString('en-US', { timeZone: 'Asia/Brunei' });
+        const timextamp = Math.floor(new Date(Date2).getTime() / 1000);
+        // console.log(timextamp);
         
 
         //  const day = new Date()
@@ -147,38 +146,41 @@ class AuthController {
         
         // const apiKey = "dgi-key-live:52ADFCEE-18BE-470E-9772-4E76EB0CDF00";
         // const secretKey = "dgi-secret-live:15C06B55-B31C-4A1C-BC23-085C23504F28"
-        // const cry = crypto.createHash('sha256').update(apiKey+secretKey+1567645682).digest('hex');
+        const cry = crypto.createHash('sha256').update(apiKey+secretKey+timextamp).digest('hex');
         // // const cry1 = crypto.createHash('sha256').update(apiKey+secretKey+1567645682).digest('hex');
         // console.log(cry);
+        console.log( hastMac+" / "+hastMac1 +" / " +cry);
         
+        
+        // try{
+        // const data = await axios.post('https://astraapigc.astra.co.id/dmsahassapi/dgi-api/v1/spk/read',{
+        //     // "fromTime" : "2022-08-01 00:00:00",
+        //     // "toTime" : "2022-08-04 23:59:59",
+        //     // "dealerId" : "07533",
+        //     // "deliveryDocumentId" : "",
+        //     // "idSPK" : "",
+        //     // "idCustomer" : ""
+        //     "fromTime": "2019-01-15 12:31:00", 
+        //     "toTime": "2019-01-21 15:50:00", 
+        //     "dealerId": "07533", 
+        //     "idProspect ": "H2Z/12345/19/03/PSP/0001/00001", 
+        //     "idSalesPeople ": "122536" 
 
-        try{
-            const data = await axios.post('https://devproxy.astra.co.id/api_gateway/astra-api-developer/dmsahassapi-qa/dgi-api/v1/prsp/read',{
-                // "fromTime" : "2022-08-01 00:00:00",
-                // "toTime" : "2022-08-04 23:59:59",
-                // "dealerId" : "07533",
-                // "deliveryDocumentId" : "",
-                // "idSPK" : "",
-                // "idCustomer" : ""
-                "fromTime": "2019-01-15 12:31:00", 
-                "toTime": "2019-01-21 15:50:00", 
-                "dealerId": "07533", 
-                "idProspect ": "H2Z/12345/19/03/PSP/0001/00001", 
-                "idSalesPeople ": "122536" 
+        // }, {headers: {
+        //         'content-type': 'application/json',
+        //         'Accept': 'application/json',
+        //         'X-Request-Time': timeStamp,
+        //         'DGI-API-Key': "dgi-key-live:h3oiu8b54que   ",
+        //         'DGI-API-Token': hastMac
+        //     }
+        // })
+        // res.status(200).json(data.data);
+        //     // res.send(data.data);
 
-            }, {headers: {
-                    'content-type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-Request-Time': timeStamp,
-                    'DGI-API-Key': "dgi-key-live:h3oiu8b54que   ",
-                    'DGI-API-Token': hastMac1
-                }
-            })
-            res.send(data.data);
-
-        }catch(error){
-            console.log(error);
-        }
+        // }catch(error){
+        //     console.log(error);
+        //     res.status(401).json({error})
+        // }
         // console.log(data);
         
         // CryptoJS.HmacSHA256(apiKey + secretKey + timeStamp);
