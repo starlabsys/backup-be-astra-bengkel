@@ -25,6 +25,19 @@ class PartsController {
         }
 
     }
+    indexVehicle = async (req: Request, res: Response) => {
+        // 
+        // console.log("test");
+
+        try {
+            let data = await db.Parts.findAll();
+
+            ResponseCode.successGet("Success Get Data", data, res);
+        } catch (error) {
+            ResponseCode.errorPost("Failed Get Data", error, res);
+        }
+
+    }
 
     store = async (req: Request, res: Response) => {
 
@@ -104,7 +117,7 @@ class PartsController {
 
     test = async (req: Request, res: Response) => {
 
-        const baseUrl = "https://astraapigc.astra.co.id/dmsahassapi/dgi-api/v2/bast/read";
+        const baseUrl = "https://astraapigc.astra.co.id/dmsahassapi/dgi-api/v2/spk/read";
         const apiKey = "dgi-key-live:FC4827D4-E68C-4417-A609-8C79FA148D46"
         const secretKey = "dgi-secret-live:79681AA3-41B2-4034-AE01-505A3A380981"
         const day = new Date()
@@ -114,22 +127,21 @@ class PartsController {
         const dataString = new TextEncoder().encode(apiKey + secretKey + dayUnix);
         const hashMac = crypto.createHash("sha256").update(dataString).digest("hex");
 
-        const AxiosResponse = await axios.post(baseUrl, {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Request-Time': dayUnix,
-                'DGI-Api-Key' : apiKey,
-                'DGI-API-Token' : hashMac
-            },
-            data:{
-  "fromTime" : "2021-08-01 00:00:00",
-  "toTime" : "2021-08-04 23:59:59",
-  "dealerId" : "07533 ",
-  "deliveryDocumentId" : "",
-  "idSPK" : "",
-  "idCustomer" : ""
-}
+        const data = {
+            
+        }
+        console.log(dayUnix+" - "+apiKey+" - "+hashMac)
+        const headers = {
+            // 'Authorization': `Basic ${basic}`,
+            'Content-Type': 'application/json',
+            'X-Request-Time': dayUnix,
+            'DGI-Api-Key' : apiKey,
+            'DGI-API-Token' : hashMac
+        }
 
+        const AxiosResponse = await axios.post(baseUrl, data, {
+            headers: headers
+        
         }).then((response) => {
             console.log(response.data);
             return res.status(200).json({
@@ -141,6 +153,8 @@ class PartsController {
             
             return res.status(401).json({
                 status: false,
+                // data: hashMac,
+                // tgl:dayUnix,
                 message: error.response.data
             })
         })
