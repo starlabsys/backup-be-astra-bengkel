@@ -78,7 +78,7 @@ class DataController {
         
         if (regency == null) {
 
-            console.log('null');
+            // console.log('null');
             
             let dregency = await db.regencies.findAll({
                 where: {
@@ -91,7 +91,7 @@ class DataController {
         }
 
         if (regency) {
-            console.log('not null');
+            // console.log('not null');
             
             const dDistrict = await db.district.findAll({
                 where: {
