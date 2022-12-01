@@ -7,7 +7,7 @@ import BaseRoutes from "./BaseRoutes";
 export class DataRoutes extends BaseRoutes {
     public routes(): void{
         this.router.get('/sparepart', auth, DataController.index);
-        this.router.get('/vehicle', auth, DataController.indexVehicle);
+        this.router.get('/vehicle', DataController.indexVehicle);
         this.router.get('/mechanic', auth, DataController.indexMechanic);
         this.router.get('/provinces', DataController.indexProvince);
         this.router.get('/regencies', DataController.indexRegency);

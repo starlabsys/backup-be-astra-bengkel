@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 // import bcrypt from 'bcrypt';
 // import Authentication from "../utils/Authentication";
+import {Op} from "sequelize";
+
 import { sequelize } from "../db/models";
 import ResponseCode from "../utils/ResponseCode";
 const db = require('../db/models');
@@ -18,12 +20,21 @@ class DataController {
     }
     indexVehicle = async(req: Request, res: Response) => {
         // 
-        // let data = await db.sparepart.();
-            let data = await db.Motorcycle.findAll();
+        let { no_polisi, no_mesin } = req.query;
+         // let data = await db.sparepart.();
+         if (no_polisi && no_mesin) {
+            //  let data = await db.Vehicle.findAll();
+            let data = await db.Motorcycle.findAll({
+                where: {
+                        [Op.or]: [{no_polisi},{no_mesin}]
+                    }
+            });
+            ResponseCode.successGet("Success Get Data", data, res);
 
+         }
 
-
-        ResponseCode.successGet("Success Get Data", data, res);
+         ResponseCode.errorPost("No Polisi and No Rangka is required", req, res);
+            
     }
     indexMechanic = async(req: Request, res: Response) => {
         // 
