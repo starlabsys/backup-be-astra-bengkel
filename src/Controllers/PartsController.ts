@@ -25,19 +25,6 @@ class PartsController {
         }
 
     }
-    indexVehicle = async (req: Request, res: Response) => {
-        // 
-        // console.log("test");
-
-        try {
-            let data = await db.Parts.findAll();
-
-            ResponseCode.successGet("Success Get Data", data, res);
-        } catch (error) {
-            ResponseCode.errorPost("Failed Get Data", error, res);
-        }
-
-    }
 
     store = async (req: Request, res: Response) => {
 

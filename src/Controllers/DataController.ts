@@ -35,32 +35,54 @@ class DataController {
         ResponseCode.successGet("Success Get Data", data, res);
     }
 
-    store = async(req: Request, res: Response) => {
+    indexProvince = async(req: Request, res: Response) => {
 
-        let t = await sequelize.transaction();
+        let data = await db.district.findAll();
+        
+        ResponseCode.successGet("Success Get Data", data, res);
+    }
 
-        try {
-            let {user_id, dealer_number,dealer_name, address, data_1, data_2, data_3} = req.body;
-    
-            const createWorkshop = await db.workshops.create({
-                user_id,
-                dealer_number,
-                dealer_name,
-                address,
-                data_1: JSON.stringify(data_1),
-                data_2,
-                data_3,
+    storeProvinces = async(req: Request, res: Response) => {
+
+        const data = req.body;
+        
+        for(let i=0; i< data.length; i++){
+
+            await db.province.create({
+                id: data[i].id,
+                name: data[i].name,
             })
-    
-            await t.commit();
-            
-            ResponseCode.successPost("Success Create Data", req, res);
-            
-        } catch (error) {
-            t.rollback();
-            ResponseCode.errorPost("Failed Create Data", req, res);
-        }
+        } 
+    }
+    storeRegencies = async(req: Request, res: Response) => {
 
+        const data = req.body;
+        
+        for(let i=0; i< data.length; i++){
+
+            await db.regencies.create({
+                id: data[i].id,
+                province_id: data[i].province_id,
+                name: data[i].name,
+            })
+        }
+        
+        ResponseCode.successPost("Success Post Data", data, res);
+    }
+    storeDistrict = async(req: Request, res: Response) => {
+
+        const data = req.body;
+        
+        for(let i=0; i< data.length; i++){
+
+            await db.district.create({
+                id: data[i].id,
+                regency_id: data[i].regency_id,
+                name: data[i].name,
+            })
+        }
+        
+        ResponseCode.successPost("Success Post Data", data, res);
     }
     update = async(req: Request, res: Response) => {
         let t = await sequelize.transaction();
