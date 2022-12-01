@@ -28,7 +28,7 @@ class App {
 
     protected plugins() : void {
         this.app.use( express.urlencoded() )
-        this.app.use( express.json({limit: "50mb"}) )
+        this.app.use( express.json({limit: "150mb"}) )
         this.app.use( compression() );
         this.app.use( helmet() );
         // this.app.use(express.limit(100000000))
