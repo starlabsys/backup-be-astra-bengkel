@@ -73,9 +73,9 @@ class DataController {
     }
 
     indexRegency = async(req: Request, res: Response) => {
-        let { regency_id } = req.params;
+        let { regency } = req.params;
 
-        if (regency_id == null) {
+        if (regency == null) {
 
             let dregency = await db.regencies.findAll({
                 where: {
@@ -87,11 +87,11 @@ class DataController {
 
         }
 
-        if (regency_id) {
+        if (regency) {
             
             const dDistrict = await db.district.findAll({
                 where: {
-                    regency_id: regency_id
+                    regency_id: regency
                 }
             })
             
