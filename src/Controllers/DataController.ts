@@ -60,18 +60,43 @@ class DataController {
         }
 
         if (province && regency) {
-            // console.log(regency);
             
             const dDistrict = await db.district.findAll({
                 where: {
                     regency_id: regency
                 }
             })
-            // console.log("dDistrict");
             
             ResponseCode.successGet("Success Get Data", dDistrict, res);
         }
         
+    }
+
+    indexRegency = async(req: Request, res: Response) => {
+        let { regency_id } = req.params;
+
+        if (regency_id == null) {
+
+            let dregency = await db.regencies.findAll({
+                where: {
+                    province_id: 61
+                }
+            })
+
+            ResponseCode.successGet("Success Get Data", dregency, res);
+
+        }
+
+        if (regency_id) {
+            
+            const dDistrict = await db.district.findAll({
+                where: {
+                    regency_id: regency_id
+                }
+            })
+            
+            ResponseCode.successGet("Success Get Data", dDistrict, res);
+        }
     }
 
     storeProvinces = async(req: Request, res: Response) => {

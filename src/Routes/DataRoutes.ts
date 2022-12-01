@@ -10,6 +10,7 @@ export class DataRoutes extends BaseRoutes {
         this.router.get('/vehicle', auth, DataController.indexVehicle);
         this.router.get('/mechanic', auth, DataController.indexMechanic);
         this.router.get('/provinces', DataController.indexProvince);
+        this.router.get('/regencies', DataController.indexRegency);
         this.router.post('/provinces', DataController.storeProvinces);
         this.router.post('/regencies', DataController.storeRegencies);
         this.router.post('/district', DataController.storeDistrict);
