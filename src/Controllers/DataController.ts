@@ -37,9 +37,41 @@ class DataController {
 
     indexProvince = async(req: Request, res: Response) => {
 
-        let data = await db.district.findAll();
+        let { province, regency } = req.query;
+
+        if (province == null && regency ==null) {
+            let data = await db.province.findAll();
+            
+            ResponseCode.successGet("Success Get Data", data, res);
+
+        }
+
         
-        ResponseCode.successGet("Success Get Data", data, res);
+        if (province && regency == null) {
+
+            let dregency = await db.regencies.findAll({
+                where: {
+                    province_id: province
+                }
+            })
+
+            ResponseCode.successGet("Success Get Data", dregency, res);
+
+        }
+
+        if (province && regency) {
+            // console.log(regency);
+            
+            const dDistrict = await db.district.findAll({
+                where: {
+                    regency_id: regency
+                }
+            })
+            // console.log("dDistrict");
+            
+            ResponseCode.successGet("Success Get Data", dDistrict, res);
+        }
+        
     }
 
     storeProvinces = async(req: Request, res: Response) => {
