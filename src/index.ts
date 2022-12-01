@@ -14,6 +14,7 @@ import bodyParser from "body-parser";
 import WorkshopRoutes from './Routes/WorkshopRoutes';
 import MechanicRoutes from './Routes/MechanicRoutes';
 import DataRoutes from './Routes/DataRoutes';
+import PitRoutes from './Routes/PitRoutes';
 
 
 class App {
@@ -60,6 +61,8 @@ class App {
         this.app.use( '/api/vehicle', cors(), VehicleRoutes )
         this.app.use('/api/workshop', cors(), WorkshopRoutes )
         this.app.use('/api/mechanic', cors(), MechanicRoutes)
+        this.app.use('/api/pit', cors(), PitRoutes)
+
         this.app.use('/api/data', cors(), DataRoutes)
 
     }
