@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
-import { check, validationResult } from "express-validator";
+import e, { Request, Response, NextFunction } from "express";
+import { check, param, validationResult } from "express-validator";
 const db = require("../db/models");
 
 const validate = [
@@ -11,7 +11,10 @@ const validate = [
         if (!errors.isEmpty()) {
             return res.status(401).json({ 
                 status: false,
-                message: errors.array()
+                result: [{
+                    key: errors.array()[0].param,
+                    message: errors.array()[0].msg,
+                }]
             });
         }
         next();

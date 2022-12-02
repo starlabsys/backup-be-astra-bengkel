@@ -15,7 +15,10 @@ const validate = [
         if (!errors.isEmpty()) {
             return res.status(401).json({ 
                 status: false,
-                message: errors.array()
+                result: [{
+                    key: errors.array()[0].param,
+                    message: errors.array()[0].msg,
+                }]
             });
         }
         next();
