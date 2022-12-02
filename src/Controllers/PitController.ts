@@ -21,6 +21,16 @@ class PitController {
 
         try {
             let {kode_pit, tipe_pit, is_active} = req.body;
+
+            const findPit = await db.pit.findOne({
+                where: {
+                    kode_pit: kode_pit
+                }
+            });
+
+            if (findPit) {
+                ResponseCode.errorPost('Pit Already Exist', null, res);
+            }
     
             const createParts = await db.pit.create({
                 kode_pit,
