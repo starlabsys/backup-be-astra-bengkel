@@ -15,6 +15,7 @@ import WorkshopRoutes from './Routes/WorkshopRoutes';
 import MechanicRoutes from './Routes/MechanicRoutes';
 import DataRoutes from './Routes/DataRoutes';
 import PitRoutes from './Routes/PitRoutes';
+import PitMechanicRoutes from './Routes/PitMechanicRoutes';
 
 
 class App {
@@ -62,6 +63,7 @@ class App {
         this.app.use('/api/workshop', cors(), WorkshopRoutes )
         this.app.use('/api/mechanic', cors(), MechanicRoutes)
         this.app.use('/api/pit', cors(), PitRoutes)
+        this.app.use('/api/pit-mechanic', cors(), PitMechanicRoutes)
 
         this.app.use('/api/data', cors(), DataRoutes)
 
