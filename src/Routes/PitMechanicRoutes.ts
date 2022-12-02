@@ -1,6 +1,6 @@
 import PitController from "../Controllers/PitController";
 import PitMechanicController from "../Controllers/PitMechanicController";
-import validate from '../Validators/PitMechanicValidator',
+import validate from '../Validators/PitMechanicValidator';
 import { auth } from "../middleware/AuthMiddleware";
 import BaseRoutes from "./BaseRoutes";
 
