@@ -10,8 +10,6 @@ export class PitRoutes extends BaseRoutes {
         this.router.post('/', auth, validate, PitController.store);
         this.router.patch('/:id', auth, validate, PitController.update);
         this.router.delete('/:id', auth, PitController.destroy);
-        // this.router.post('/signin', AuthController.signin);
-        // this.router.post('/profile', auth, AuthController.profile);
     }
 }
 
