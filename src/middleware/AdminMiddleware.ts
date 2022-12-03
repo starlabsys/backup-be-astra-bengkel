@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 export const authAdmin = (req: Request, res: Response, next: NextFunction)=> {
     if(!req.headers.authorization){
 
-        return res.status(401).json({
+        return res.status(403).json({
             status: false,
             message: "Unauthorized",
         });
@@ -32,13 +32,13 @@ export const authAdmin = (req: Request, res: Response, next: NextFunction)=> {
 
         
 
-        return res.status(401).json({
+        return res.status(403).json({
             status: false,
             message: 'Invalid token'
         });
 
     }catch(err){
-        return res.status(401).json({
+        return res.status(403).json({
             status: false,
             message: err
         });
