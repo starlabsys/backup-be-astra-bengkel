@@ -14,71 +14,124 @@ class ServiceController {
     index = async(req: any, res: Response) => {
         // 
 
+        const page = parseInt(req.query.page) || 0;
+        const limit = parseInt(req.query.limit) || 10;
+        const search = req.query.search || "";
+        // 
+        const offset = limit * page;
+
         try{
-            const data = await db.service.findAll({})
+            const totalRows = await db.service.count({
+                where: {
+                    [Op.or]: [{
+                        service_name: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                    },{
+                        service_code: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        group: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        sub_group: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        category_work: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        service_price: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        time_service: {
+                            
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        time_range: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        service_note: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    }]
+                        
+                }
+            })
+
+            const totalPage = Math.ceil(totalRows / limit);
+
+            const result = await db.service.findAll({
+                where: {
+                    [Op.or]: [{
+                        service_name: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                    },{
+                        service_code: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        group: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        sub_group: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        category_work: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        service_price: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        time_service: {
+                            
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        time_range: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    },{
+                        service_note: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    }]
+                },
+                limit,
+                offset,
+                order: [
+                    ['service_name', 'ASC']
+
+                ],
+            })
+
+            const data = {
+                totalRows,
+                totalPage,
+                result
+            }
+
+
+                    
+            // const data = await db.service.findAll({})
             
             ResponseCode.successGet('Success Get Data', data, res);
         }catch(err){
-            ResponseCode.errorPost('Error', null, res);
+            ResponseCode.errorPost('error Get Data', null, res);
         }
 
         
-
-        // const page = parseInt(req.query.page) || 0;
-        // const limit = parseInt(req.query.limit) || 10;
-        // const search = req.query.search || "";
-
-        // const offset = limit * page;
-
-        // try {
-        //     const totalRows = await db.service.count({
-        //         where: {
-        //             [Op.or]: [{
-        //                 kode_pit: {
-        //                     [Op.like]: '%' + search + '%'
-        //                 },
-        //             },{
-        //                 tipe_pit: {
-        //                     [Op.like]: '%' + search + '%'
-        //                 }
-        //             }]
-        //         }
-        //     })
-        //     console.log(totalRows);
-
-        //     const totalPage = Math.ceil(totalRows / limit);
-
-        //     const result = await db.pit.findAll({
-        //         where: {
-        //             [Op.or]: [{
-        //                 kode_pit: {
-        //                     [Op.like]: '%' + search + '%'
-        //                 },
-        //             },{
-        //                 tipe_pit: {
-        //                     [Op.like]: '%' + search + '%'
-        //                 }
-        //             }]
-        //         },
-
-        //         limit: limit,
-        //         offset: offset,
-        //         order: [
-        //             ['kode_pit', 'ASC']
-        //         ]
-        //     })
-
-        //     const data = {
-        //         totalRows: totalRows,
-        //         totalPage: totalPage,
-        //         result
-        //     }
-
-        //     ResponseCode.successGet("Success Get Data", data, res);
-            
-        // } catch (error) {
-        //     ResponseCode.errorPost("Error Get Data", null , res);
-        // }
     }
 
     store = async(req: Request, res: Response) => {
