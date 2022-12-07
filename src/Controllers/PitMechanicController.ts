@@ -1,15 +1,70 @@
 import { Request, Response } from "express";
+import { Op } from "sequelize";
 import { sequelize } from "../db/models";
 import ResponseCode from "../utils/ResponseCode";
 const db = require('../db/models');
 const mysql2 = require('mysql2')
 
 class PitMechanicController {
-    index = async(req: Request, res: Response) => {
+    index = async(req: any, res: Response) => {
         // 
-        let data = await db.pitmechanic.findAll();
 
-        ResponseCode.successGet("Success Get Data", data, res);
+        const page = parseInt(req.query.page) || 0;
+        const limit = parseInt(req.query.limit) || 10;
+        const search = req.query.search || "";
+        // 
+        const offset = limit * page;
+
+        try {
+            const totalRows = await db.pitmechanic.count({
+                where: {
+                    [Op.or]: [{
+                        pit_id: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                    },{
+                        mechanic_id: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    }]
+                }
+            })
+            console.log(totalRows);
+
+            const totalPage = Math.ceil(totalRows / limit);
+
+            const result = await db.pitmechanic.findAll({
+                where: {
+                    [Op.or]: [{
+                        pit_id: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                    },{
+                        mechanic_id: {
+                            [Op.like]: '%' + search + '%'
+                        }
+                    }]
+                },
+
+                limit: limit,
+                offset: offset,
+                order: [
+                    ['pit_id', 'ASC']
+                ]
+            })
+
+            const data = {
+                totalRows,
+                totalPage,
+                result
+            }
+
+            ResponseCode.successGet("Success Get Data", data, res);
+        } catch (error) {
+            ResponseCode.errorPost("Error Get Data", null, res);
+        }
+        // let data = await db.pitmechanic.findAll();
+
     }
 
     store = async(req: Request, res: Response) => {
