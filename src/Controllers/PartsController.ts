@@ -7,21 +7,101 @@ import crypto from 'crypto'
 
 import apiService from "../Services/ApiService";
 import ResponseCode from "../utils/ResponseCode";
+import {Op} from "sequelize";
+
 // import parts from "../db/models/parts";
 const db = require('../db/models');
 const mysql2 = require('mysql2')
 
 class PartsController {
-    index = async (req: Request, res: Response) => {
+    index = async (req: any, res: Response) => {
         // 
         // console.log("test");
 
+        const page = parseInt(req.query.page) || 0;
+        const limit = parseInt(req.query.limit) || 10;
+        const search = req.query.search || "";
+        // 
+        const offset = limit * page;
+
+        console.log(offset);
+        
         try {
-            let data = await db.Parts.findAll();
+
+            // let data = await db.Parts.findAll();
+
+            const totalRows = await db.Parts.count({
+                where: {
+                    [Op.or]: [{
+                        parts_code: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                    
+                    },{
+                        parts_name: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                        
+                    },{
+                        parts_qty: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                        
+                    },{
+                        parts_price: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                    }]
+                }
+            })
+            
+            const totalPage = Math.ceil(totalRows / limit);
+
+            const result = await db.Parts.findAll({
+                where: {
+                    [Op.or]: [
+                        {
+                        parts_code: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                    
+                    },{
+                        parts_name: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                        
+                    },{
+                        parts_qty: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                        
+                    },{
+                        parts_price: {
+                            [Op.like]: '%' + search + '%'
+                        },
+                    }
+                    ]
+                },
+                limit: limit,
+                offset: offset,
+                // order: [
+                //     ['parts_name', 'ASC']
+                // ]
+
+            })
+
+            const data = {
+                totalRows,
+                totalPage,
+                result
+            }
+
+            // console.log(data);
+            
 
             ResponseCode.successGet("Success Get Data", data, res);
         } catch (error) {
-            ResponseCode.errorPost("Failed Get Data", error, res);
+            ResponseCode.errorPost("Failed Get Data", null, res);
         }
 
     }
