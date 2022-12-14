@@ -194,9 +194,14 @@ class PartsController {
         const dataString = new TextEncoder().encode(apiKey + secretKey + dayUnix);
         const hashMac = crypto.createHash("sha256").update(dataString).digest("hex");
 
-        const data = {
+        const data = { 
+                "fromTime": "2022-11-25 00:31:00", 
+                "toTime": "2022-11-28 00:50:00", 
+                "dealerId": "07533", 
+                // "idProspect ": "H2Z/12345/19/03/PSP/0001/00001", 
+                "idSalesPeople ": "122536" 
+            } 
             
-        }
         console.log(dayUnix+" - "+apiKey+" - "+hashMac)
         const headers = {
             // 'Authorization': `Basic ${basic}`,
