@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import ErrorHandler from "./errorHandler";
 import { baseUrl, header, timeOut } from "./baseApi";
-import { Response } from "express";
+import { Request, Response } from "express";
 import { EnumResponsePsshsoapi } from "../../utils/enum/EnumResponsePsshsoapi";
 import { EnumResponseCode } from "../../utils/enum/EnumResponseCode";
 import SuccessHandler from "./successHandler";
@@ -52,6 +52,8 @@ axios.interceptors.response.use(
 
 interface ApiProps {
     url : string,
+    headerLogin? : boolean
+    token? : string
     reqBody? : {}
 }
 
@@ -60,11 +62,12 @@ const fetchData = async ( res : Response, config : AxiosRequestConfig ) : Promis
     try {
         const resp = await axios( config );
         if ( resp.status === 200 ) {
-            return SuccessHandler.success( res, {
-                errorCode : EnumResponsePsshsoapi.success,
-                message : "Success",
-                data : resp.data
-            } );
+            return JSON.stringify( resp.data )
+            // SuccessHandler.success( res, {
+            //     errorCode : EnumResponsePsshsoapi.success,
+            //     message : "Success",
+            //     data : resp.data
+            // } );
         }
         return ErrorHandler.internalError( res, {
             statusCode : EnumResponseCode.INTERNAL_SERVER_ERROR,
@@ -164,7 +167,10 @@ export const post = async ( res : Response, props : ApiProps ) : Promise<any> =>
         method : 'POST',
         url : baseUrl() + props.url,
         data : props.reqBody,
-        headers : await header(),
+        headers : await header( {
+            header : props.headerLogin,
+            token : props.token
+        } ),
         timeout : timeOut,
         timeoutErrorMessage : 'Timeout',
     } );
@@ -174,7 +180,10 @@ export const get = async ( res : Response, props : ApiProps ) : Promise<any> => 
     return await fetchData( res, {
         method : 'GET',
         url : baseUrl() + props.url,
-        headers : await header(),
+        headers : await header( {
+            header : props.headerLogin,
+            token : props.token
+        } ),
         timeout : timeOut,
         timeoutErrorMessage : 'Timeout',
     } );
@@ -185,7 +194,10 @@ export const put = async ( res : Response, props : ApiProps ) : Promise<any> => 
         method : 'PUT',
         url : baseUrl() + props.url,
         data : props.reqBody,
-        headers : await header(),
+        headers : await header( {
+            header : props.headerLogin,
+            token : props.token
+        } ),
         timeout : timeOut,
         timeoutErrorMessage : 'Timeout',
     } );
@@ -196,7 +208,10 @@ export const patch = async ( res : Response, props : ApiProps ) : Promise<any> =
         method : 'PATCH',
         url : baseUrl() + props.url,
         data : props.reqBody,
-        headers : await header(),
+        headers : await header( {
+            header : props.headerLogin,
+            token : props.token
+        } ),
         timeout : timeOut,
         timeoutErrorMessage : 'Timeout',
     } );
@@ -207,7 +222,10 @@ export const del = async ( res : Response, props : ApiProps ) : Promise<any> => 
         method : 'DELETE',
         url : baseUrl() + props.url,
         data : props.reqBody,
-        headers : await header(),
+        headers : await header( {
+            header : props.headerLogin,
+            token : props.token
+        } ),
         timeout : timeOut,
         timeoutErrorMessage : 'Timeout',
     } );
