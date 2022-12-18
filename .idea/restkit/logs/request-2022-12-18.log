@@ -1,0 +1,722 @@
+############################# 2022-12-18T03:52:26.275761 #############################
+Status: ERROR    Time: 3ms    Remote Address: null
+
+>>> POST http://localhost:8080/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/auth/signin
+
+org.apache.http.conn.HttpHostConnectException: Connect to localhost:8080 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+
+
+############################# 2022-12-18T03:52:40.926033 #############################
+Status: ERROR    Time: 2ms    Remote Address: null
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/api/auth/signin
+
+org.apache.http.conn.HttpHostConnectException: Connect to localhost:8080 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+
+
+############################# 2022-12-18T03:52:41.977235 #############################
+Status: ERROR    Time: 3ms    Remote Address: null
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/api/auth/signin
+
+org.apache.http.conn.HttpHostConnectException: Connect to localhost:8080 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+
+
+############################# 2022-12-18T03:53:22.007117 #############################
+Status: ERROR    Time: 3ms    Remote Address: null
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/api/auth/signin
+
+org.apache.http.conn.HttpHostConnectException: Connect to localhost:8080 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+
+
+############################# 2022-12-18T03:53:22.913605 #############################
+Status: ERROR    Time: 2ms    Remote Address: null
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/api/auth/signin
+
+org.apache.http.conn.HttpHostConnectException: Connect to localhost:8080 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+
+
+############################# 2022-12-18T03:53:33.459100 #############################
+Status: ERROR    Time: 2ms    Remote Address: null
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/api/auth/signin
+
+org.apache.http.conn.HttpHostConnectException: Connect to localhost:8080 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+
+
+############################# 2022-12-18T03:53:48.954584 #############################
+Status: 400 Bad Request    Time: 60ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 400 Bad Request
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 47
+ETag: W/"2f-ym/AGBQXgIy999v5u6BVnvkP+v8"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:53:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"status":false,"message":"Username Not Found"}
+
+
+############################# 2022-12-18T03:54:57.723407 #############################
+Status: 200 OK    Time: 839ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 3
+ETag: W/"3-n5rwKVhboBTgfNORDKl2z1YWBhY"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:54:57 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+200
+
+
+############################# 2022-12-18T03:54:59.812150 #############################
+Status: 200 OK    Time: 470ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 3
+ETag: W/"3-n5rwKVhboBTgfNORDKl2z1YWBhY"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:54:59 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+200
+
+
+############################# 2022-12-18T03:55:06.972631 #############################
+Status: 200 OK    Time: 543ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 3
+ETag: W/"3-n5rwKVhboBTgfNORDKl2z1YWBhY"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:55:06 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+200
+
+
+############################# 2022-12-18T03:56:07.469561 #############################
+Status: 200 OK    Time: 611ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:56:07 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+
+############################# 2022-12-18T03:56:17.928120 #############################
+Status: 200 OK    Time: 562ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 6
+ETag: W/"6-Cm+yJxCyz47aR3fxaYsRoJ73wAY"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:56:17 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+"resp"
+
+
+############################# 2022-12-18T03:56:27.083375 #############################
+Status: 200 OK    Time: 439ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 6
+ETag: W/"6-Cm+yJxCyz47aR3fxaYsRoJ73wAY"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:56:27 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+"resp"
+
+
+############################# 2022-12-18T03:56:32.334970 #############################
+Status: 200 OK    Time: 584ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:56:32 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+
+############################# 2022-12-18T03:57:27.471868 #############################
+Status: 200 OK    Time: 471ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 38
+ETag: W/"26-7wQ5KvaUu3TvUqWKnfKI4ngv/t8"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:57:27 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"message":"success","statusCode":200}
+
+
+############################# 2022-12-18T03:57:40.735488 #############################
+Status: 200 OK    Time: 722ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 62
+ETag: W/"3e-RSolzaRgUaXvzKpitV/y/SdoVZo"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:57:40 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"message":"success","statusCode":200,"data":"resp.data.data"}
+
+
+############################# 2022-12-18T03:58:47.376389 #############################
+Status: 200 OK    Time: 559ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 192
+ETag: W/"c0-KIF6hJ1+/8jvq+JdjBlT2zxCyR4"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 20:58:47 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"url":"https://psshsoapi.astra.co.id/ahasssystemapi/token","headers":{"Content-Type":"application/x-www-form-urlencoded","Cookie":"BIGipServer"},"data":{"message":"success","statusCode":200}}
+
+
+############################# 2022-12-18T04:00:07.878982 #############################
+Status: 200 OK    Time: 619ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 232
+ETag: W/"e8-sdbrJIsOB5PCrOSncgRqFmRN688"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 21:00:07 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"url":"https://psshsoapi.astra.co.id/ahasssystemapi/token","headers":{"Accept":"application/json, text/plain, */*","Content-Type":"text/plain","Origin":"https://psshsoapi.astra.co.id"},"data":{"message":"success","statusCode":200}}
+
+
+############################# 2022-12-18T04:01:25.134233 #############################
+Status: 200 OK    Time: 607ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 654
+ETag: W/"28e-OcRKr8yf4Y4RNySNu4/c8omgqCI"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 21:01:25 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"url":"https://psshsoapi.astra.co.id/ahasssystemapi/token","headers":{"Accept":"application/json, text/plain, */*","Content-Type":"text/plain","Origin":"https://psshsoapi.astra.co.id"},"dataReq":"grant_type=password&username=SUMARN007533&password=S3ySwN5F+YbxXm4k4ECe/+aR0rD/sJWs1UjJ3sEc15XuhGO6k9hQtQRU3XTXx8GF6+Un71tx/5QUJ+CQCQjg5HXV5uiZws7lxc+yKE6XoLH6GInWTSldMtH9J7K5lCP0kzw9SsWd8a9+e8VeLsEg3I6ipp+/qWkKJ9CHBK0BysHNW4az3+JionwE2ax0DpCAoLmRr/XfQ5TsIWhxg0864H62SFaJdBr1TBQWPhvX1vEaEDezI3BsIF7Kb7WSLTTVN4ZxGlQX6pxzXDS50aRYQyFxrqDdA0OTjfJA1KY/Z6b4DOLSLS4HMFb84s0XVqByash0IH8/dUXIPeFOAxl4/A==&app_key=8","dataResp":{"message":"success","statusCode":200}}
+
+
+############################# 2022-12-18T04:01:43.409132 #############################
+Status: ERROR    Time: 587ms    Remote Address: null
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/api/auth/signin
+
+org.apache.http.NoHttpResponseException: localhost:8080 failed to respond
+
+
+############################# 2022-12-18T04:02:00.944351 #############################
+Status: 200 OK    Time: 582ms    Remote Address: 127.0.0.1:8080
+
+>>> POST http://localhost:8080/api/auth/signin HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+Origin-Agent-Cluster: ?1
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
+X-XSS-Protection: 0
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+ETag: W/"534-NW+VBwBLK5Mz15swVonYOAY+AsI"
+Vary: Accept-Encoding
+Date: Sat, 17 Dec 2022 21:02:00 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"url":"https://psshsoapi.astra.co.id/ahasssystemapi/token","headers":{"Accept":"application/json, text/plain, */*","Content-Type":"text/plain","Origin":"https://psshsoapi.astra.co.id"},"dataReq":"grant_type=password&username=SUMARN007533&password=S3ySwN5F+YbxXm4k4ECe/+aR0rD/sJWs1UjJ3sEc15XuhGO6k9hQtQRU3XTXx8GF6+Un71tx/5QUJ+CQCQjg5HXV5uiZws7lxc+yKE6XoLH6GInWTSldMtH9J7K5lCP0kzw9SsWd8a9+e8VeLsEg3I6ipp+/qWkKJ9CHBK0BysHNW4az3+JionwE2ax0DpCAoLmRr/XfQ5TsIWhxg0864H62SFaJdBr1TBQWPhvX1vEaEDezI3BsIF7Kb7WSLTTVN4ZxGlQX6pxzXDS50aRYQyFxrqDdA0OTjfJA1KY/Z6b4DOLSLS4HMFb84s0XVqByash0IH8/dUXIPeFOAxl4/A==&app_key=8","dataResp":{"message":"success","statusCode":200,"data":{"access_token":"-OmD7eGdHAIWrnsoNPlT_C9RMkckv7yQSd-nsyEIcKcf7cOBLoIQQUwpMAyndTIhFQ1uHsncSkiSDFk9laDBR0ZU73T-beDV4N_mYnz9J0_2E0OzTVBVSZd885VxGxWoEBMx9JRj-De47s6v3SikkmUFWljyVYnRajLMqB9L0YAeZQZQ9PYPckVCXS4Pz69fsPhwBEisW7uU0bpL-ahYuFpNvhYjzCzmN1roPsmzYcf6Ig9kgPdX9t8pCFIKOvcPydxxqmxkIUseyJI0pPrYgG9DDnKqjFoijMjGWLletnrz4TKmbs9YXdV_7QQJcaPos1o7lfJ2vOvIdICGq0GmRTnYukjztIniOOLbzvHBVlclxGnB_7cTrwsEjgdSzq7G5AKjAfsRaKwlgvlsfkLFv9O5Z2kb68ydmUErK04Q5_lvrAHh","token_type":"bearer","expires_in":42297,"refresh_token":"b996f74c-3528-42d6-bae7-7879bf88ee5b","FullName":"SUMARNO","Role":"Pemilik AHASS","salesPersonCode":"SUMARN007533","branchCode":"07533","branchName":"RAMA JAYA"}}}
+
+
+############################# 2022-12-18T17:12:54.209605 #############################
+Status: ERROR    Time: 60006ms    Remote Address: null
+
+>>> POST http://localhost:8080/api/auth/login HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/api/auth/login
+
+java.net.SocketTimeoutException: Read timed out
+
+
+############################# 2022-12-18T17:14:42.933941 #############################
+Status: ERROR    Time: 60002ms    Remote Address: null
+
+>>> POST http://localhost:8080/api/auth/login HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/api/auth/login
+
+java.net.SocketTimeoutException: Read timed out
+
+
+############################# 2022-12-18T17:15:45.040955 #############################
+Status: ERROR    Time: 60002ms    Remote Address: null
+
+>>> POST http://localhost:8080/api/auth/login HTTP/1.1
+Content-Type: application/json; charset=UTF-8
+Content-Length: 59
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/api/auth/login
+
+java.net.SocketTimeoutException: Read timed out
+
+
+############################# 2022-12-18T17:25:40.776343 #############################
+Status: ERROR    Time: 60005ms    Remote Address: null
+
+>>> GET http://localhost:8080/ HTTP/1.1
+
+{
+  "username": "pentadakosta",
+  "password" : "admin123"
+}
+
+<<< ERROR
+There was an error accessing to URL: http://localhost:8080/
+
+java.net.SocketTimeoutException: Read timed out
+
+

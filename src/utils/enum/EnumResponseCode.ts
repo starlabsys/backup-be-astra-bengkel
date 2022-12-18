@@ -1,0 +1,10 @@
+export enum EnumResponseCode {
+    BAD_REQUEST = 400,
+    UNAUTHORIZED = 401,
+    NOT_FOUND = 404,
+    FORBIDDEN = 403,
+    METHOD_NOT_ALLOWED = 405,
+    INTERNAL_SERVER_ERROR = 500,
+    NO_CONNECTION = 502,
+    TIMEOUT = 504,
+}
