@@ -14,17 +14,8 @@ class JasaRepository {
         sortDirection : number
     } ) => {
         return post( res, {
-            url : '/Master/GETJasaPaging',
-            reqBody : {
-                "action" : props.action,
-                "kodeJasa" : props.kodeJasa,
-                "namaJasa" : props.namaJasa,
-                "pageNumber" : props.pageNumber,
-                "pageSize" : props.pageSize,
-                "totalRow" : props.totalRow,
-                "sortColumn" : props.sortColumn,
-                "sortDirection" : props.sortDirection
-            }
+            url : '/api/Master/GETJasaPaging',
+            reqBody : props
         } )
     }
 }

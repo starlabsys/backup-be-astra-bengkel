@@ -4,7 +4,7 @@ import JasaController from "../controller/JasaController";
 
 class JasaRoutes extends BaseRoutes {
     routes() : void {
-        this.router.post( '/get-jasa', JasaController.getJasa );
+        this.router.post( '/get', JasaController.getJasa );
     }
 }
 

@@ -7,48 +7,48 @@ import { EnumResponseCode } from "../../utils/enum/EnumResponseCode";
 import SuccessHandler from "./successHandler";
 
 
-if ( process.env.ENV === 'dev' ) {
-    axios.interceptors.request.use( request => {
-        console.debug( 'METHOD : ', request.method );
-        console.debug( 'URL : ', request.url );
-        console.debug( 'Request Headers : ', request.headers );
-        console.debug( 'Request Data : ', request.data );
-        console.debug( '\n' );
-        console.debug( 'REQUEST...' + '\n' );
-        return request;
-    } );
+// if ( process.env.ENV === 'dev' ) {
+axios.interceptors.request.use( request => {
+    console.debug( 'METHOD : ', request.method );
+    console.debug( 'URL : ', request.url );
+    console.debug( 'Request Headers : ', request.headers );
+    console.debug( 'Request Data : ', request.data );
+    console.debug( '\n' );
+    console.debug( 'REQUEST...' + '\n' );
+    return request;
+} );
 
-    axios.interceptors.response.use(
-        response => {
-            console.debug( 'RESPONSE : ' );
-            console.debug( 'Response Status : ', response.status );
-            console.debug( 'Response Headers : ', response.headers );
-            console.debug( 'Response Body : ', response.data );
-            return response;
-        },
-        error => {
-            console.debug( 'RESPONSE : ' );
-            console.debug( 'Response Status : ', error.response?.status );
-            console.debug( 'Response Headers : ', error.response?.headers );
-            console.debug( 'Response Body : ', error.response?.data );
-            return Promise.reject( error );
-        },
-    );
-}
-else {
-    axios.interceptors.request.use( request => {
-        return request;
-    } );
-
-    axios.interceptors.response.use(
-        response => {
-            return response;
-        },
-        error => {
-            return Promise.reject( error );
-        },
-    );
-}
+axios.interceptors.response.use(
+    response => {
+        console.debug( 'RESPONSE : ' );
+        console.debug( 'Response Status : ', response.status );
+        console.debug( 'Response Headers : ', response.headers );
+        console.debug( 'Response Body : ', response.data );
+        return response;
+    },
+    error => {
+        console.debug( 'RESPONSE : ' );
+        console.debug( 'Response Status : ', error.response?.status );
+        console.debug( 'Response Headers : ', error.response?.headers );
+        console.debug( 'Response Body : ', error.response?.data );
+        return Promise.reject( error );
+    },
+);
+// }
+// else {
+//     axios.interceptors.request.use( request => {
+//         return request;
+//     } );
+//
+//     axios.interceptors.response.use(
+//         response => {
+//             return response;
+//         },
+//         error => {
+//             return Promise.reject( error );
+//         },
+//     );
+// }
 
 interface ApiProps {
     url : string,
