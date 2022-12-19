@@ -5,11 +5,11 @@ import dataJsonDB from '../config/database.json';
 
 let sequelizeConnection : Sequelize;
 
+const database = () : InterfaceDataDB => {
+    return ConvertDataDB.toModelLogin( JSON.stringify( dataJsonDB ) );
+}
 
 if ( process.env.NODE_ENV == "development" ) {
-    const database = () : InterfaceDataDB => {
-        return ConvertDataDB.toModelLogin( JSON.stringify( dataJsonDB ) );
-    }
     const dbDev = database().development;
     sequelizeConnection = new Sequelize( dbDev.database, dbDev.username, dbDev.password, {
         host : dbDev.host,
@@ -19,9 +19,6 @@ if ( process.env.NODE_ENV == "development" ) {
 
 }
 else {
-    const database = () : InterfaceDataDB => {
-        return ConvertDataDB.toModelLogin( JSON.stringify( dataJsonDB ) );
-    }
     const dbProd = database().production
     sequelizeConnection = new Sequelize( dbProd.database, dbProd.username, dbProd.password, {
         host : dbProd.host,
