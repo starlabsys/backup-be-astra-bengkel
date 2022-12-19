@@ -7,7 +7,7 @@ export interface InterfaceDataDB {
     production : InterfaceData;
 }
 
-interface InterfaceData {
+export interface InterfaceData {
     username : string;
     password : string;
     database : string;
@@ -21,6 +21,6 @@ export class ConvertDataDB {
     public static toModelLogin( json : string ) : InterfaceDataDB {
         return JSON.parse( json );
     }
-    
+
 }
 

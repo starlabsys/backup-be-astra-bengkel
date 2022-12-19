@@ -22,14 +22,23 @@ class JasaController {
                 sortDirection : 0
             } )
 
-            return ResponseResult.successGet( res, jasa )
+            if ( jasa !== null ) {
+                return ResponseResult.successGet( res, jasa )
+            }
+
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.INTERNAL_SERVER_ERROR,
+                errorCode : '01',
+                message : "Internal Error",
+                data : null
+            } )
 
         } catch ( e : any ) {
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,
                 errorCode : '01',
                 message : e.message,
-                data : null
+                data : e
             } )
         }
 

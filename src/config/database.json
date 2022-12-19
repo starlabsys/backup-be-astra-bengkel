@@ -16,11 +16,12 @@
     "port" : 3306
   },
   "production" : {
-    "username" : "root",
-    "password" : "156329432",
+    "username" : "astra-2",
+    "password" : "AVNS_dCIE18xa9337bnZNdV5",
     "database" : "db-astra2",
-    "host" : "localhost",
+    "host" : "db-ta-mysql-sgp1-88822-do-user-12614603-0.b.db.ondigitalocean.com",
     "dialect" : "mysql",
-    "port" : 3306
+    "ssl" : true,
+    "port" : 25060
   }
 }

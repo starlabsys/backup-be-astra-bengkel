@@ -7,6 +7,7 @@ import { config as dotenv } from 'dotenv';
 import sequelizeConnection from "./config/config";
 import AuthRoute from "./pages/Auth/routes/AuthRoute";
 import JasaRoutes from "./pages/Jasa/routes/JasaRoutes";
+import RouteSparepart from "./pages/Sparepart/routes/RouteSparepart";
 
 
 class App {
@@ -51,6 +52,7 @@ class App {
 
         this.app.use( "/api/auth", AuthRoute );
         this.app.use( "/api/jasa", JasaRoutes );
+        this.app.use( "/api/sparepart", RouteSparepart );
 
     }
 
