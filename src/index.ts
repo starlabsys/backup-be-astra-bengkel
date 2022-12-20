@@ -8,6 +8,7 @@ import sequelizeConnection from "./config/config";
 import AuthRoute from "./pages/Auth/routes/AuthRoute";
 import JasaRoutes from "./pages/Jasa/routes/JasaRoutes";
 import RouteSparepart from "./pages/Sparepart/routes/RouteSparepart";
+import SyncMasterRoutes from "./pages/SyncMaster/routes/SyncMasterRoutes";
 
 
 class App {
@@ -52,6 +53,7 @@ class App {
 
         this.app.use( "/api/auth", AuthRoute );
         this.app.use( "/api/jasa", JasaRoutes );
+        this.app.use( "/api/master", SyncMasterRoutes );
         this.app.use( "/api/sparepart", RouteSparepart );
 
     }

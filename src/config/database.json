@@ -2,7 +2,7 @@
   "development" : {
     "username" : "root",
     "password" : "156329432",
-    "database" : "db-astra",
+    "database" : "db-astra2",
     "host" : "localhost",
     "dialect" : "mysql",
     "port" : 3306
