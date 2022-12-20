@@ -3,7 +3,7 @@ import { Response } from "express";
 
 class ResponseResult {
     public successPost = ( res : Response, message : string ) => {
-        return res.status( 200 ).json( {
+        return res.status( 201 ).json( {
             errorCode : "00",
             status : true,
             message : message,
@@ -12,7 +12,7 @@ class ResponseResult {
     }
 
     public successGet = ( res : Response, data : any ) => {
-        return res.status( 201 ).json( {
+        return res.status( 200 ).json( {
             errorCode : "00",
             status : true,
             message : "Success",
