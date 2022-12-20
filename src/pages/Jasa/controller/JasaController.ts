@@ -136,7 +136,6 @@ class JasaController {
             const jasa = await JasaRepository.cetakReportJasa( res, token ?? '', {} )
 
             if ( jasa !== null ) {
-
                 return ResponseResult.successPost( res, 'Success download report' )
             }
 
