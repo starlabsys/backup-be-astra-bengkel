@@ -50,6 +50,7 @@ class AuthController {
                         nama_bengkel : dataLogin.nama_bengkel ?? '',
                         role : dataLogin.role ?? '',
                     } );
+
                     return ResponseResult.successGet( res, {
                         token : generateToken,
                         result : {
