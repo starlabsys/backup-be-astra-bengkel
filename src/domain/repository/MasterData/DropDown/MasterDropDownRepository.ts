@@ -1,8 +1,9 @@
 import { Response } from "express";
 import { post } from "../../../../core/api/api";
 import { InterfaceSyncMaster } from "./interface/InterfaceSyncMaster";
-import { ConvertModelDropDownJasa, ModelDropDownJasa } from "../../../models/DropDown/Jasa/ModelDropDownJasa";
+import { ConvertModelDropDownJasa, ModelDropDownJasa } from "../../../models/DropDown/ModelDropDownJasa";
 import { InterfaceMasterData } from "./interface/InterfaceMasterData";
+import { ConvertModelGroupDropDownJasa, ModelGroupDropDownJasa } from "../../../models/DropDown/ModelGroupDropDown";
 
 
 class MasterDropDownRepository {
@@ -19,12 +20,16 @@ class MasterDropDownRepository {
         return null;
     }
 
-    public masterDropDown = async ( res : Response, token : string, props : InterfaceMasterData ) => {
+    public masterDropDown = async ( res : Response, token : string, props : InterfaceMasterData ) : Promise<ModelGroupDropDownJasa | null> => {
         const resp = await post( res, {
             url : '/api/Master/GETMasterDropDown',
             token : token,
             reqBody : props
         } )
+        if ( resp !== null ) {
+            return ConvertModelGroupDropDownJasa.toModelGroupDropDownJasa( resp );
+        }
+        return null;
     }
 }
 
