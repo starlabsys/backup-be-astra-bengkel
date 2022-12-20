@@ -52,6 +52,70 @@ class SparepartController {
             } )
         }
     }
+
+    public addSparepart = async(req: Request, res: Response ): Promise<Response>=>{
+        const {
+            namaSparepart,
+            kodeSparepart,
+            grupSparepart,
+            grupKodeAHM,
+            namaLokal,
+            uom,
+            hargaJual,
+            rak,
+            barcode,
+            plu,
+            hargaClaimOli,
+            catatan,
+            tipeKomisi,
+            satuanKomisi,
+            nilaiKomisi,
+            aktif
+        } = req.body;
+
+        try{
+            const token = await Token.get(req,res);
+            const resp = await SparepartRepository.addSparepart(res, token ?? '', {
+                namaSparepart,
+                kodeSparepart,
+                grupSparepart,
+                grupKodeAHM,
+                namaLokal,
+                uom,
+                hargaJual,
+                rak,
+                barcode,
+                plu,
+                hargaClaimOli,
+                catatan,
+                tipeKomisi,
+                satuanKomisi,
+                nilaiKomisi,
+                aktif
+            })
+            // console.log(token)
+
+            if (resp !== null) {
+                return ResponseResult.successPost(res, resp);
+            }
+
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.INTERNAL_SERVER_ERROR,
+                errorCode : '01',
+                message : "Internal Error",
+                data : null
+            } )
+                
+        }catch(e:any){
+            console.log("Error Sparepart")
+            return ResponseResult.error( res, {
+                statusCode : 400,
+                errorCode : '01',
+                message : e.message,
+                data : e
+            } )
+        }
+    }
 }
 
 export default new SparepartController();

@@ -16,6 +16,8 @@ class AuthController {
                 }
             } )
 
+            // console.log(dataLogin);
+
             const checkLogin = await Authentication.passwordCompare( password, dataLogin?.password ?? '' )
             //
             if ( !checkLogin ) {
@@ -32,8 +34,13 @@ class AuthController {
                     loginData : dataLogin.login_data ?? ''
                 } );
 
-
+                
+                
+                
                 if ( resp !== null ) {
+                    console.log("resp not null");
+                    console.log(resp);
+                    
                     await ModelUsers.update( {
                         token : resp.access_token
                     }, {
@@ -66,6 +73,8 @@ class AuthController {
                 message : 'Username or Password is Wrong'
             } )
         } catch ( e : any ) {
+            // console.log(e.toString());
+            
             return res.status( 500 ).json( {
                 message : e.toString()
             } );

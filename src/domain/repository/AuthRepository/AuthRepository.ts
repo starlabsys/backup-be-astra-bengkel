@@ -13,6 +13,8 @@ class AuthRepository {
             headerLogin : true
         }, );
 
+        // console.log(resp);
+        
         if ( resp !== null ) {
             return ConvertModelLogin.toModelLogin( resp );
         }
