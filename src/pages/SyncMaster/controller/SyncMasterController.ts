@@ -51,14 +51,12 @@ class SyncMasterController {
     }
 
     public groupDropDown = async ( req : Request, res : Response ) : Promise<Response> => {
+        const { listGroupDropDown } = req.body;
         try {
             const token = await Token.get( req, res );
             const resp = await MasterDropDownRepository.masterDropDown( res, token ?? '', {
                 listDropDown : [
-                    {
-                        tipe : 1,
-                        nilai : "1"
-                    }
+                    ...listGroupDropDown,
                 ]
             } )
             if ( resp !== null ) {
