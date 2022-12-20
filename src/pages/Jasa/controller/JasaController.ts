@@ -164,6 +164,9 @@ class JasaController {
     public dropDown = async ( req : Request, res : Response ) : Promise<Response> => {
         try {
             const token = await Token.get( req, res );
+            // return res.status( 200 ).json( {
+            //     token : token,
+            // } )
             const resp = await MasterDropDownRepository.syncMaster( res, token ?? '', {
                 lastSyncList : [
                     {
@@ -180,7 +183,15 @@ class JasaController {
                     },
                 ]
             } )
-            return ResponseResult.successGet( res, resp )
+            if ( resp !== null ) {
+                return ResponseResult.successGet( res, resp )
+            }
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.BAD_REQUEST,
+                errorCode : '01',
+                message : 'Failed get data',
+                data : null
+            } )
         } catch ( e : any ) {
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,

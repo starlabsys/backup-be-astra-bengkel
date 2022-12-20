@@ -1,3 +1,4 @@
+import { config as dotenv } from 'dotenv';
 import { Sequelize } from "sequelize";
 import { ConvertDataDB, InterfaceDataDB } from "./interfaceDatabase";
 import dataJsonDB from '../config/database.json';
@@ -9,7 +10,8 @@ const database = () : InterfaceDataDB => {
     return ConvertDataDB.toModelLogin( JSON.stringify( dataJsonDB ) );
 }
 
-if ( process.env.NODE_ENV == "development" ) {
+
+if ( dotenv().parsed?.NODE_ENV == "development" ) {
     const dbDev = database().development;
     sequelizeConnection = new Sequelize( dbDev.database, dbDev.username, dbDev.password, {
         host : dbDev.host,
