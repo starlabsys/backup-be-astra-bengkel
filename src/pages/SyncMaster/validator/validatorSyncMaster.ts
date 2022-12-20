@@ -19,3 +19,7 @@ export const validateSyncMaster = [
         next();
     }
 ]
+
+export const validateGroupSyncMaster = [
+    check( "listGroupDropDown", "Data tidak valid" ).isArray(),
+]
