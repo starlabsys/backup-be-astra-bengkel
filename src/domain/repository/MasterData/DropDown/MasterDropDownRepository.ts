@@ -2,6 +2,7 @@ import { Response } from "express";
 import { post } from "../../../../core/api/api";
 import { InterfaceSyncMaster } from "./interface/InterfaceSyncMaster";
 import { ConvertModelDropDownJasa, ModelDropDownJasa } from "../../../models/DropDown/Jasa/ModelDropDownJasa";
+import { InterfaceMasterData } from "./interface/InterfaceMasterData";
 
 
 class MasterDropDownRepository {
@@ -16,6 +17,14 @@ class MasterDropDownRepository {
             return ConvertModelDropDownJasa.toModelDropDownJasa( resp );
         }
         return null;
+    }
+
+    public masterDropDown = async ( res : Response, token : string, props : InterfaceMasterData ) => {
+        const resp = await post( res, {
+            url : '/api/Master/GETMasterDropDown',
+            token : token,
+            reqBody : props
+        } )
     }
 }
 
