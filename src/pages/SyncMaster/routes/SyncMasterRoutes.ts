@@ -6,7 +6,7 @@ import { validateSyncMaster } from "../validator/validatorSyncMaster";
 
 class SyncMasterRoutes extends BaseRoutes {
     routes() : void {
-        this.router.get( '/drop-down', validateSyncMaster, authAdmin, SyncMasterController.dropDown );
+        this.router.post( '/drop-down', validateSyncMaster, authAdmin, SyncMasterController.dropDown );
     }
 }
 
