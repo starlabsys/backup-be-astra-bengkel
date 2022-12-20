@@ -11,7 +11,6 @@ class JasaRoutes extends BaseRoutes {
         this.router.post( '/edit', validatorRegister, authAdmin, JasaController.editJasa );
         this.router.post( '/detail', authAdmin, JasaController.detailJasa );
         this.router.get( '/cetak', authAdmin, JasaController.cetakJasa );
-        this.router.get( '/drop-down', authAdmin, JasaController.dropDown );
     }
 }
 
