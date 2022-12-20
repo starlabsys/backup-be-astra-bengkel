@@ -96,7 +96,7 @@ class SparepartController {
             // console.log(token)
 
             if (resp !== null) {
-                return ResponseResult.successPost(res, resp);
+                return ResponseResult.successPost(res, "Success Create Parts");
             }
 
             return ResponseResult.error( res, {

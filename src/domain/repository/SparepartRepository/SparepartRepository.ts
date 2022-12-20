@@ -28,7 +28,7 @@ class SparepartRepository {
         console.log('errrossparepart', resp)
 
         if (resp !== null) {
-           ConvertModelSparepart.toModelSparepart(resp); 
+           return ConvertModelSparepart.toModelSparepart(resp); 
         }
 
         return null;
