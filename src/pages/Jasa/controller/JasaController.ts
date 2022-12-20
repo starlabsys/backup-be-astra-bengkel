@@ -44,6 +44,10 @@ class JasaController {
 
     }
 
+    public addJasa =async (req:Request, res: Response) => {
+        // const { }
+    }
+
     public detailJasa = async ( req : Request, res : Response ) => {
         const { id, action } = req.body;
 
