@@ -1,26 +1,27 @@
 {
-  "development": {
-    "username": "root",
-    "password": "",
-    "database": "db-astra",
-    "host": "localhost",
-    "dialect": "mysql",
-    "port": 3306
+  "development" : {
+    "username" : "root",
+    "password" : "156329432",
+    "database" : "db-astra",
+    "host" : "localhost",
+    "dialect" : "mysql",
+    "port" : 3306
   },
-  "test": {
-    "username": "root",
-    "password": "156329432",
-    "database": "db-astra2",
-    "host": "localhost",
-    "dialect": "mysql",
-    "port": 3306
+  "test" : {
+    "username" : "root",
+    "password" : "156329432",
+    "database" : "db-astra2",
+    "host" : "localhost",
+    "dialect" : "mysql",
+    "port" : 3306
   },
-  "production": {
-    "username": "root",
-    "password": "",
-    "database": "db-astra",
-    "host": "localhost",
-    "dialect": "mysql",
-    "port": 3306
+  "production" : {
+    "username" : "astra-2",
+    "password" : "AVNS_dCIE18xa9337bnZNdV5",
+    "database" : "db-astra2",
+    "host" : "db-ta-mysql-sgp1-88822-do-user-12614603-0.b.db.ondigitalocean.com",
+    "dialect" : "mysql",
+    "port" : 25060,
+    "ssl" : true
   }
 }
