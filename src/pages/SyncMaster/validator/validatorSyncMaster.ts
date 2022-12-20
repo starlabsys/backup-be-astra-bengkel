@@ -22,4 +22,16 @@ export const validateSyncMaster = [
 
 export const validateGroupSyncMaster = [
     check( "listGroupDropDown", "Data tidak valid" ).isArray(),
+    ( req : Request, res : Response, next : NextFunction ) => {
+        const errors = validationResult( req );
+        if ( !errors.isEmpty() ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.BAD_REQUEST,
+                errorCode : '01',
+                message : errors.array()[ 0 ].msg,
+                data : null
+            } )
+        }
+        next();
+    }
 ]
