@@ -8,7 +8,6 @@ import { EnumResponseCode } from "../../../utils/enum/EnumResponseCode";
 class SyncMasterController {
     public dropDown = async ( req : Request, res : Response ) : Promise<Response> => {
         const { listDropDown } = req.body;
-        // const listDropDown =
         try {
             const token = await Token.get( req, res );
             const resp = await MasterDropDownRepository.syncMaster( res, token ?? '', {
