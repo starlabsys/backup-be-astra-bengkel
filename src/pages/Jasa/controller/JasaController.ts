@@ -3,6 +3,7 @@ import JasaRepository from "../../../domain/repository/JasaRepository/JasaReposi
 import Token from "../../../utils/Token";
 import ResponseResult from "../../../core/response/ResponseResult";
 import { EnumResponseCode } from "../../../utils/enum/EnumResponseCode";
+import MasterDropDownRepository from "../../../domain/repository/MasterData/Jasa/MasterDropDownRepository";
 
 
 class JasaController {
@@ -44,7 +45,7 @@ class JasaController {
 
     }
 
-    public addJasa =async (req:Request, res: Response) => {
+    public addJasa = async ( req : Request, res : Response ) => {
         // const { }
     }
 
@@ -158,6 +159,52 @@ class JasaController {
                 data : null
             } )
         }
+    }
+
+    public dropDown = async ( req : Request, res : Response ) : Promise<Response> => {
+        try {
+            const token = await Token.get( req, res );
+            const resp = await MasterDropDownRepository.syncMaster( res, token ?? '', {
+                lastSyncList : [
+                    {
+                        lastSyncTime : "1900-01-01 00:00:00",
+                        objectName : "satuanKomisi"
+                    },
+                    {
+                        lastSyncTime : "1900-01-01 00:00:00",
+                        objectName : "RefUOM"
+                    },
+                    {
+                        lastSyncTime : "1900-01-01 00:00:00",
+                        objectName : "KategoriPekerjaan"
+                    },
+                ]
+            } )
+            return ResponseResult.successGet( res, resp )
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
+        }
+        // {
+        //     "lastSyncList" : [
+        //     {
+        //         "lastSyncTime" : "1900-01-01 00:00:00",
+        //         "objectName" : "satuanKomisi"
+        //     },
+        //     {
+        //         "lastSyncTime" : "1900-01-01 00:00:00",
+        //         "objectName" : "RefUOM"
+        //     },
+        //     {
+        //         "lastSyncTime" : "1900-01-01 00:00:00",
+        //         "objectName" : "KategoriPekerjaan"
+        //     }
+        // ]
+        // }
     }
 }
 
