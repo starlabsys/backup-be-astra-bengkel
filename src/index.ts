@@ -61,7 +61,7 @@ class App {
 }
 
 
-const port : number = 8082;
+const port : number = 8080;
 const app = new App().app;
 
 app.listen( port, () => {
