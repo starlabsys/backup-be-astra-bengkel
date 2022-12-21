@@ -4,6 +4,7 @@ import Token from "../../../utils/Token";
 import ResponseResult from "../../../core/response/ResponseResult";
 import { EnumResponseCode } from "../../../utils/enum/EnumResponseCode";
 import MasterDropDownRepository from "../../../domain/repository/MasterData/DropDown/MasterDropDownRepository";
+import { InterfaceAddJasa } from "../../../domain/repository/JasaRepository/interface/InterfaceAddJasa";
 
 
 class JasaController {
@@ -46,7 +47,29 @@ class JasaController {
     }
 
     public addJasa = async ( req : Request, res : Response ) => {
-        // const { }
+        const data : InterfaceAddJasa = req.body
+        try {
+            const token = await Token.get( req, res );
+            const resp = await JasaRepository.addJasa( res, token ?? '', data );
+            if ( res !== null ) {
+                if ( resp?.ack === 1 ) {
+                    return ResponseResult.successPost( res, resp.message )
+                }
+                return ResponseResult.error( res, {
+                    statusCode : EnumResponseCode.BAD_REQUEST,
+                    errorCode : '01',
+                    message : resp?.message ?? '',
+                    data : null
+                } )
+            }
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
+        }
     }
 
     public detailJasa = async ( req : Request, res : Response ) => {
