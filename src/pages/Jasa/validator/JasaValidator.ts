@@ -4,7 +4,7 @@ import ResponseResult from "../../../core/response/ResponseResult";
 import { EnumResponseCode } from "../../../utils/enum/EnumResponseCode";
 
 
-export const jasaPutValidator = [
+export const jasaValidator = [
     check( 'action' ).isNumeric().notEmpty(),
     check( 'id' ).isNumeric().notEmpty(),
     check( 'kodeJasa' ).isString().notEmpty(),
