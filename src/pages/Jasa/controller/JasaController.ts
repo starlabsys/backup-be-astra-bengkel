@@ -113,7 +113,6 @@ class JasaController {
             } )
 
             if ( res !== null ) {
-                // console.log()
                 if ( resp?.ack === 1 ) {
                     return ResponseResult.successPost( res, resp.message )
                 }
