@@ -11,6 +11,7 @@ export interface ModelPutJasa {
     namaJasa : string;
     grupJasa : string;
     subGrup : string;
+    catatan : string;
     hargaJual : number;
     pajakJual : number;
     oumKerja : number;
