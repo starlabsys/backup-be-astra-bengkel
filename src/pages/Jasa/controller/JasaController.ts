@@ -3,7 +3,6 @@ import JasaRepository from "../../../domain/repository/JasaRepository/JasaReposi
 import Token from "../../../utils/Token";
 import ResponseResult from "../../../core/response/ResponseResult";
 import { EnumResponseCode } from "../../../utils/enum/EnumResponseCode";
-import MasterDropDownRepository from "../../../domain/repository/MasterData/DropDown/MasterDropDownRepository";
 import { InterfaceAddJasa } from "../../../domain/repository/JasaRepository/interface/InterfaceAddJasa";
 
 
