@@ -78,39 +78,42 @@ class JasaController {
             id,
             kodeJasa,
             namaJasa,
-            groupJasa,
-            harga,
-            pajak,
+            grupJasa,
+            subGrup,
+            hargaJual,
+            pajakJual,
             oumKerja,
             tipeKomisi,
             satuanKomisi,
             nilaiKomisi,
-            status,
-            waktuPengerjaan,
-            listSparepart,
-            kategoriPekerjaan,
+            aktif,
+            waktuKerja,
+            listSparePart,
+            kategoriPekerjaanID,
         } = req.body;
         try {
             const token = await Token.get( req, res );
-            const resp = await JasaRepository.editJasa( res, token ?? '', {
+            const resp = await JasaRepository.putJasa( res, token ?? '', {
                 action : action,
                 id : id,
                 kodeJasa : kodeJasa,
                 namaJasa : namaJasa,
-                grupJasa : groupJasa,
-                hargaJual : harga,
-                pajakJual : pajak,
+                grupJasa : grupJasa,
+                subGrup : subGrup,
+                hargaJual : hargaJual,
+                pajakJual : pajakJual,
+                listSparePart : listSparePart,
                 oumKerja : oumKerja,
                 tipeKomisi : tipeKomisi,
-                satuanKomisi : satuanKomisi,
+                aktif : aktif,
+                waktuKerja : waktuKerja,
+                kategoriPekerjaanID : kategoriPekerjaanID,
                 nilaiKomisi : nilaiKomisi,
-                aktif : status,
-                waktuKerja : waktuPengerjaan,
-                listSparePart : listSparepart,
-                kategoriPekerjaanID : kategoriPekerjaan
+                satuanKomisi : satuanKomisi,
             } )
 
             if ( res !== null ) {
+                // console.log()
                 if ( resp?.ack === 1 ) {
                     return ResponseResult.successPost( res, resp.message )
                 }
