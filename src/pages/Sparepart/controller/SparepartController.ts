@@ -21,15 +21,16 @@ class SparepartController {
 
         try {
             const token = await Token.get( req, res );
+            
             const resp = await SparepartRepository.getData( res, token ?? '', {
-                "action" : action,
-                "namaSparepart" : namaSparepart,
-                "kodeSparepart" : kodeSparepart,
-                "pageNumber" : pageNumber,
-                "pageSize" : pageSize,
-                "totalRow" : totalRow,
-                "sortColumn" : sortColumn,
-                "sortDirection" : sortDirection
+                action : action,
+                namaSparepart : namaSparepart,
+                kodeSparepart : kodeSparepart,
+                pageNumber : pageNumber,
+                pageSize : pageSize,
+                totalRow : totalRow,
+                sortColumn : sortColumn,
+                sortDirection : sortDirection
             } );
 
             if ( resp !== null ) {
@@ -53,7 +54,7 @@ class SparepartController {
         }
     }
 
-    public addSparepart = async(req: Request, res: Response ): Promise<Response>=>{
+    public addSparepart = async ( req : Request, res : Response ) : Promise<Response> => {
         const {
             namaSparepart,
             kodeSparepart,
@@ -73,9 +74,9 @@ class SparepartController {
             aktif
         } = req.body;
 
-        try{
-            const token = await Token.get(req,res);
-            const resp = await SparepartRepository.addSparepart(res, token ?? '', {
+        try {
+            const token = await Token.get( req, res );
+            const resp = await SparepartRepository.addSparepart( res, token ?? '', {
                 namaSparepart,
                 kodeSparepart,
                 grupSparepart,
@@ -92,11 +93,11 @@ class SparepartController {
                 satuanKomisi,
                 nilaiKomisi,
                 aktif
-            })
+            } )
             // console.log(token)
 
-            if (resp !== null) {
-                return ResponseResult.successPost(res, "Success Create Parts");
+            if ( resp !== null ) {
+                return ResponseResult.successPost( res, "Success Create Parts" );
             }
 
             return ResponseResult.error( res, {
@@ -105,9 +106,9 @@ class SparepartController {
                 message : "Internal Error",
                 data : null
             } )
-                
-        }catch(e:any){
-            console.log("Error Sparepart")
+
+        } catch ( e : any ) {
+            console.log( "Error Sparepart" )
             return ResponseResult.error( res, {
                 statusCode : 400,
                 errorCode : '01',

@@ -1,10 +1,11 @@
-import { post } from "../../../core/api/api";
+import { post, put } from "../../../core/api/api";
 import { Response } from "express";
 import { ConvertModelJasa, ModelJasa } from "../../models/Jasa/ModelJasa";
 import { ConvertModelDetailJasa, ModelDetailJasa } from "../../models/Jasa/ModelDetailJasa";
 import { InterfaceEditJasa } from "./interface/InterfaceEditJasa";
 import { InterfaceGetJasa } from "./interface/InterfaceGetJasa";
 import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult";
+import { ModelPutJasa } from "./interface/InterfacePutJasa";
 
 
 class JasaRepository {
@@ -32,7 +33,15 @@ class JasaRepository {
         return ConvertModelDetailJasa.toModelDetailJasa( resp );
     }
 
-    public editJasa = async ( res : Response, token : string, props : InterfaceEditJasa ) : Promise<ModelResult | null> => {
+    public cetakReportJasa = async ( res : Response, token : string, props : {} ) => {
+        return await post( res, {
+            url : '/api/ShowReport/GETShowReportJasa',
+            token : token,
+            reqBody : props
+        } );
+    }
+
+    public putJasa = async ( res : Response, token : string, props : ModelPutJasa ) : Promise<ModelResult | null> => {
         const resp = await post( res, {
             url : '/api/Master/PUTJasa',
             token : token,
@@ -42,14 +51,6 @@ class JasaRepository {
             return ConvertModelResult.toModelResult( resp );
         }
         return null;
-    }
-
-    public cetakReportJasa = async ( res : Response, token : string, props : {} ) => {
-        return await post( res, {
-            url : '/api/ShowReport/GETShowReportJasa',
-            token : token,
-            reqBody : props
-        } );
     }
 }
 
