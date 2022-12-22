@@ -6,6 +6,9 @@ import TipeKendaraanRepository from "../../../domain/repository/TipeKendaraanRep
 import {
     InterfaceGetTipeKendaraan
 } from "../../../domain/repository/TipeKendaraanRepository/interface/InterfaceGetKendaraan";
+import {
+    InterfaceEditTipeKendaraan
+} from "../../../domain/repository/TipeKendaraanRepository/interface/InterfaceEditTipeKendaraan";
 
 
 class TipeKendaraanController {
@@ -16,6 +19,30 @@ class TipeKendaraanController {
             const resp = await TipeKendaraanRepository.getData( res, token ?? '', data )
             if ( resp !== null ) {
                 return ResponseResult.successGet( res, resp )
+            }
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.BAD_REQUEST,
+                errorCode : "01",
+                message : "Internal Error",
+                data : null
+            } )
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : "01",
+                message : e.message,
+                data : null
+            } )
+        }
+    }
+
+    public editData = async ( req : Request, res : Response ) => {
+        const data : InterfaceEditTipeKendaraan = req.body;
+        try {
+            const token = await Token.get( req, res );
+            const resp = await TipeKendaraanRepository.editData( res, token ?? '', data )
+            if ( resp !== null ) {
+                return ResponseResult.successPost( res, resp.message )
             }
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.BAD_REQUEST,
