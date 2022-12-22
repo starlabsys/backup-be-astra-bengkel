@@ -1,40 +1,37 @@
 // To parse this data:
 //
-//   import { Convert, ModelPutJasa } from "./file";
+//   import { Convert, InterfaceAddJasa } from "./file";
 //
-//   const modelPutJasa = Convert.toModelPutJasa(json);
+//   const interfaceAddJasa = Convert.toInterfaceAddJasa(json);
 
-export interface ModelPutJasa {
+export interface InterfaceAddJasa {
     action : number;
     id : number;
     kodeJasa : string;
     namaJasa : string;
     grupJasa : string;
     subGrup : string;
-    catatan : string;
     hargaJual : number;
-    pajakJual : number;
-    oumKerja : number;
+    pajakJual : null;
+    oumKerja : string;
+    catatan : string;
     tipeKomisi : number;
     satuanKomisi : string;
     nilaiKomisi : number;
     aktif : boolean;
     waktuKerja : number;
     listSparePart : ListSparePart[];
-    kategoriPekerjaanID : number;
+    kategoriPekerjaanID : string;
 }
 
 export interface ListSparePart {
     idRefMaterial : number;
     namaSparepart : string;
     kodeSparepart : string;
-    hargaJual : number;
     quantity : number;
     aktif : boolean;
-    isDisabel : boolean;
     labelAktif : string;
-    stok : number;
-    isFreeService : boolean;
+    isDisabel : boolean;
     guid : string;
 }
 

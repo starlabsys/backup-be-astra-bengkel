@@ -4,15 +4,16 @@ import ResponseResult from "../../../core/response/ResponseResult";
 import { EnumResponseCode } from "../../../utils/enum/EnumResponseCode";
 
 
-export const jasaPutValidator = [
+export const jasaValidator = [
     check( 'action' ).isNumeric().notEmpty(),
     check( 'id' ).isNumeric().notEmpty(),
     check( 'kodeJasa' ).isString().notEmpty(),
     check( 'namaJasa' ).isString().notEmpty(),
     check( 'grupJasa' ).isString().notEmpty(),
-    check( 'subGrup' ).isString().notEmpty(),
+    check( 'subGrup' ).isString(),
     check( 'hargaJual' ).isNumeric().notEmpty(),
     check( 'pajakJual' ).isNumeric().notEmpty(),
+    check( 'catatan' ).isString(),
     check( 'oumKerja' ).isNumeric().notEmpty(),
     check( 'tipeKomisi' ).isNumeric().notEmpty(),
     check( 'satuanKomisi' ).isString().notEmpty(),

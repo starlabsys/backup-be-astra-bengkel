@@ -6,6 +6,7 @@ import { InterfaceEditJasa } from "./interface/InterfaceEditJasa";
 import { InterfaceGetJasa } from "./interface/InterfaceGetJasa";
 import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult";
 import { ModelPutJasa } from "./interface/InterfacePutJasa";
+import { InterfaceAddJasa } from "./interface/InterfaceAddJasa";
 
 
 class JasaRepository {
@@ -42,6 +43,18 @@ class JasaRepository {
     }
 
     public putJasa = async ( res : Response, token : string, props : ModelPutJasa ) : Promise<ModelResult | null> => {
+        const resp = await post( res, {
+            url : '/api/Master/PUTJasa',
+            token : token,
+            reqBody : props
+        } );
+        if ( resp !== null ) {
+            return ConvertModelResult.toModelResult( resp );
+        }
+        return null;
+    }
+
+    public addJasa = async ( res : Response, token : string, props : InterfaceAddJasa ) : Promise<ModelResult | null> => {
         const resp = await post( res, {
             url : '/api/Master/PUTJasa',
             token : token,
