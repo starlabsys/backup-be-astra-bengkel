@@ -10,6 +10,8 @@ import JasaRoutes from "./pages/Jasa/routes/JasaRoutes";
 import RouteSparepart from "./pages/Sparepart/routes/RouteSparepart";
 import SyncMasterRoutes from "./pages/SyncMaster/routes/SyncMasterRoutes";
 import TipeKendaraanRoutes from "./pages/TipeKendaraan/routes/TipeKendaraanRoutes";
+import KendaraanRoutes from "./pages/Kendaraan/routes/KendaraanRoutes";
+import CustomerRoutes from "./pages/Customer/routes/CustomerRoutes";
 
 
 class App {
@@ -57,6 +59,8 @@ class App {
         this.app.use( "/api/master", SyncMasterRoutes );
         this.app.use( "/api/sparepart", RouteSparepart );
         this.app.use( "/api/tipe-kendaraan", TipeKendaraanRoutes )
+        this.app.use( "/api/kendaraan", KendaraanRoutes )
+        // this.app.use( "/api/customer", CustomerRoutes )
     }
 
 }
