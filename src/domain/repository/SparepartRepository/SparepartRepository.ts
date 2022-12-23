@@ -3,6 +3,7 @@ import { Response } from "express";
 import { InterfaceSparepart } from "./interface/interfaceSparepart";
 import { ConvertModelSparepart, ModelSparepart } from "../../models/Sparepart/ModelSparepart";
 import { InterfaceGetSparepart } from "./interface/InterfaceGetSparepart";
+import { InterfaceAddSparepart } from "./interface/interfaceAddSparepart";
 
 
 class SparepartRepository {
