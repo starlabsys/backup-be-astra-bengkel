@@ -5,6 +5,7 @@ import KendaraanRepository from "../../../domain/repository/Kendaraan/KendaraanR
 import Token from "../../../utils/Token";
 import { InterfaceGetKendaraan } from "../../../domain/repository/Kendaraan/interface/InterfaceGetKendaraan";
 import { InterfaceGetPelanggan } from "../../../domain/repository/Kendaraan/interface/InterfaceGetPelanggan";
+import { InterfaceAddKendaraan } from "../../../domain/repository/Kendaraan/interface/InterfaceAddKendaraan";
 
 
 class KendaraanController {
