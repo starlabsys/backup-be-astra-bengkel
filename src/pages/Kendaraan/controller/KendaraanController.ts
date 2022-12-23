@@ -112,7 +112,6 @@ class KendaraanController {
     public addKendaraan = async ( req : Request, res : Response ) : Promise<Response> => {
         const data : InterfaceAddKendaraan = req.body
         try {
-
             const token = await Token.get( req, res );
             const resp = await KendaraanRepository.addKendaraan( res, token ?? '', data );
             if ( resp !== null ) {
