@@ -7,6 +7,7 @@ import {
     ConvertModelGetListPelanggan,
     ModelGetListPelanggan
 } from "../../models/Kendaraan/ModelGetListPelanggan";
+import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult";
 
 
 class KendaraanRepository {
@@ -30,6 +31,18 @@ class KendaraanRepository {
         } )
         if ( resp !== null ) {
             return ConvertModelGetListPelanggan.toModelGetListCustomer( resp );
+        }
+        return null;
+    }
+
+    public addKendaraan = async ( res : Response, token : string, reqBody : InterfaceAddKendaraan ) : Promise<ModelResult | null> => {
+        const resp = await post( res, {
+            url : '/api/Master/PUTKendaraan',
+            token : token,
+            reqBody : reqBody
+        } )
+        if ( resp !== null ) {
+            return ConvertModelResult.toModelResult( resp );
         }
         return null;
     }
