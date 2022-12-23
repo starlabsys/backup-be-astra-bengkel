@@ -64,7 +64,7 @@ class KendaraanController {
             const token = await Token.get( req, res );
             const resp = await KendaraanRepository.addKendaraan( res, token ?? '', data );
             if ( resp !== null ) {
-                return ResponseResult.successGet( res, resp );
+                return ResponseResult.successPost( res, resp.message );
             }
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.NOT_FOUND,
