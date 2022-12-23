@@ -6,6 +6,7 @@ import { authAdmin } from "../../../middleware/AdminMiddleware";
 class TipeKendaraanRoutes extends BaseRoutes {
     routes() : void {
         this.router.post( '/get', authAdmin, TipeKendaraanController.getData )
+        this.router.post( '/edit', authAdmin, TipeKendaraanController.editData )
     }
 
 }
