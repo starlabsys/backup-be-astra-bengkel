@@ -55,6 +55,32 @@ class KendaraanController {
             } )
         }
     }
+
+    public addKendaraan = async ( req : Request, res : Response ) : Promise<Response> => {
+        const data : InterfaceAddKendaraan = req.body
+        try {
+
+            const token = await Token.get( req, res );
+            const resp = await KendaraanRepository.addKendaraan( res, token ?? '', data );
+            if ( resp !== null ) {
+                return ResponseResult.successGet( res, resp );
+            }
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.NOT_FOUND,
+                errorCode : '01',
+                message : 'Data not found',
+                data : null
+            } );
+
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
+        }
+    }
 }
 
 export default new KendaraanController();
