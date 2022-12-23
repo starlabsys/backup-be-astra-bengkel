@@ -1,4 +1,4 @@
-interface InterfaceAddKendaraan {
+export interface InterfaceAddKendaraan {
     action : number,
     id : number,
     idPelangan : number,

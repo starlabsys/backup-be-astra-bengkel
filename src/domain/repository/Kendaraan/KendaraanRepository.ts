@@ -8,6 +8,7 @@ import {
     ModelGetListPelanggan
 } from "../../models/Kendaraan/ModelGetListPelanggan";
 import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult";
+import { InterfaceAddKendaraan } from "./interface/InterfaceAddKendaraan";
 
 
 class KendaraanRepository {
