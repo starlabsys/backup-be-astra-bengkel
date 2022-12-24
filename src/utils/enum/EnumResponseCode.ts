@@ -1,5 +1,6 @@
 export enum EnumResponseCode {
     BAD_REQUEST = 400,
+    RETRY = 449,
     UNAUTHORIZED = 401,
     NOT_FOUND = 404,
     FORBIDDEN = 403,
