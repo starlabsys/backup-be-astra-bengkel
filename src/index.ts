@@ -63,11 +63,12 @@ class App {
         this.app.use( "/api/sparepart", RouteSparepart );
         this.app.use( "/api/tipe-kendaraan", TipeKendaraanRoutes )
         this.app.use( "/api/kendaraan", KendaraanRoutes )
-
         this.app.use("/api/vendor", VendorRoutes)
         this.app.use("/api/pit", PitRoutes)
         this.app.use('/api/pit-mekanik', PitMekanikRoutes)
-        // this.app.use( "/api/customer", CustomerRoutes )
+        this.app.use( "/api/customer", CustomerRoutes )
+        this.app.use( "/api/customer", CustomerRoutes )
+        this.app.use( "/api/vendor", VendorRoutes )
     }
 
 }

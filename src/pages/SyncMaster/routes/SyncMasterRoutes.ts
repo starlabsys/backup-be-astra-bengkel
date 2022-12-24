@@ -8,6 +8,7 @@ class SyncMasterRoutes extends BaseRoutes {
     routes() : void {
         this.router.post( '/drop-down', validateSyncMaster, authAdmin, SyncMasterController.dropDown );
         this.router.post( '/group-drop-down', validateGroupSyncMaster, authAdmin, SyncMasterController.groupDropDown );
+        this.router.post( '/list-area', authAdmin, SyncMasterController.listArea );
     }
 }
 

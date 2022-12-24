@@ -9,6 +9,12 @@ import {
 } from "../../models/Kendaraan/ModelGetListPelanggan";
 import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult";
 import { InterfaceAddKendaraan } from "./interface/InterfaceAddKendaraan";
+import { InterfaceDetailKendaraan } from "./interface/InterfaceDetailKendaraan";
+import {
+    ConvertModelGetDetailKendaraan,
+    ModelGetDetailKendaraan
+} from "../../models/Kendaraan/ModelGetDetailKendaraan";
+import { InterfaceEditKendaraan } from "./interface/InterfaceEditKendaraan";
 
 
 class KendaraanRepository {
@@ -37,6 +43,30 @@ class KendaraanRepository {
     }
 
     public addKendaraan = async ( res : Response, token : string, reqBody : InterfaceAddKendaraan ) : Promise<ModelResult | null> => {
+        const resp = await post( res, {
+            url : '/api/Master/PUTKendaraan',
+            token : token,
+            reqBody : reqBody
+        } )
+        if ( resp !== null ) {
+            return ConvertModelResult.toModelResult( resp );
+        }
+        return null;
+    }
+
+    public detailKendaraan = async ( res : Response, token : string, reqBody : InterfaceDetailKendaraan ) : Promise<ModelGetDetailKendaraan | null> => {
+        const resp = await post( res, {
+            url : '/api/Master/GETKendaraanDetail',
+            token : token,
+            reqBody : reqBody
+        } )
+        if ( resp !== null ) {
+            return ConvertModelGetDetailKendaraan.toModelGetDetailKendaraan( resp );
+        }
+        return null;
+    }
+
+    public updatedKendaraan = async ( res : Response, token : string, reqBody : InterfaceEditKendaraan ) : Promise<ModelResult | null> => {
         const resp = await post( res, {
             url : '/api/Master/PUTKendaraan',
             token : token,
