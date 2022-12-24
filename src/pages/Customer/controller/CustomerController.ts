@@ -48,7 +48,7 @@ class CustomerController {
                     return ResponseResult.successPost( res, resp.message );
                 }
                 return ResponseResult.error( res, {
-                    statusCode : EnumResponseCode.BAD_REQUEST,
+                    statusCode : EnumResponseCode.RETRY,
                     errorCode : '01',
                     message : resp.message,
                     data : null
