@@ -2,18 +2,17 @@ import { Request, Response } from "express";
 import ResponseResult from "../../../core/response/ResponseResult";
 import { EnumResponseCode } from "../../../utils/enum/EnumResponseCode";
 import Token from "../../../utils/Token";
+import MekanikRepository from "../../../domain/repository/Mekanik/MekanikRepository";
+import { InterfaceGetMekanik } from "../../../domain/repository/Mekanik/interface/InterfaceGetMekanik";
+import { InterfaceStoreMekanik } from "../../../domain/repository/Mekanik/interface/InterfaceStoreMekanik";
 
-import PitMekanikRepository from "../../../domain/repository/PitMekanikRepository/PitMekanikRepository";
-import { InterfaceGetPitMekanik } from "../../../domain/repository/PitMekanikRepository/interface/InterfaceGetPitMekanik";
-import { InterfaceStorePitMekanik } from "../../../domain/repository/PitMekanikRepository/interface/InterfaceStorePitMekanik";
-
-class PitMekanikController {
-    public getPitMekanik = async(req: Request, res: Response)=>{
+class MekanikController{
+    public getMekanik = async(req: Request, res: Response)=>{
         try{
-            const data : InterfaceGetPitMekanik = req.body;
-            const token = await Token.get( req, res );
+            const data : InterfaceGetMekanik = req.body;
+            const token = await Token.get(req, res);
 
-            const resp = await PitMekanikRepository.getData(res, token ?? '', data);
+            const resp = await MekanikRepository.getData(res, token ?? '', data);
 
             if (resp !== null) {
                 return ResponseResult.successGet(res, resp);
@@ -25,7 +24,6 @@ class PitMekanikController {
                 message: "Internal Error",
                 data: null
             })
-
         }catch(error: any){
             return ResponseResult.error(res, {
                 statusCode: EnumResponseCode.FORBIDDEN,
@@ -36,15 +34,15 @@ class PitMekanikController {
         }
     }
 
-    public storePitMekanik = async(req: Request, res: Response)=>{
-        try {
-            const data : InterfaceStorePitMekanik = req.body
-            const token = await Token.get(req, res)
+    public storeMekanik = async(req: Request, res: Response)=>{
+        try{
+            const data : InterfaceStoreMekanik = req.body;
+            const token = await Token.get(req, res);
 
-            const resp = await PitMekanikRepository.storeData(res, token ?? '', data)
+            const resp = await MekanikRepository.storeData(res, token ?? '', data);
 
             if (resp !== null) {
-                return ResponseResult.successPost(res, "Success Store Data")
+                return ResponseResult.successGet(res, resp);
             }
 
             return ResponseResult.error(res, {
@@ -53,7 +51,7 @@ class PitMekanikController {
                 message: "Internal Error",
                 data: null
             })
-        } catch (error : any) {
+        }catch(error: any){
             return ResponseResult.error(res, {
                 statusCode: EnumResponseCode.FORBIDDEN,
                 errorCode: "01",
@@ -61,8 +59,7 @@ class PitMekanikController {
                 data: null
             })
         }
-
     }
 }
 
-export default new PitMekanikController;
+export default new MekanikController;
