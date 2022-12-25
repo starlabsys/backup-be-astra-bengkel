@@ -77,7 +77,15 @@ class CustomerController {
             const token = await Token.get( req, res );
             const resp = await CustomerRepository.update( res, token ?? '', data );
             if ( resp !== null ) {
-                return ResponseResult.successPost( res, resp.message );
+                if ( resp.ack === 1 ) {
+                    return ResponseResult.successPost( res, resp.message );
+                }
+                return ResponseResult.error( res, {
+                    statusCode : EnumResponseCode.RETRY,
+                    errorCode : '01',
+                    message : resp.message,
+                    data : null
+                } );
             }
 
             return ResponseResult.error( res, {
