@@ -3,6 +3,10 @@ import Token from "../../../utils/Token";
 import MasterDropDownRepository from "../../../domain/repository/MasterData/DropDown/MasterDropDownRepository";
 import ResponseResult from "../../../core/response/ResponseResult";
 import { EnumResponseCode } from "../../../utils/enum/EnumResponseCode";
+import AreaRepository from "../../../domain/repository/MasterData/Area/AreaRepository";
+import {
+    InterfaceGetListAreaKalBar
+} from "../../../domain/repository/MasterData/Area/interface/InterfaceGetListAreaKalBar";
 
 
 class SyncMasterController {
@@ -70,6 +74,30 @@ class SyncMasterController {
             } )
         } catch ( e : any ) {
 
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
+        }
+    }
+
+    public listArea = async ( req : Request, res : Response ) : Promise<Response> => {
+        const data : InterfaceGetListAreaKalBar = req.body;
+        try {
+            const token = await Token.get( req, res );
+            const resp = await AreaRepository.getListAreaKalBar( res, token ?? '', data )
+            if ( resp !== null ) {
+                return ResponseResult.successGet( res, resp )
+            }
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.BAD_REQUEST,
+                errorCode : '01',
+                message : 'Failed get data',
+                data : null
+            } )
+        } catch ( e : any ) {
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,
                 errorCode : '01',
