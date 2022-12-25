@@ -3,7 +3,6 @@ import { post } from "../../../core/api/api";
 import { InterfaceGetVendor } from "./interface/InterfaceGetVendor";
 import { ConvertGetVendor } from "../../models/Vendor/ModelGetVendor";
 // import { ConvertModelGetTipeKendaraan, ModelGetTipeKendaraan } from "../../models/TipeKendaraan/ModelGetTipeKendaraan";
-import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult";
 import { ModelGetVendor } from "../../models/Vendor/ModelGetVendor";
 
 
