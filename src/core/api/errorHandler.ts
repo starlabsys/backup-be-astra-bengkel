@@ -57,7 +57,7 @@ class ErrorHandler {
             errorCode : props.errorCode,
             status : false,
             message : props.message,
-            data : props.data
+            data : null
         } );
     }
     public networkError = ( res : Response, props : ErrorProps ) => {

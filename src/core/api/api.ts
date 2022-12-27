@@ -88,11 +88,11 @@ const fetchData = async ( res : Response, config : AxiosRequestConfig ) : Promis
             } );
         }
         if ( error.response?.status === 401 ) {
-            return ErrorHandler.errorResponse( res, {
-                message : data.message,
+            return ErrorHandler.notAuthorized( res, {
+                message : data.error_description,
                 statusCode : EnumResponseCode.UNAUTHORIZED,
                 errorCode : EnumResponsePsshsoapi.errorPsshsoapiUnauthorized,
-                data : data.data
+                data : data
             } );
         }
         if ( error.response?.status === 403 ) {
