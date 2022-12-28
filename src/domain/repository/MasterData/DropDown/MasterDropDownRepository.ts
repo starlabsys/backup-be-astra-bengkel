@@ -38,9 +38,7 @@ class MasterDropDownRepository {
         const resp = await post( res, {
             url : '/api/Master/GETTrainingLevel',
             token : token,
-            reqBody : {
-                listJabatan : props
-            }
+            reqBody : props
         } )
         if ( resp !== null ) {
             return ConvertModelListTraining.toModelListTraining( resp );
