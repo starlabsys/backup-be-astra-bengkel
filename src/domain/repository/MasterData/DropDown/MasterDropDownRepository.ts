@@ -4,6 +4,8 @@ import { InterfaceSyncMaster } from "./interface/InterfaceSyncMaster";
 import { ConvertModelDropDownJasa, ModelDropDownJasa } from "../../../models/DropDown/ModelDropDownJasa";
 import { InterfaceMasterData } from "./interface/InterfaceMasterData";
 import { ConvertModelGroupDropDownJasa, ModelGroupDropDownJasa } from "../../../models/DropDown/ModelGroupDropDown";
+import { InterfaceTrainingList } from "./interface/InterfaceTrainingList";
+import { ConvertModelListTraining, ModelListTraining } from "../../../models/DropDown/ModelListTraining";
 
 
 class MasterDropDownRepository {
@@ -28,6 +30,20 @@ class MasterDropDownRepository {
         } )
         if ( resp !== null ) {
             return ConvertModelGroupDropDownJasa.toModelGroupDropDownJasa( resp );
+        }
+        return null;
+    }
+
+    public trainingLevel = async ( res : Response, token : string, props : InterfaceTrainingList ) : Promise<ModelListTraining | null> => {
+        const resp = await post( res, {
+            url : '/api/Master/GETTrainingLevel',
+            token : token,
+            reqBody : {
+                listJabatan : props
+            }
+        } )
+        if ( resp !== null ) {
+            return ConvertModelListTraining.toModelListTraining( resp );
         }
         return null;
     }
