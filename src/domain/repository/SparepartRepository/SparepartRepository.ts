@@ -35,6 +35,18 @@ class SparepartRepository {
 
         return null;
     }
+
+    public getDetailSparepart = async ( res : Response, token : string, props : InterfaceSparepart ) : Promise<ModelSparepart | null> => {
+        const resp = await post( res, {
+            url : "/api/Master/GETSparepartDetail",
+            token : token,
+            reqBody : props
+        } );
+        if ( resp !== null ) {
+            return ConvertModelSparepart.toModelSparepart( resp );
+        }
+        return null;
+    }
 }
 
 export default new SparepartRepository()
