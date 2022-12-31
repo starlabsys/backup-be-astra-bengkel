@@ -10,6 +10,8 @@ import {
 import {
     InterfaceListIDTraining
 } from "../../../domain/repository/MasterData/DropDown/interface/InterfaceTrainingList";
+import CekKodeRepository from "../../../domain/repository/MasterData/CekKode/CekKodeRepository";
+import { InterfaceCekKode } from "../../../domain/repository/MasterData/CekKode/interface/InterfaceCekKode";
 
 
 class SyncMasterController {
@@ -130,6 +132,41 @@ class SyncMasterController {
                 data : null
             } )
 
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
+        }
+    }
+
+    public cekKode = async ( req : Request, res : Response ) : Promise<Response> => {
+        const data : InterfaceCekKode = req.body;
+        try {
+            const token = await Token.get( req, res );
+
+            const resp = await CekKodeRepository.cekKode( res, token ?? '', data )
+
+            if ( resp !== null ) {
+                if ( resp.ack === 1 ) {
+                    return ResponseResult.successGet( res, resp )
+                }
+                return ResponseResult.error( res, {
+                    statusCode : EnumResponseCode.BAD_REQUEST,
+                    errorCode : '01',
+                    message : resp.message,
+                    data : null
+                } )
+            }
+
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : 'Failed Cek Data',
+                data : null
+            } )
         } catch ( e : any ) {
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,
