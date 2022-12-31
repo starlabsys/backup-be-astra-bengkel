@@ -8,6 +8,7 @@ class PkbRoutes extends BaseRoutes {
     routes() : void {
         this.router.post( '/get', authAdmin, PkbController.getPkb )
         this.router.post('/store', authAdmin, PkbController.storePkb )
+        this.router.post('/detail', authAdmin, PkbController.detailPkb )
         // this.router.post('/detail', authAdmin, PitMekanikController.detailPitMekanik )
         // this.router.post( '/edit', authAdmin, VendorRepository.editData )
     }
