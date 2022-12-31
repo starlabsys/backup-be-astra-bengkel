@@ -9,6 +9,7 @@ class CekKodeRepository {
         const resp = await post( res, {
             url : '/api/Master/CekKodeAHASS',
             reqBody : props,
+            token : token,
         } )
         if ( resp !== null ) {
             return ConvertModelCekKode.toModelCekKode( resp );
