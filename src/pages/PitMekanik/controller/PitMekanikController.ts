@@ -19,37 +19,38 @@ class PitMekanikController {
     public getPitMekanik = async ( req : Request, res : Response ) => {
         try {
 
-            if (req.app.locals.credential.role === 'admin') {
+            if ( req.app.locals.credential.role === 'admin' ) {
                 const data : InterfaceGetPitMekanik = req.body
 
                 const user : InterfaceDataUser[] = await GetUser.getUser( req, res )
 
-                let arr_data:any[] = [];
+                let arr_data : any[] = [];
                 for ( let i = 0; i < user.length; i++ ) {
                     const resp = await PitMekanikRepository.getData( res, user[ i ].token ?? '', data );
 
                     if ( resp !== null ) {
-                        
-                        for (let y = 0; y < resp.listOfPITMekanik.length; y++) {
-                            arr_data.push(resp.listOfPITMekanik[y])
+
+                        for ( let y = 0; y < resp.listOfPITMekanik.length; y++ ) {
+                            arr_data.push( resp.listOfPITMekanik[ y ] )
                         }
                     }
                 }
-                
+
 
                 return ResponseResult.successGet( res, arr_data )
 
-            }else{
+            }
+            else {
                 // console.log(req.app.locals.credential.role)
                 const data : InterfaceGetPitMekanik = req.body;
                 const token = await Token.get( req, res );
-    
+
                 const resp = await PitMekanikRepository.getData( res, token ?? '', data );
-    
+
                 if ( resp !== null ) {
                     return ResponseResult.successGet( res, resp );
                 }
-    
+
                 return ResponseResult.error( res, {
                     statusCode : EnumResponseCode.BAD_REQUEST,
                     errorCode : "01",
@@ -78,7 +79,15 @@ class PitMekanikController {
             const resp = await PitMekanikRepository.storeData( res, token ?? '', data )
 
             if ( resp !== null ) {
-                return ResponseResult.successPost( res, "Success Store Data" )
+                if ( resp.ack === 1 ) {
+                    return ResponseResult.successPost( res, resp.message )
+                }
+                return ResponseResult.error( res, {
+                    statusCode : EnumResponseCode.BAD_REQUEST,
+                    errorCode : "01",
+                    message : resp.message,
+                    data : null
+                } )
             }
 
             return ResponseResult.error( res, {
