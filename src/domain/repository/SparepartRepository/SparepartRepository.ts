@@ -22,7 +22,7 @@ class SparepartRepository {
     public addSparepart = async ( res : Response, token : string, props : InterfaceAddSparepart ) : Promise<ModelSparepart | null> => {
         //
         const resp = await post( res, {
-            url : "api/Master/PUTSparepart",
+            url : "/api/Master/PUTSparepart",
             token : token,
             reqBody : props,
         } );
