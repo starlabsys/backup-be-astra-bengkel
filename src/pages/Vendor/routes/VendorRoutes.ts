@@ -8,7 +8,7 @@ class VendorRoutes extends BaseRoutes {
     routes() : void {
         this.router.post( '/get', authAdmin, VendorController.getVendor )
         this.router.post( '/add', authAdmin, VendorController.addVendor )
-        // this.router.post( '/edit', authAdmin, VendorRepository.editData )
+        // .
     }
 
 }

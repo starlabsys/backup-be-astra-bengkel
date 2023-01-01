@@ -75,6 +75,7 @@ class VendorController {
             } )
         }
     }
+    // .
 }
 
 export default new VendorController;

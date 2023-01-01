@@ -28,6 +28,18 @@ class PitMekanikRepository {
         }
         return null;
     }
+
+    public detailData = async(res: Response, token: string, reqBody: InterfaceStorePitMekanik): Promise<ModelPitMekanik | null> => {
+        const resp = await post(res, {
+            url: '/api/Master/GETPITMekanik',
+            token: token,
+            reqBody: reqBody
+        })
+        if(resp !== null){
+            return ConvertGetPitMekanik.toGetListPitMekanik(resp);
+        }
+        return null;
+    }
 }
 
 export default new PitMekanikRepository()

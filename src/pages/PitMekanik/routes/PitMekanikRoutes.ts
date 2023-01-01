@@ -7,6 +7,8 @@ class PitMekanikRoutes extends BaseRoutes {
     routes() : void {
         this.router.post( '/get', authAdmin, PitMekanikController.getPitMekanik )
         this.router.post('/store', authAdmin, PitMekanikController.storePitMekanik )
+        this.router.post('/test', PitMekanikController.test)
+        // this.router.post('/detail', authAdmin, PitMekanikController.detailPitMekanik )
         // this.router.post( '/edit', authAdmin, VendorRepository.editData )
     }
 
