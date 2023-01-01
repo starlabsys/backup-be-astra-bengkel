@@ -19,17 +19,12 @@ class PitMekanikController {
     public getPitMekanik = async ( req : Request, res : Response ) => {
         try {
 
-            // const { role } = req.app.locals.credential.role
-            // console.log(req.app.locals.credential.role);
-
             if (req.app.locals.credential.role === 'admin') {
                 const data : InterfaceGetPitMekanik = req.body
 
                 const user : InterfaceDataUser[] = await GetUser.getUser( req, res )
 
-                // let arr_data : any[] = [];
-
-                let arr_data:object[] = [];
+                let arr_data:any[] = [];
                 for ( let i = 0; i < user.length; i++ ) {
                     const resp = await PitMekanikRepository.getData( res, user[ i ].token ?? '', data );
 
@@ -45,7 +40,7 @@ class PitMekanikController {
                 return ResponseResult.successGet( res, arr_data )
 
             }else{
-                console.log(req.app.locals.credential.role)
+                // console.log(req.app.locals.credential.role)
                 const data : InterfaceGetPitMekanik = req.body;
                 const token = await Token.get( req, res );
     
@@ -65,7 +60,7 @@ class PitMekanikController {
 
 
         } catch ( error : any ) {
-            console.log(req.app.locals.credential)
+            // console.log(req.app.locals.credential)
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,
                 errorCode : "01",
