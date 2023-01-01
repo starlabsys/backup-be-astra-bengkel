@@ -4,6 +4,7 @@ import { InterfaceSparepart } from "./interface/interfaceSparepart";
 import { ConvertModelSparepart, ModelSparepart } from "../../models/Sparepart/ModelSparepart";
 import { InterfaceGetSparepart } from "./interface/InterfaceGetSparepart";
 import { InterfaceAddSparepart } from "./interface/interfaceAddSparepart";
+import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult";
 
 
 class SparepartRepository {
@@ -19,7 +20,7 @@ class SparepartRepository {
         return null;
     }
 
-    public addSparepart = async ( res : Response, token : string, props : InterfaceAddSparepart ) : Promise<ModelSparepart | null> => {
+    public addSparepart = async ( res : Response, token : string, props : InterfaceAddSparepart ) : Promise<ModelResult | null> => {
         //
         const resp = await post( res, {
             url : "/api/Master/PUTSparepart",
@@ -27,10 +28,8 @@ class SparepartRepository {
             reqBody : props,
         } );
 
-        console.log( 'errrossparepart', resp )
-
         if ( resp !== null ) {
-            return ConvertModelSparepart.toModelSparepart( resp );
+            return ConvertModelResult.toModelResult( resp );
         }
 
         return null;
