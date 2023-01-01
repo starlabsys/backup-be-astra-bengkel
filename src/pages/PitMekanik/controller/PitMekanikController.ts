@@ -18,23 +18,54 @@ import { InterfaceDataUser } from "../../../utils/GetAllUser/Interface/Interface
 class PitMekanikController {
     public getPitMekanik = async ( req : Request, res : Response ) => {
         try {
-            const data : InterfaceGetPitMekanik = req.body;
-            const token = await Token.get( req, res );
 
-            const resp = await PitMekanikRepository.getData( res, token ?? '', data );
+            // const { role } = req.app.locals.credential.role
+            // console.log(req.app.locals.credential.role);
 
-            if ( resp !== null ) {
-                return ResponseResult.successGet( res, resp );
+            if (req.app.locals.credential.role === 'admin') {
+                const data : InterfaceGetPitMekanik = req.body
+
+                const user : InterfaceDataUser[] = await GetUser.getUser( req, res )
+
+                // let arr_data : any[] = [];
+
+                let arr_data:object[] = [];
+                for ( let i = 0; i < user.length; i++ ) {
+                    const resp = await PitMekanikRepository.getData( res, user[ i ].token ?? '', data );
+
+                    if ( resp !== null ) {
+                        
+                        for (let y = 0; y < resp.listOfPITMekanik.length; y++) {
+                            arr_data.push(resp.listOfPITMekanik[y])
+                        }
+                    }
+                }
+                
+
+                return ResponseResult.successGet( res, arr_data )
+
+            }else{
+                console.log(req.app.locals.credential.role)
+                const data : InterfaceGetPitMekanik = req.body;
+                const token = await Token.get( req, res );
+    
+                const resp = await PitMekanikRepository.getData( res, token ?? '', data );
+    
+                if ( resp !== null ) {
+                    return ResponseResult.successGet( res, resp );
+                }
+    
+                return ResponseResult.error( res, {
+                    statusCode : EnumResponseCode.BAD_REQUEST,
+                    errorCode : "01",
+                    message : "Internal Error",
+                    data : null
+                } )
             }
 
-            return ResponseResult.error( res, {
-                statusCode : EnumResponseCode.BAD_REQUEST,
-                errorCode : "01",
-                message : "Internal Error",
-                data : null
-            } )
 
         } catch ( error : any ) {
+            console.log(req.app.locals.credential)
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,
                 errorCode : "01",
@@ -87,40 +118,16 @@ class PitMekanikController {
                         name : user[ i ].name,
                         data : resp
                     } )
-                    // return ResponseResult.successGet(res, resp);
                 }
-
-                // return ResponseResult.error(res, {
-                //     statusCode: EnumResponseCode.BAD_REQUEST,
-                //     errorCode: "01",
-                //     message: "Internal Error",
-                //     data: null
-                // })
-
             }
 
             return ResponseResult.successGet( res, arr_data )
-
-
-            // const token = await Token.get(req, res)
-
-            // const resp = await PitMekanikRepository.test(res, token ?? '', data)
-
-            // if (resp !== null) {
-            //     return ResponseResult.successPost(res, "Success Store Data")
-            // }
-
-            // return ResponseResult.error(res, {
-            //     statusCode: EnumResponseCode.BAD_REQUEST,
-            //     errorCode: "01",
-            //     message: "Internal Error",
-            //     data: null
-            // })
         } catch ( error : any ) {
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,
                 errorCode : "01",
-                message : error.message,
+                // message : error.message,
+                message : req.app.locals.credential,
                 data : null
             } )
         }
