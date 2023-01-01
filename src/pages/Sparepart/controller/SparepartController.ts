@@ -6,6 +6,7 @@ import { EnumResponseCode } from "../../../utils/enum/EnumResponseCode";
 import {
     InterfaceGetDetailSparepart
 } from "../../../domain/repository/SparepartRepository/interface/InterfaceGetDetailSparepart";
+import { InterfaceAddSparepart } from "../../../domain/repository/SparepartRepository/interface/interfaceAddSparepart";
 
 
 class SparepartController {
@@ -58,45 +59,11 @@ class SparepartController {
     }
 
     public addSparepart = async ( req : Request, res : Response ) : Promise<Response> => {
-        const {
-            namaSparepart,
-            kodeSparepart,
-            grupSparepart,
-            grupKodeAHM,
-            namaLokal,
-            uom,
-            hargaJual,
-            rak,
-            barcode,
-            plu,
-            hargaClaimOli,
-            catatan,
-            tipeKomisi,
-            satuanKomisi,
-            nilaiKomisi,
-            aktif
-        } = req.body;
+        const data : InterfaceAddSparepart = req.body;
 
         try {
             const token = await Token.get( req, res );
-            const resp = await SparepartRepository.addSparepart( res, token ?? '', {
-                namaSparepart,
-                kodeSparepart,
-                grupSparepart,
-                grupKodeAHM,
-                namaLokal,
-                uom,
-                hargaJual,
-                rak,
-                barcode,
-                plu,
-                hargaClaimOli,
-                catatan,
-                tipeKomisi,
-                satuanKomisi,
-                nilaiKomisi,
-                aktif
-            } )
+            const resp = await SparepartRepository.addSparepart( res, token ?? '', data )
             // console.log(token)
 
             if ( resp !== null ) {
