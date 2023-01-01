@@ -151,7 +151,7 @@ class SyncMasterController {
 
             if ( resp !== null ) {
                 if ( resp.ack === 1 ) {
-                    return ResponseResult.successGet( res, resp )
+                    return ResponseResult.successPost( res, resp.message )
                 }
                 return ResponseResult.error( res, {
                     statusCode : EnumResponseCode.BAD_REQUEST,
