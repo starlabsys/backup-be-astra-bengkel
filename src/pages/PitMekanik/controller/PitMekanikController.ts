@@ -13,6 +13,7 @@ import {
 import ModelUsers from "../../../db/models/ModelUsers";
 import GetUser from "../../../utils/GetAllUser/GetUser";
 import { InterfaceDataUser } from "../../../utils/GetAllUser/Interface/InterfaceDataUser";
+import { ListOfPITMekanik, ModelPitMekanik } from "../../../domain/models/PitMekanik/ModelPitMekanik";
 
 
 class PitMekanikController {
@@ -24,18 +25,26 @@ class PitMekanikController {
 
                 const user : InterfaceDataUser[] = await GetUser.getUser( req, res )
 
-                let arr_data : any[] = [];
-                for ( let i = 0; i < user.length; i++ ) {
-                    const resp = await PitMekanikRepository.getData( res, user[ i ].token ?? '', data );
+                // console.log( user.length );
+
+                let arr_data : ModelPitMekanik = {
+                    ack : 0,
+                    message : '',
+                    listOfPITMekanik : []
+                };
+                // const dataList = arr_data.listOfPITMekanik
+                for ( const element of user ) {
+                    const resp = await PitMekanikRepository.getData( res, element.token ?? '', data );
+
 
                     if ( resp !== null ) {
-
-                        for ( let y = 0; y < resp.listOfPITMekanik.length; y++ ) {
-                            arr_data.push( resp.listOfPITMekanik[ y ] )
+                        if ( resp.ack === 1 ) {
+                            arr_data.listOfPITMekanik.push( ...resp.listOfPITMekanik )
+                            arr_data.ack = resp.ack
+                            arr_data.message = resp.message
                         }
                     }
                 }
-
 
                 return ResponseResult.successGet( res, arr_data )
 
