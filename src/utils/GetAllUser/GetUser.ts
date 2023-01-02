@@ -8,9 +8,9 @@ import { InterfaceDataUser } from "./Interface/InterfaceDataUser";
 class GetUser {
     public getUser = async ( req : Request, res : Response ) : Promise<InterfaceDataUser[]> => {
         const user : ModelUsers[] = await ModelUsers.findAll( {
-            where : {
-                role : 'user'
-            }
+            // where : {
+            //     role : 'user'
+            // }
         } )
 
         let arr_user : InterfaceDataUser[] = [];
