@@ -34,13 +34,11 @@ class AuthController {
                     loginData : dataLogin.login_data ?? ''
                 } );
 
-                
-                
-                
+
                 if ( resp !== null ) {
-                    console.log("resp not null");
-                    console.log(resp);
-                    
+                    console.log( "resp not null" );
+                    console.log( resp );
+
                     await ModelUsers.update( {
                         token : resp.access_token
                     }, {
@@ -64,7 +62,7 @@ class AuthController {
                             name : resp.FullName,
                             kodeBengkel : resp.branchCode,
                             namaBengkel : resp.branchName,
-                            role : resp.Role
+                            role : dataLogin.role ?? '',
                         }
                     } );
                 }
@@ -74,7 +72,7 @@ class AuthController {
             } )
         } catch ( e : any ) {
             // console.log(e.toString());
-            
+
             return res.status( 500 ).json( {
                 message : e.toString()
             } );
