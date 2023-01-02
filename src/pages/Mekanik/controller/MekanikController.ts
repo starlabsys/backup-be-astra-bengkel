@@ -7,6 +7,7 @@ import { InterfaceGetMekanik } from "../../../domain/repository/Mekanik/interfac
 import { InterfaceStoreMekanik } from "../../../domain/repository/Mekanik/interface/InterfaceStoreMekanik";
 import GetUser from "../../../utils/GetAllUser/GetUser";
 import { InterfaceDataUser } from "../../../utils/GetAllUser/Interface/InterfaceDataUser";
+import { ModelMekanik } from "../../../domain/models/Mekanik/ModelMekanik";
 
 
 class MekanikController {
@@ -18,14 +19,22 @@ class MekanikController {
 
                 const user : InterfaceDataUser[] = await GetUser.getUser( req, res )
 
-                let arr_data:any[] = [];
-                for ( let i = 0; i < user.length; i++ ) {
-                    const resp = await MekanikRepository.getData( res, user[ i ].token ?? '', data );
+                let arr_data : ModelMekanik = {
+                    ack : 0,
+                    message : '',
+                    totalRow : 0,
+                    listOfKaryawanModel : []
+                };
+
+                for(const element of user){
+                    const resp = await MekanikRepository.getData( res, element.token ?? '', data );
 
                     if ( resp !== null ) {
-                        
-                        for (let y = 0; y < resp.listOfKaryawanModel.length; y++) {
-                            arr_data.push(resp.listOfKaryawanModel[y])
+                        if ( resp.ack === 1 ) {
+                            arr_data.listOfKaryawanModel.push( ...resp.listOfKaryawanModel )
+                            arr_data.ack = resp.ack
+                            arr_data.message = resp.message
+                            arr_data.totalRow = resp.totalRow
                         }
                     }
                 }
