@@ -21,7 +21,7 @@ export const authAdmin = ( req : Request, res : Response, next : NextFunction ) 
             req.app.locals.credential = credential;
 
 
-            if ( req.app.locals.credential.role === 'admin' ) {
+            if ( req.app.locals.credential.role === 'admin' || req.app.locals.credential.role === 'user' ) {
                 return next();
             }
 
