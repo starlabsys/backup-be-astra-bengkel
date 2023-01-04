@@ -12,6 +12,8 @@ import {
 } from "../../../domain/repository/MasterData/DropDown/interface/InterfaceTrainingList";
 import CekKodeRepository from "../../../domain/repository/MasterData/CekKode/CekKodeRepository";
 import { InterfaceCekKode } from "../../../domain/repository/MasterData/CekKode/interface/InterfaceCekKode";
+import { InterfaceGetGudang } from "../../../domain/repository/MasterData/gudang/interface/InterfaceGetGudang";
+import GudangRepository from "../../../domain/repository/MasterData/gudang/GudangRepository";
 
 
 class SyncMasterController {
@@ -161,6 +163,31 @@ class SyncMasterController {
                 } )
             }
 
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : 'Failed Cek Data',
+                data : null
+            } )
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
+        }
+    }
+
+    public getListGudang = async ( req : Request, res : Response ) : Promise<Response> => {
+        const data : InterfaceGetGudang = req.body;
+        try {
+
+            const token = await Token.get( req, res );
+            const resp = await GudangRepository.getGudang( res, token ?? '', data )
+            if ( resp !== null ) {
+                return ResponseResult.successGet( res, resp )
+            }
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,
                 errorCode : '01',
