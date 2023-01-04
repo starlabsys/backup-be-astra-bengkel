@@ -10,6 +10,7 @@ class KendaraanRoutes extends BaseRoutes {
         this.router.post( '/detail', authAdmin, KendaraanController.detailKendaraan );
         this.router.post( '/edit', authAdmin, KendaraanController.editKendaraan );
         this.router.post( '/get-pelanggan', authAdmin, KendaraanController.getPelanggan );
+        this.router.post( '/get-kendaraan-services', authAdmin, KendaraanController.getKendaraanServices );
     }
 
 }
