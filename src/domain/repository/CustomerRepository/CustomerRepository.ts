@@ -7,6 +7,10 @@ import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult
 import { InterfaceEditCustomer } from "./interface/InterfaceEditCustomer";
 import { InterfaceDetailCustomer } from "./interface/InterfaceDetailCustomer";
 import { ConvertModelDetailCustomer, ModelDetailCustomer } from "../../models/Customer/ModelDetailCustomer";
+import {
+    ConvertModelGetCustomerServices,
+    ModelGetCustomerServices
+} from "../../models/Customer/ModelGetListCustomerServices";
 
 
 class CustomerRepository {
@@ -54,6 +58,18 @@ class CustomerRepository {
         } )
         if ( resp !== null ) {
             return ConvertModelDetailCustomer.toModelDetailCustomer( resp );
+        }
+        return null;
+    }
+
+    public getCustomerServices = async ( res : Response, token : string, props : InterfaceGetDetailCustomerServices ) : Promise<ModelGetCustomerServices | null> => {
+        const resp = await post( res, {
+            url : '/api/Master/GETPelangganDetail',
+            reqBody : props,
+            token : token
+        } )
+        if ( resp !== null ) {
+            return ConvertModelGetCustomerServices.toModelGetCustomerServices( resp );
         }
         return null;
     }

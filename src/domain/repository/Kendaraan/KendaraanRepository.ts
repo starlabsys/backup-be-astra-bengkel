@@ -15,6 +15,10 @@ import {
     ModelGetDetailKendaraan
 } from "../../models/Kendaraan/ModelGetDetailKendaraan";
 import { InterfaceEditKendaraan } from "./interface/InterfaceEditKendaraan";
+import {
+    ConvertModelKendaraanServices,
+    ModelKendaraanServices
+} from "../../models/Kendaraan/ModelGetKendaraanServices";
 
 
 class KendaraanRepository {
@@ -74,6 +78,18 @@ class KendaraanRepository {
         } )
         if ( resp !== null ) {
             return ConvertModelResult.toModelResult( resp );
+        }
+        return null;
+    }
+
+    public getKendaraanService = async ( res : Response, token : string, reqBody : InterfaceGetKendaraanServices ) : Promise<ModelKendaraanServices | null> => {
+        const resp = await post( res, {
+            url : '/api/Master/GETKendaraan',
+            token : token,
+            reqBody : reqBody
+        } )
+        if ( resp !== null ) {
+            return ConvertModelKendaraanServices.toModelKendaraanServices( resp );
         }
         return null;
     }
