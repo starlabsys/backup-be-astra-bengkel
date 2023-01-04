@@ -9,6 +9,7 @@ class CustomerRoutes extends BaseRoutes {
         this.router.post( '/add', authAdmin, CustomerController.add );
         this.router.post( '/detail', authAdmin, CustomerController.detail );
         this.router.post( '/edit', authAdmin, CustomerController.update );
+        this.router.post( '/customer-services', authAdmin, CustomerController.getCustomerServices );
     }
 }
 
