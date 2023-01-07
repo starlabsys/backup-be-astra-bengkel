@@ -14,6 +14,7 @@ class KendaraanController {
     public get = async ( req : Request, res : Response ) : Promise<Response> => {
         const data : InterfaceGetKendaraan = req.body
         try {
+
             const token = await Token.get( req, res );
             const resp = await KendaraanRepository.get( res, token ?? '', data );
             if ( resp !== null ) {
