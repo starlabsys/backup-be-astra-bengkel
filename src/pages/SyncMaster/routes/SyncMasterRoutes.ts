@@ -12,6 +12,7 @@ class SyncMasterRoutes extends BaseRoutes {
         this.router.post( '/list-training', authAdmin, SyncMasterController.training );
         this.router.post( '/cek-kode', authAdmin, SyncMasterController.cekKode );
         this.router.post( '/list-gudang', authAdmin, SyncMasterController.getListGudang );
+        this.router.post( '/list-mekanik', authAdmin, SyncMasterController.getListMekanik );
     }
 }
 

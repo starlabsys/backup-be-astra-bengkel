@@ -1,4 +1,4 @@
 interface InterfaceGetDetailCustomerServices {
-    action : 1,
-    id : 12395
+    action : number,
+    id : number
 }

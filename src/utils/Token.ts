@@ -30,6 +30,35 @@ class Token {
 
         return null
     }
+    public getDetail = async ( req : Request, res : Response, user_id : any ) => {
+        // const { id } = req.app.locals.credential;
+        const id = user_id;
+        const user = await ModelUsers.findOne( {
+            where : {
+                id : id
+            }
+        } );
+
+        if ( user !== null ) {
+            if ( user?.token !== null ) {
+                return user.token;
+            }
+
+            const checkLogin = await AuthRepository.login( res, {
+                loginData : user.login_data ?? ''
+            } )
+
+            if ( checkLogin !== null ) {
+                return checkLogin.access_token;
+            }
+
+            return null;
+        }
+
+        return null
+    }
+
+
 }
 
 export default new Token();
