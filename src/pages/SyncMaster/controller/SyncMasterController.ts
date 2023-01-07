@@ -14,6 +14,8 @@ import CekKodeRepository from "../../../domain/repository/MasterData/CekKode/Cek
 import { InterfaceCekKode } from "../../../domain/repository/MasterData/CekKode/interface/InterfaceCekKode";
 import { InterfaceGetGudang } from "../../../domain/repository/MasterData/gudang/interface/InterfaceGetGudang";
 import GudangRepository from "../../../domain/repository/MasterData/gudang/GudangRepository";
+import { InterfacePKBMekanik } from "../../../domain/repository/MasterData/mekanik/interface/InterfacePKBMekanik";
+import MasterDataMekanikRepository from "../../../domain/repository/MasterData/mekanik/MasterDataMekanikRepository";
 
 
 class SyncMasterController {
@@ -185,6 +187,32 @@ class SyncMasterController {
 
             const token = await Token.get( req, res );
             const resp = await GudangRepository.getGudang( res, token ?? '', data )
+            if ( resp !== null ) {
+                return ResponseResult.successGet( res, resp )
+            }
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : 'Failed Cek Data',
+                data : null
+            } )
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
+        }
+    }
+
+    public getListMekanik = async ( req : Request, res : Response ) : Promise<Response> => {
+        const data : InterfacePKBMekanik = req.body;
+        try {
+            // getListMekanik
+            const token = await Token.get( req, res );
+
+            const resp = await MasterDataMekanikRepository.getListMekanik( res, token ?? '', data )
             if ( resp !== null ) {
                 return ResponseResult.successGet( res, resp )
             }
