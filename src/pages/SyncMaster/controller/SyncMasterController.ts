@@ -16,6 +16,14 @@ import { InterfaceGetGudang } from "../../../domain/repository/MasterData/gudang
 import GudangRepository from "../../../domain/repository/MasterData/gudang/GudangRepository";
 import { InterfacePKBMekanik } from "../../../domain/repository/MasterData/mekanik/interface/InterfacePKBMekanik";
 import MasterDataMekanikRepository from "../../../domain/repository/MasterData/mekanik/MasterDataMekanikRepository";
+import {
+    InterfaceParameterListSparepart
+} from "../../../domain/repository/MasterData/Sparepart/interface/InterfaceParameterListSparepart";
+import MasterDataSparePartRepository
+    from "../../../domain/repository/MasterData/Sparepart/MasterDataSparePartRepository";
+import {
+    InterfaceDetailSparepart
+} from "../../../domain/repository/MasterData/Sparepart/interface/InterfaceDetailSparepart";
 
 
 class SyncMasterController {
@@ -216,6 +224,60 @@ class SyncMasterController {
             if ( resp !== null ) {
                 return ResponseResult.successGet( res, resp )
             }
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : 'Failed Cek Data',
+                data : null
+            } )
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
+        }
+    }
+
+    public getListSparepart = async ( req : Request, res : Response ) : Promise<Response> => {
+        const data : InterfaceParameterListSparepart = req.body;
+        try {
+            const token = await Token.get( req, res );
+            const resp = await MasterDataSparePartRepository.getListSparePart( res, token ?? '', data )
+
+            if ( resp !== null ) {
+                return ResponseResult.successGet( res, resp )
+            }
+
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : 'Failed Cek Data',
+                data : null
+            } )
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
+        }
+    }
+
+    public detailSparepart = async ( req : Request, res : Response ) : Promise<Response> => {
+        const data : InterfaceDetailSparepart = req.body;
+        try {
+            const token = await Token.get( req, res );
+
+            const resp = await MasterDataSparePartRepository.getDetailSparePart( res, token ?? '', data )
+
+            if ( resp !== null ) {
+                return ResponseResult.successGet( res, resp )
+            }
+
+
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,
                 errorCode : '01',
