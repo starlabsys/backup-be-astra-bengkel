@@ -21,6 +21,7 @@ import CustomerRepository from "../../../domain/repository/CustomerRepository/Cu
 import AreaRepository from "../../../domain/repository/MasterData/Area/AreaRepository";
 import MekanikRepository from "../../../domain/repository/Mekanik/MekanikRepository";
 import PitRepository from "../../../domain/repository/PitRepository/PitRepository";
+import { InterfaceProsesPKB } from "../../../domain/repository/PkbRepository/interface/InterfaceProsesPKB";
 
 
 class PkbController {
@@ -777,6 +778,40 @@ class PkbController {
         }
 
 
+    }
+
+    public proses = async ( req : Request, res : Response ) : Promise<Response> => {
+        const data : InterfaceProsesPKB = req.body
+        try {
+
+            const token = await Token.get( req, res )
+            const resp = await PkbRepository.prosesPKB( res, token ?? '', data )
+            if ( resp !== null ) {
+                if ( resp.ack === 1 ) {
+                    return ResponseResult.successPost( res, resp.message )
+                }
+                return ResponseResult.error( res, {
+                    statusCode : EnumResponseCode.BAD_REQUEST,
+                    errorCode : "01",
+                    message : resp.message,
+                    data : null,
+                } )
+            }
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.BAD_REQUEST,
+                errorCode : "01",
+                message : 'Gagal proses PKB',
+                data : null,
+            } )
+
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : "01",
+                message : e.message,
+                data : null,
+            } )
+        }
     }
 }
 
