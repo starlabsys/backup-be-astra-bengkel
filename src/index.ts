@@ -17,6 +17,7 @@ import PitRoutes from './pages/Pit/routes/PitRoutes';
 import PitMekanikRoutes from './pages/PitMekanik/routes/PitMekanikRoutes';
 import MekanikRoutes from './pages/Mekanik/routes/MekanikRoutes';
 import PkbRoutes from './pages/Pkb/routes/PkbRoutes';
+import LaporanRoutes from './pages/Laporan/routes/LaporanRoutes';
 
 
 class App {
@@ -74,6 +75,8 @@ class App {
         // this.app.use( "/api/customer", CustomerRoutes )
         this.app.use( "/api/vendor", VendorRoutes )
         this.app.use( "/api/pkb", PkbRoutes )
+
+        this.app.use( "/api/laporan", LaporanRoutes )
     }
 
 }
