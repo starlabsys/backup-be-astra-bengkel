@@ -7,7 +7,7 @@
 export interface ModelOfPKB {
     listOfPKB: ListOfPKB[];
     pkbID?:      string;
-    totalRow:  number;
+    totalRow?:  number;
     message:   string;
     ack:       number;
 }
