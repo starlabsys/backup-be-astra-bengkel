@@ -21,6 +21,9 @@ import CustomerRepository from "../../../domain/repository/CustomerRepository/Cu
 import AreaRepository from "../../../domain/repository/MasterData/Area/AreaRepository";
 import MekanikRepository from "../../../domain/repository/Mekanik/MekanikRepository";
 import PitRepository from "../../../domain/repository/PitRepository/PitRepository";
+import { InterfaceDataUser } from "../../../utils/GetAllUser/Interface/InterfaceDataUser";
+import GetUser from "../../../utils/GetAllUser/GetUser";
+import { ModelOfPKB } from "../../../domain/models/Pkb/ModelPkb";
 import { InterfaceProsesPKB } from "../../../domain/repository/PkbRepository/interface/InterfaceProsesPKB";
 
 
@@ -29,12 +32,30 @@ class PkbController {
         try {
 
             if ( req.app.locals.credential.role == 'admin' ) {
-                // const data = req.body;
-                // const user_id = req.params.user_id;
 
-                // const token = await Token.getDetail(req,res, user_id);
+                const data : InterfaceGetPkb = req.body;
 
-                // ResponseResult.successGet(res, token)
+                const user : InterfaceDataUser[] = await GetUser.getUser(req, res)
+
+                let arr_data : ModelOfPKB = {
+                    ack : 0,
+                    message : '',
+                    listOfPKB : []
+                }
+
+                for( const element of user){
+                    const resp = await PkbRepository.getData( res, element.token ?? '', data );
+
+                    if (resp !== null) {
+                        if (resp.ack === 1) {
+                            arr_data.listOfPKB.push(...resp.listOfPKB)
+                            arr_data.ack = resp.ack
+                            arr_data.message = resp.message
+                        }
+                    }
+                }
+
+                return ResponseResult.successGet( res, arr_data );
 
             }
             else {
