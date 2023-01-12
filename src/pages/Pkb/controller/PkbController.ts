@@ -78,16 +78,16 @@ class PkbController {
             if ( resp !== null ) {
 
                 // console.log(resp.pkbID)
-                if ( resp.pkbID ) {
-
-                    return ResponseResult.error( res, {
-                        statusCode : EnumResponseCode.BAD_REQUEST,
-                        errorCode : "01",
-                        message : resp.message,
-                        data : null
-                    } )
-
-                }
+                // if ( resp.pkbID ) {
+                //
+                //     return ResponseResult.error( res, {
+                //         statusCode : EnumResponseCode.BAD_REQUEST,
+                //         errorCode : "01",
+                //         message : resp.message,
+                //         data : null
+                //     } )
+                //
+                // }
 
                 if ( resp?.ack === 1 ) {
                     return ResponseResult.successPost( res, resp.message )
