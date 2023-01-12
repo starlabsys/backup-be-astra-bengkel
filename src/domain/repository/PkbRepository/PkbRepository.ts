@@ -5,6 +5,7 @@ import { ModelOfPKB, Convert } from "../../models/Pkb/ModelPkb";
 import { InterfaceStorePkb } from "./interface/InterfaceStorePkb";
 import { InterfaceDetailPkb } from "./interface/InterfaceDetailPkb";
 import { InterfaceProsesPKB } from "./interface/InterfaceProsesPKB";
+import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult";
 // import { InterfaceGetPitMekanik } from "./interface/InterfaceGetPitMekanik";
 // import { ModelPitMekanik,ConvertGetPitMekanik } from "../../models/PitMekanik/ModelPitMekanik";
 // import { InterfaceStorePitMekanik } from "./interface/InterfaceStorePitMekanik";
@@ -46,12 +47,16 @@ class PkbRepository {
         return null;
     }
 
-    public prosesPKB = async ( res : Response, token : string, reqBody : InterfaceProsesPKB ) : Promise<any> => {
+    public prosesPKB = async ( res : Response, token : string, reqBody : InterfaceProsesPKB ) : Promise<ModelResult | null> => {
         const resp = await post( res, {
             url : '/api/Service/PUTAlokasiPekerjaan',
             token : token,
             reqBody : reqBody
         } )
+        if ( resp !== null ) {
+            return ConvertModelResult.toModelResult( resp );
+        }
+        return null;
     }
 }
 
