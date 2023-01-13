@@ -25,6 +25,7 @@ import { InterfaceDataUser } from "../../../utils/GetAllUser/Interface/Interface
 import GetUser from "../../../utils/GetAllUser/GetUser";
 import { ModelOfPKB } from "../../../domain/models/Pkb/ModelPkb";
 import { InterfaceProsesPKB } from "../../../domain/repository/PkbRepository/interface/InterfaceProsesPKB";
+import ModelUsers from "../../../db/models/ModelUsers";
 
 
 class PkbController {
@@ -168,13 +169,41 @@ class PkbController {
     public importPkb = async ( req : Request, res : Response ) => {
         // if (req.app.locals.credential.role === 'admin') {
         const data = req.body;
-        const user_id = req.params.user_id;
+        // const user_id = req.params.user_id;
 
-        const token = await Token.getDetail( req, res, user_id );
+        // const token = await Token.getDetail( req, res, user_id );
 
         // return ResponseResult.successGet(res, token)
         try {
+
+            for ( const element of data) {
+                const respUser = await ModelUsers.findOne({
+                    where :{
+                        username : element.username
+                    }
+                })
+
+                // return ResponseResult.successGet(res, respUser?.id)
+
+                if (!respUser) {
+                    return ResponseResult.error( res, {
+                        statusCode : EnumResponseCode.BAD_REQUEST,
+                        errorCode : "01",
+                        message : "User tidak Ditemukan",
+                        data : null
+                    })
+                }
+
+            }
+
             for ( const element of data ) {
+
+                const respUser = await ModelUsers.findOne({
+                    where :{
+                        username : element.username
+                    }
+                })
+                const token = await Token.getDetail( req, res, respUser?.id );
 
                 const split = element.tanggal.split( " " )
                 const date = split[ 0 ]
