@@ -14,8 +14,15 @@ class LaporanController {
             const data : InterfaceGetLaporan = req.body;
             const resp = await LaporanRepository.getData( res, token ?? '', data );
 
+            // console.log(resp.)
             if ( resp !== null ) {
-                return ResponseResult.successGet( res, resp );
+                return res.status(200).json({
+                    errorCode : "00",
+                    status : true,
+                    message : "Success",
+                    data : Buffer.from(resp).toString('base64')
+                })
+                // return ResponseResult.successGet( res, Buffer.from(resp).toString('base64') );
             }
         }
         catch ( e:any ) {

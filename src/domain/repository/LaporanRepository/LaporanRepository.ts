@@ -6,7 +6,7 @@ import { ModelLaporanOfPkb,Convert } from "../../models/Laporan/ModelLaporan";
 
 
 class LaporanRepository {
-    public getData = async ( res : Response, token : string, reqBody : InterfaceGetLaporan ) : Promise<ModelLaporanOfPkb | null> => {
+    public getData = async ( res : Response, token : string, reqBody : InterfaceGetLaporan ) => {
         const resp = await post( res, {
             url : '/api/ShowForm/ShowReportSummaryPKBMonthly',
             reqBody : reqBody,
