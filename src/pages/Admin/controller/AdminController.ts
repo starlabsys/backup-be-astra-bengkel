@@ -22,6 +22,7 @@ class AdminController {
                     nama_bengkel : admin.nama_bengkel,
                     login_data : admin.login_data,
                     role : admin.role,
+                    status : 'Active',
                     address : ''
                 }
             } );
