@@ -40,6 +40,40 @@ class AdminController {
         }
     }
 
+    public detailAdmin = async ( req : Request, res : Response ) : Promise<Response> => {
+        const { id } = req.params;
+        try {
+            const listAdmin = await ModelUsers.findOne( {
+                where : {
+                    id : id,
+                }
+            } );
+
+            const dataToSend = {
+                id : listAdmin?.id,
+                full_name : listAdmin?.full_name,
+                username : listAdmin?.username,
+                kode_bengkel : listAdmin?.kode_bengkel,
+                nama_bengkel : listAdmin?.nama_bengkel,
+                login_data : listAdmin?.login_data,
+                role : listAdmin?.role,
+                credential : listAdmin?.login_data,
+                status : 'Active',
+                address : ''
+            }
+
+            return ResponseResult.successGet( res, dataToSend );
+
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                errorCode : "01",
+                statusCode : EnumResponseCode.FORBIDDEN,
+                message : e.message,
+                data : null,
+            } );
+        }
+    }
+
     public registerAdmin = async ( req : Request, res : Response ) => {
         const { username, password, fullName, kodeBengkel, namaBengkel, role, loginData } = req.body;
 
@@ -69,13 +103,12 @@ class AdminController {
     }
 
     public editAdmin = async ( req : Request, res : Response ) => {
-        const { username, password, fullName, kodeBengkel, namaBengkel, role, loginData } = req.body;
+        const { username, fullName, kodeBengkel, namaBengkel, role, loginData } = req.body;
         const id = req.params.id;
 
         try {
             await ModelUsers.update( {
                 username : username,
-                password : await Authentication.passwordHash( password ),
                 full_name : fullName,
                 kode_bengkel : kodeBengkel,
                 nama_bengkel : namaBengkel,
@@ -88,6 +121,49 @@ class AdminController {
             } );
 
             return ResponseResult.successPost( res, "Success Updated Data" );
+
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : 500,
+                errorCode : '01',
+                message : e.toString(),
+                data : null
+            } )
+        }
+
+
+    }
+
+    public changePassword = async ( req : Request, res : Response ) => {
+        const { password } = req.body;
+        const id = req.params.id;
+
+        try {
+            const getUser = await ModelUsers.findOne( {
+                where : {
+                    id : id
+                }
+            } );
+
+            const comparePassword = await Authentication.passwordCompare( password, getUser?.password ?? '' );
+
+            if ( comparePassword ) {
+                return ResponseResult.error( res, {
+                    statusCode : EnumResponseCode.BAD_REQUEST,
+                    errorCode : '01',
+                    message : "Password tidak boleh sama dengan password lama",
+                    data : null
+                } )
+            }
+            await ModelUsers.update( {
+                password : await Authentication.passwordHash( password ),
+            }, {
+                where : {
+                    id : id
+                }
+            } );
+
+            return ResponseResult.successPost( res, "Success Updated Password" );
 
         } catch ( e : any ) {
             return ResponseResult.error( res, {
