@@ -169,6 +169,7 @@ class PkbController {
     public importPkb = async ( req : Request, res : Response ) => {
         // if (req.app.locals.credential.role === 'admin') {
         const data = req.body;
+        // return ResponseResult.successPost(res, data)
         // const user_id = req.params.user_id;
 
         // const token = await Token.getDetail( req, res, user_id );
@@ -183,7 +184,9 @@ class PkbController {
                     }
                 })
 
-                // return ResponseResult.successGet(res, respUser?.id)
+                // console.log(respUser)
+
+                // return ResponseResult.successGet(res, respUser)
 
                 if (!respUser) {
                     return ResponseResult.error( res, {
@@ -203,7 +206,9 @@ class PkbController {
                         username : element.username
                     }
                 })
+
                 const token = await Token.getDetail( req, res, respUser?.id );
+                // return ResponseResult.successGet(res, token)
 
                 const split = element.tanggal.split( " " )
                 const date = split[ 0 ]
@@ -403,7 +408,7 @@ class PkbController {
                     action : 0,
                     kodePelanggan : "",
                     alamatPelanggan : "",
-                    namaPelanggan : element.customer,
+                    namaPelanggan : element.pemilik,
                     kotaPelanggan : "",
                     kecamatanPelanggan : "",
                     kelurahanPelanggan : "",
@@ -415,7 +420,7 @@ class PkbController {
                 } )
 
 
-                // return ResponseResult.successGet(res, detailCustomer)
+                // return ResponseResult.successGet(res, checkCustomer)
 
                 if ( checkCustomer?.ack == 1 ) {
                     const detailCustomer = await CustomerRepository.detail( res, token ?? '', {
@@ -431,16 +436,6 @@ class PkbController {
                     // dataStore.title = detailCustomer?.title
                 }
                 else {
-
-                    // let titleStore = ""
-
-                    // if (element.title == "Tuan") {
-                    //     titleStore = "Mr."
-                    // }else if (element.title == "Nyonya") {
-                    //     titleStore = "Mrs."
-                    // }else{
-                    //     titleStore = "Company"
-                    // }
 
                     const getArea = await AreaRepository.getListAreaKalBar( res, token ?? "", {
                         kabupaten : element.kotakabupaten,
@@ -496,9 +491,12 @@ class PkbController {
                         aktif : true,
                         jabatanCustomerID : 0
                     } )
-                    return ResponseResult.successGet( res, postDataCustomer )
+
+                    // return Re
+                    // return ResponseResult.successGet( res, postDataCustomer )
                 }
 
+                // return ResponseResult.successGet( res, dataStore )
                 // console.log(postDataCustomer)
 
 
@@ -507,7 +505,7 @@ class PkbController {
                     action : 0,
                     noPolisi : "",
                     noMesin : element.no_mesin,
-                    namaCustomer : "",
+                    namaCustomer : element.pemilik,
                     noRangka : "",
                     pageNumber : 1,
                     pageSize : 10,
@@ -515,6 +513,8 @@ class PkbController {
                     sortColumn : "ID",
                     sortDirection : 0
                 } )
+
+                // return ResponseResult.successGet( res, checkKendaraan )
 
                 if ( checkKendaraan?.ack == 1 ) {
                     dataStore.refEquipmentID = checkKendaraan?.listofKendaraan[ 0 ].id ?? 0
@@ -548,12 +548,13 @@ class PkbController {
 
                     const checkWarna : any = await checkMasterDataWarna?.listDropDown.filter( ( item : any ) => item.label == element.warna )
 
+                    // return ResponseResult.successGet( res, checkWarna )
 
                     const storeKendaraan = await KendaraanRepository.addKendaraan( res, token ?? '', {
                         action : 0,
                         id : 0,
-                        idPelangan : 12440,
-                        idPelanganSTNK : 12440,
+                        idPelangan : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
+                        idPelanganSTNK : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
                         noPolisi : element.no_polisi,
                         noRangka : element.no_rangka,
                         noMesin : element.no_mesin,
@@ -566,6 +567,7 @@ class PkbController {
 
                     // return ResponseResult.successGet(res, storeKendaraan)
 
+                    // return ResponseResult.successGet( res, element.no_mesin )
                     const checkDataKendaraan = await KendaraanRepository.get( res, token ?? '', {
                         action : 0,
                         noPolisi : "",
@@ -578,6 +580,7 @@ class PkbController {
                         sortColumn : "ID",
                         sortDirection : 0
                     } )
+
 
                     // return ResponseResult.successGet(res, checkDataKendaraan)
                     dataStore.refEquipmentID = checkDataKendaraan?.listofKendaraan[ 0 ].id ?? 1
@@ -723,6 +726,8 @@ class PkbController {
                     namaMekanik : element.final_inspector
                 } )
 
+                // return ResponseResult.successGet( res, getInspector )
+
                 if ( getInspector?.ack == 1 ) {
                     dataStore.serviceAdvisorID = getInspector?.listDropDown[ 0 ].nilai ?? 0
                 }
@@ -762,8 +767,8 @@ class PkbController {
                         statusPIT : 0,
                         listJabatan : [
                             {
-                                "jabatan" : "Service Advisor",
-                                "jabatanID" : 7
+                                "jabatan" : "Mekanik Final Inspector",
+                                "jabatanID" : 12
                             }
                         ],
                         listTrainingLevel : [
@@ -804,10 +809,14 @@ class PkbController {
                         nik : "000000"
                     } )
 
+                    // return ResponseResult.successGet( res, storeSa )
+
                     const getInspector : any = await MekanikRepository.detail( res, token ?? '', {
                         tipe : 24,
                         namaMekanik : element.final_inspector
                     } )
+
+                    // return ResponseResult.successGet( res, getInspector )
 
                     dataStore.finalInspectorID = getInspector?.nilai ?? 0
                 }
@@ -816,8 +825,11 @@ class PkbController {
                 const storePkb = await PkbRepository.storeData( res, token ?? '', dataStore )
 
 
-                return ResponseResult.successGet( res, storePkb )
+                // return ResponseResult.successGet( res, storePkb )
             }
+            return ResponseResult.successGet( res, "Success Import Data PKB" )
+
+
         } catch ( error : any ) {
             return ResponseResult.error( res, {
                 statusCode : EnumResponseCode.FORBIDDEN,
