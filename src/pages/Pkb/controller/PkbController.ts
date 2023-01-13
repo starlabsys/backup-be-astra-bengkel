@@ -207,12 +207,19 @@ class PkbController {
                     }
                 })
 
+                // const token = await Token.getTokenNew( req, res, respUser?.id );
+
+                // console.log(token)
+                // return ResponseResult.successGet(res, token)
                 const token = await Token.getDetail( req, res, respUser?.id );
                 // return ResponseResult.successGet(res, token)
 
                 const split = element.tanggal.split( " " )
+
+                // return ResponseResult.successGet(res, split)
                 const date = split[ 0 ]
-                const tanggal = date.split( "-" )
+                // return ResponseResult.successGet(res, date)
+                const tanggal = date.split( "/" )
                 const fixtanggal = tanggal[ 2 ] + "-" + tanggal[ 1 ] + "-" + tanggal[ 0 ]
 
                 // retur
@@ -277,7 +284,10 @@ class PkbController {
                     }
                 }
 
+                // return ResponseResult.successGet(res, dataStore)
                 // Get Jasa Detail
+
+                // return
 
                 const checkJasa : any = await JasaRepository.getJasa( res, token ?? '', {
                     action : 0,
@@ -505,7 +515,7 @@ class PkbController {
                     action : 0,
                     noPolisi : "",
                     noMesin : element.no_mesin,
-                    namaCustomer : element.pemilik,
+                    namaCustomer : "",
                     noRangka : "",
                     pageNumber : 1,
                     pageSize : 10,
@@ -517,10 +527,15 @@ class PkbController {
                 // return ResponseResult.successGet( res, checkKendaraan )
 
                 if ( checkKendaraan?.ack == 1 ) {
+
                     dataStore.refEquipmentID = checkKendaraan?.listofKendaraan[ 0 ].id ?? 0
                     dataStore.noSTNK = element.no_stnk
+
+                    // return ResponseResult.successGet( res, dataStore )
                 }
                 else {
+
+                    // return ResponseResult.successGet( res, element.no_mesin )
 
                     const checkMasterData = await MasterDropDownRepository.masterDropDown( res, token ?? '', {
                         listDropDown : [
@@ -568,6 +583,8 @@ class PkbController {
                     // return ResponseResult.successGet(res, storeKendaraan)
 
                     // return ResponseResult.successGet( res, element.no_mesin )
+                    // return
+                    // return Repo
                     const checkDataKendaraan = await KendaraanRepository.get( res, token ?? '', {
                         action : 0,
                         noPolisi : "",
@@ -832,7 +849,7 @@ class PkbController {
 
         } catch ( error : any ) {
             return ResponseResult.error( res, {
-                statusCode : EnumResponseCode.FORBIDDEN,
+                statusCode : EnumResponseCode.BAD_REQUEST,
                 errorCode : "01",
                 message : error.message,
                 data : error
