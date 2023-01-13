@@ -207,11 +207,11 @@ class PkbController {
                     }
                 })
 
-                const token = await Token.getTokenNew( req, res, respUser?.id );
+                // const token = await Token.getTokenNew( req, res, respUser?.id );
 
                 // console.log(token)
                 // return ResponseResult.successGet(res, token)
-                // const token = await Token.getDetail( req, res, respUser?.id );
+                const token = await Token.getDetail( req, res, respUser?.id );
                 // return ResponseResult.successGet(res, token)
 
                 const split = element.tanggal.split( " " )
