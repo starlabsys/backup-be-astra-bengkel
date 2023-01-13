@@ -18,6 +18,7 @@ import PitMekanikRoutes from './pages/PitMekanik/routes/PitMekanikRoutes';
 import MekanikRoutes from './pages/Mekanik/routes/MekanikRoutes';
 import PkbRoutes from './pages/Pkb/routes/PkbRoutes';
 import LaporanRoutes from './pages/Laporan/routes/LaporanRoutes';
+import AdminRoute from "./pages/Admin/routes/AdminRoute";
 
 
 class App {
@@ -67,9 +68,9 @@ class App {
         this.app.use( "/api/tipe-kendaraan", TipeKendaraanRoutes )
         this.app.use( "/api/kendaraan", KendaraanRoutes )
         // this.app.use("/api/vendor", VendorRoutes)
-        this.app.use("/api/pit", PitRoutes)
-        this.app.use('/api/pit-mekanik', PitMekanikRoutes)
-        this.app.use("/api/mekanik", MekanikRoutes)
+        this.app.use( "/api/pit", PitRoutes )
+        this.app.use( '/api/pit-mekanik', PitMekanikRoutes )
+        this.app.use( "/api/mekanik", MekanikRoutes )
         // this.app.use( "/api/customer", CustomerRoutes )
         this.app.use( "/api/customer", CustomerRoutes )
         // this.app.use( "/api/customer", CustomerRoutes )
@@ -77,6 +78,7 @@ class App {
         this.app.use( "/api/pkb", PkbRoutes )
 
         this.app.use( "/api/laporan", LaporanRoutes )
+        this.app.use( "/api/admin", AdminRoute )
     }
 
 }
