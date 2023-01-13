@@ -18,6 +18,7 @@ class AdminController {
                 return {
                     id : admin.id,
                     full_name : admin.full_name,
+                    username : admin.username,
                     kode_bengkel : admin.kode_bengkel,
                     nama_bengkel : admin.nama_bengkel,
                     login_data : admin.login_data,
