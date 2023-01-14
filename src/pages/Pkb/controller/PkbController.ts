@@ -844,7 +844,7 @@ class PkbController {
 
                 // return ResponseResult.successGet( res, storePkb )
             }
-            return ResponseResult.successGet( res, "Success Import Data PKB" )
+            return ResponseResult.successPost( res, "Success Import Data PKB" )
 
 
         } catch ( error : any ) {
