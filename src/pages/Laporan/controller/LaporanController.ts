@@ -17,20 +17,19 @@ class LaporanController {
 
             // console.log(resp.)
             if ( resp !== null ) {
-                return res.status(200).json({
+                return res.status( 200 ).json( {
                     errorCode : "00",
                     status : true,
                     message : "Success",
-                    data : Buffer.from(resp).toString('base64')
-                })
+                    data : Buffer.from( resp ).toString( 'base64' )
+                } )
                 // return ResponseResult.successGet( res, Buffer.from(resp).toString('base64') );
             }
-        }
-        catch ( e:any ) {
+        } catch ( e : any ) {
         }
     }
 
-    public getPkb = async ( req : Request, res : Response ) => {
+    public getPkbData = async ( req : Request, res : Response ) => {
         try {
             const token = await Token.get( req, res );
             const data : InterfaceGetLaporanPKB = req.body;
@@ -38,16 +37,29 @@ class LaporanController {
 
             // console.log(resp.)
             if ( resp !== null ) {
-                return res.status(200).json({
-                    errorCode : "00",
-                    status : true,
-                    message : "Success",
-                    data : Buffer.from(resp).toString('base64')
-                })
-                // return ResponseResult.successGet( res, Buffer.from(resp).toString('base64') );
+                // return res.status( 200 ).json( {
+                //     errorCode : "00",
+                //     status : true,
+                //     message : "Success",
+                //     data : Buffer.from( resp ).toString( 'base64' )
+                // } )
+                return ResponseResult.successGet( res, {
+                    excel : Buffer.from( resp ).toString( 'base64' )
+                } );
             }
-        }
-        catch ( e:any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.FORBIDDEN,
+                errorCode : '01',
+                message : 'Data not found',
+                data : null
+            } )
+        } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.INTERNAL_SERVER_ERROR,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            } )
         }
     }
 }
