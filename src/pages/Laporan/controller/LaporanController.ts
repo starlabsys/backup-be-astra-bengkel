@@ -44,7 +44,7 @@ class LaporanController {
                 //     data : Buffer.from( resp ).toString( 'base64' )
                 // } )
                 return ResponseResult.successGet( res, {
-                    excel : Buffer.from( resp ).toString( 'base64' )
+                    data : resp
                 } );
             }
             return ResponseResult.error( res, {
