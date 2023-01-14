@@ -21,11 +21,17 @@ class LaporanController {
                     errorCode : "00",
                     status : true,
                     message : "Success",
-                    data : Buffer.from( resp ).toString( 'base64' )
+                    data : resp
                 } )
                 // return ResponseResult.successGet( res, Buffer.from(resp).toString('base64') );
             }
         } catch ( e : any ) {
+            return ResponseResult.error( res, {
+                statusCode : EnumResponseCode.INTERNAL_SERVER_ERROR,
+                errorCode : '01',
+                message : e.message,
+                data : null
+            })
         }
     }
 
