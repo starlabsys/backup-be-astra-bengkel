@@ -36,7 +36,14 @@ class LaporanController {
             const resp = await LaporanRepository.getPkb( res, token ?? '', data );
 
             // console.log(resp.)
+
             if ( resp !== null ) {
+
+                res.setHeader(
+                    "Content-Disposition",
+                    'attachment; filename=2ad020af-350b-4a94-97eb-ad2ed6fb8301-ReportNotaServices_14012023_14012023.xls'
+                );
+                res.setHeader( "Content-Type", "application/vnd.ms-excel" );
                 // return res.status( 200 ).json( {
                 //     errorCode : "00",
                 //     status : true,
