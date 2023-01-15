@@ -12,8 +12,6 @@ class PkbRoutes extends BaseRoutes {
         this.router.post( '/detail', authAdmin, PkbController.detailPkb )
         this.router.post( '/import', authAll,PkbController.importPkb )
         this.router.post( '/proses-pkb', authAdmin, PkbController.proses )
-        // this.router.post('/detail', authAdmin, PitMekanikController.detailPitMekanik )
-        // this.router.post( '/edit', authAdmin, VendorRepository.editData )
     }
 
 }
