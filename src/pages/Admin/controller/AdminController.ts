@@ -8,11 +8,13 @@ import Authentication from "../../../core/authentication/Authentication";
 class AdminController {
     public listAdmin = async ( req : Request, res : Response ) : Promise<Response> => {
         try {
-            const listAdmin = await ModelUsers.findAll( {
-                where : {
-                    deleted_at : null,
-                }
-            } );
+            // const listAdmin = await ModelUsers.findAll( {
+            //     where : {
+            //         deleted_at : null,
+            //     }
+            // } );
+
+            const listAdmin = await ModelUsers.findAll();
 
             const dataToSend = listAdmin.map( ( admin ) => {
                 return {
@@ -23,7 +25,7 @@ class AdminController {
                     nama_bengkel : admin.nama_bengkel,
                     login_data : admin.login_data,
                     role : admin.role,
-                    status : 'Active',
+                    status : admin.deleted_at === null ? 'Aktif' : 'Tidak Aktif',
                     address : ''
                 }
             } );
