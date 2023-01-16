@@ -992,7 +992,7 @@ class PkbController {
                 const storePkb = await PkbRepository.storeData( res, token ?? '', dataStore )
 
 
-                return ResponseResult.successGet( res, storePkb )
+                // return ResponseResult.successGet( res, storePkb )
             }
             return ResponseResult.successPost( res, "Success Import Data PKB" )
 
