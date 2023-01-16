@@ -524,7 +524,7 @@ class PkbController {
 
                 // return ResponseResult.successGet(res, checkCustomer)
 
-                if ( checkCustomer?.ack == 1 ) {
+                if ( checkCustomer?.ack === 1 ) {
                     // return ResponseResult.successGet(res, "ada")
                     const detailCustomer = await CustomerRepository.detail( res, token ?? '', {
                         action : 1,
@@ -622,19 +622,12 @@ class PkbController {
                         id : Number(idCustomer)
                     } )
 
-                    // return ResponseResult.successGet(res, detailCustomer)
-
-                    // return
-
                     dataStore.namaPembawa = detailCustomer?.namaCustomer
                     dataStore.alamatPembawa = detailCustomer?.alamat
                     dataStore.alamatPembawaSaatIni = detailCustomer?.alamat
                     dataStore.kotaPembawa = detailCustomer?.kabupaten
                     dataStore.handphonePembawa = detailCustomer?.noHp
 
-                    
-
-                    // return ResponseResult.
                 }
 
 
@@ -645,8 +638,8 @@ class PkbController {
                 // Check Kendaraan
                 const checkKendaraan = await KendaraanRepository.get( res, token ?? '', {
                     action : 0,
-                    noPolisi : element.no_polisi,
-                    noMesin : element.no_mesin,
+                    noPolisi : "",
+                    noMesin : "",
                     namaCustomer : "",
                     noRangka : element.no_rangka,
                     pageNumber : 1,
@@ -658,15 +651,15 @@ class PkbController {
 
                 // return ResponseResult.successGet( res, checkKendaraan )
 
-                if ( checkKendaraan?.ack == 1 ) {
-                    // return ResponseResult.successGet(res, "ada")
-                    
-                    dataStore.refEquipmentID = checkKendaraan?.listofKendaraan[ 0 ].id ?? 0
+                if ( checkKendaraan?.ack === 1 || checkKendaraan?.listofKendaraan.length !== 0) {
+                    // return ResponseResult.successGet(res, checkKendaraan?.listofKendaraan[0].id)
+                    dataStore.refEquipmentID = checkKendaraan?.listofKendaraan[ 0 ].id ?? 0,
                     dataStore.noSTNK = element.no_stnk
+                    
                     
                     // return ResponseResult.successGet( res, dataStore )
                 } else {
-                    // return ResponseResult.successGet(res, "tidak ada")
+                    return ResponseResult.successGet(res, "tidak ada")
 
                     // return ResponseResult.successGet( res, element.no_mesin )
                     // return ResponseResult.successGet( res, element.no_mesin )
@@ -723,17 +716,17 @@ class PkbController {
                         isUpdateQR : false
                     } )
 
-                    // return ResponseResult.successGet(res, storeKendaraan)
+                    return ResponseResult.successGet(res, storeKendaraan)
 
                     // return ResponseResult.successGet( res, element.no_mesin )
                     // return
                     // return Repo
                     const checkDataKendaraan = await KendaraanRepository.get( res, token ?? '', {
                         action : 0,
-                        noPolisi : "",
+                        noPolisi : element.no_polisi,
                         noMesin : element.no_mesin,
                         namaCustomer : "",
-                        noRangka : "",
+                        noRangka : element.no_rangka,
                         pageNumber : 1,
                         pageSize : 10,
                         totalRow : 0,
@@ -742,7 +735,7 @@ class PkbController {
                     } )
 
 
-                    // return ResponseResult.successGet(res, checkDataKendaraan)
+                    return ResponseResult.successGet(res, checkDataKendaraan)
                     dataStore.refEquipmentID = checkDataKendaraan?.listofKendaraan[ 0 ].id ?? 1
                     dataStore.noSTNK = element.no_stnk
 
