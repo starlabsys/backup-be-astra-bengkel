@@ -72,6 +72,7 @@ class Token {
             //     return user.token;
             // }
 
+            // return user.login_data
             const checkLogin = await AuthRepository.login( res, {
                 loginData : user.login_data ?? ''
             } )
