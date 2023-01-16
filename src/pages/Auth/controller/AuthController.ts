@@ -59,7 +59,7 @@ class AuthController {
                     return ResponseResult.successGet( res, {
                         token : generateToken,
                         result : {
-                            name : resp.FullName,
+                            name : dataLogin.full_name,
                             kodeBengkel : resp.branchCode,
                             namaBengkel : resp.branchName,
                             role : dataLogin.role ?? '',
