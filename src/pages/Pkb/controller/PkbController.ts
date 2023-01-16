@@ -207,11 +207,11 @@ class PkbController {
                     }
                 })
 
-                // const token = await Token.getTokenNew( req, res, respUser?.id );
+                const token = await Token.getTokenNew( req, res, respUser?.id );
 
                 // console.log(token)
                 // return ResponseResult.successGet(res, token)
-                const token = await Token.getDetail( req, res, respUser?.id );
+                // const token = await Token.getDetail( req, res, respUser?.id );
                 // return ResponseResult.successGet(res, token)
 
                 const split = element.tanggal.split( " " )
@@ -838,11 +838,12 @@ class PkbController {
                     dataStore.finalInspectorID = getInspector?.nilai ?? 0
                 }
 
+                // return ResponseResult.successGet(res, dataStore)
 
                 const storePkb = await PkbRepository.storeData( res, token ?? '', dataStore )
 
 
-                // return ResponseResult.successGet( res, storePkb )
+                return ResponseResult.successGet( res, storePkb )
             }
             return ResponseResult.successPost( res, "Success Import Data PKB" )
 
