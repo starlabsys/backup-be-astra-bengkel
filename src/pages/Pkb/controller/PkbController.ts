@@ -180,7 +180,7 @@ class PkbController {
             for ( const element of data) {
                 const respUser = await ModelUsers.findOne({
                     where :{
-                        username : 'migration18094'
+                        username : element.username
                     }
                 })
 
@@ -203,7 +203,7 @@ class PkbController {
 
                 const respUser = await ModelUsers.findOne({
                     where :{
-                        username : 'migration18094'
+                        username : element.username
                     }
                 })
 
@@ -776,7 +776,8 @@ class PkbController {
                     // return ResponseResult.successGet(res, storePit)
                 }
 
-                // return ResponseResult.successGet(res, getPit)
+                // return ResponseResult.successGet(res, element.service_advisor)
+
 
                 // Check SA
                 const getSa : any = await MekanikRepository.detail( res, token ?? '', {
@@ -784,14 +785,13 @@ class PkbController {
                     namaMekanik : element.service_advisor
                 } )
 
-                // return ResponseResult.successGet(res, getSa)
+                return ResponseResult.successGet(res, getSa)
                 
                 if ( getSa?.ack == 1 ) {
                     dataStore.serviceAdvisorID = getSa?.listDropDown[ 0 ].nilai ?? 0
 
                     // return ResponseResult.successGet(res, dataStore.serviceAdvisorID)
-                }
-                else {
+                } else {
                     // return ResponseResult.successGet(res, 'gaada')
 
                     const storeSa = await MekanikRepository.storeData( res, token ?? '', {
