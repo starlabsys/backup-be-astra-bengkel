@@ -84,7 +84,7 @@ const fetchData = async ( res : Response, config : AxiosRequestConfig ) : Promis
                 message : data.message,
                 statusCode : EnumResponseCode.BAD_REQUEST,
                 errorCode : EnumResponsePsshsoapi.errorPsshsoapiBadRequest,
-                data : data.data
+                data : data.data ?? data
             } );
         }
         if ( error.response?.status === 401 ) {
