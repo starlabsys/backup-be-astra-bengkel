@@ -723,7 +723,7 @@ class PkbController {
                         isUpdateQR : false
                     } )
 
-                    return ResponseResult.successGet(res, storeKendaraan)
+                    // return ResponseResult.successGet(res, storeKendaraan)
 
                     // return ResponseResult.successGet( res, element.no_mesin )
                     // return
@@ -785,7 +785,7 @@ class PkbController {
                     namaMekanik : element.service_advisor
                 } )
 
-                return ResponseResult.successGet(res, getSa)
+                // return ResponseResult.successGet(res, getSa)
                 
                 if ( getSa?.ack == 1 ) {
                     dataStore.serviceAdvisorID = getSa?.listDropDown[ 0 ].nilai ?? 0
