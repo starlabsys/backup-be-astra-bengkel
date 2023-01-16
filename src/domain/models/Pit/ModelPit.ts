@@ -8,6 +8,7 @@ export interface ModelPit {
     listOfPIT: ListOfPIT[];
     message:   string;
     ack:       number;
+    pitID? : number;
 }
 
 export interface ListOfPIT {

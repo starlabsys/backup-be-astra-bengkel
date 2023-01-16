@@ -180,7 +180,7 @@ class PkbController {
             for ( const element of data) {
                 const respUser = await ModelUsers.findOne({
                     where :{
-                        username : element.username
+                        username : 'migration18094'
                     }
                 })
 
@@ -203,7 +203,7 @@ class PkbController {
 
                 const respUser = await ModelUsers.findOne({
                     where :{
-                        username : element.username
+                        username : 'migration18094'
                     }
                 })
 
@@ -222,7 +222,7 @@ class PkbController {
                 const tanggal = date.split( "/" )
                 const fixtanggal = tanggal[ 2 ] + "-" + tanggal[ 1 ] + "-" + tanggal[ 0 ]
 
-                // retur
+                // return ResponseResult.successGet(res, fixtanggal)
                 const dataStore : any = {
                     action : 0,
                     idPKB : 0,
@@ -284,6 +284,98 @@ class PkbController {
                     }
                 }
 
+    //             const dataStore : any = {
+    //     "action": 0,
+    //     "idPKB": 0,
+    //     "pkbNo": "",
+    //     "refEquipmentID": 13626,
+    //     "statusPKB": 0,
+    //     "tipePKB": 1,
+    //     "noAntrian": "",
+    //     "kmSekarang": 56000,
+    //     "kmBerikutnya": 58000,
+    //     "namaPembawa": "mauraaaa",
+    //     "alamatPembawa": "jl danau sentaraum",
+    //     "alamatPembawaSaatIni": "jl danau sentaraum",
+    //     "kotaPembawa": "KOTA PONTIANAK",
+    //     "handphonePembawa": "081312341234",
+    //     "hubunganDgPemilikID": 7,
+    //     "alasanIngatServiceID": 4,
+    //     "dealerSendiri": true,
+    //     "keluhan": "-",
+    //     "gejala" : "Gejala",
+    //     "pergantianPart": "false",
+    //     "partBekasDibawaKonsumen": false,
+    //     "refMechanicID": "5",
+    //     "serviceAdvisorID": "1",
+    //     "finalInspectorID": "1",
+    //     "jamMasuk": "2022-12-31T11:35:19+07:00",
+    //     "jamProses": "",
+    //     "jamSelesai": "",
+    //     "uangMuka": 0,
+    //     "idGudang": 0,
+    //     "idPit": 0,
+    //     "listOfPekerjaan": [
+    //         {
+    //             "guid": "5fd4da87",
+    //             "pkbID": 0,
+    //             "pkbPekerjaanID": 0,
+    //             "itemNo": 10,
+    //             "refJobID": 240,
+    //             "nilaiDiskon": 0,
+    //             "nilaiDiskonJasa": 0,
+    //             "persentaseDiskon": 0,
+    //             "persentaseDiskonJasa": 0,
+    //             "totalJasa": 98000,
+    //             "pajakJasa": 0,
+    //             "hargaPekerjaan": 98000,
+    //             "namaPekerjaan": "OctoberFest - Special Matic",
+    //             "isOPL": false,
+    //             "labelisOPL": "Tidak",
+    //             "listOfMaterial": [],
+    //             "listOfMaterialHotline": [],
+    //             "kodeJasa": "OFSMT0001 - OctoberFest - Special Matic (98000)",
+    //             "idJasa": 240,
+    //             "isShowDelete": true,
+    //             "isEditable": true,
+    //             "isFreeService": false,
+    //             "markUpJasa": 0,
+    //             "vendorID": "",
+    //             "flatRate": 45,
+    //             "noClaimC2": "",
+    //             "noBuku": "",
+    //             "isAdditionalPekerjaan": 0
+    //         }
+    //     ],
+    //     "listOfMaterialHotline": [],
+    //     "tanggal": "2022-12-31T11:35:19+07:00",
+    //     "latitude": "",
+    //     "longitude": "",
+    //     "noSTNK": "56123161",
+    //     "indikatorBensin": 0,
+    //     "svPKBReturnID": 0,
+    //     "kodeAntrian": "R",
+    //     "tipeAntrian": "R",
+    //     "activityCapacity": 3,
+    //     "kecamatanPembawa": "",
+    //     "pkbRemove": {
+    //         "listRemovePekerjaan": [],
+    //         "listRemoveMaterial": []
+    //     },
+    //     "tipeComingCustomer": "Milik",
+    //     "isEngineNo": false,
+    //     "isFrameNo": false,
+    //     "isPKBHotline": false,
+    //     "jamEstimasiSelesai": "2022-12-31T02:00:00+07:00",
+    //     "jamKedatanganCustomer": "2022-12-31T02:00:00+07:00",
+    //     "noClaimC2": "",
+    //     "noBuku": "",
+    //     "DataMotorkuX": {
+    //         "VoucherType": 0,
+    //         "VoucherValue": 0
+    //     }
+    // }
+
                 // return ResponseResult.successGet(res, dataStore)
                 // Get Jasa Detail
 
@@ -303,6 +395,7 @@ class PkbController {
                 // return ResponseResult.successGet(res, checkJasa)
 
                 if ( checkJasa.ack === 1 ) {
+                    // return ResponseResult.successGet(res, "11")
                     // return ResponseResult.successGet(res, "satu")
                     const dataJasa : any = {
                         guid : "5fd4da87",
@@ -338,8 +431,7 @@ class PkbController {
                     dataStore.listOfPekerjaan = [ dataJasa ]
 
                     // return ResponseResult.successGet(res, dataJasa)
-                }
-                else {
+                } else {
                     // return ResponseResult.successGet(res, "nol")
 
                     const respPost : any = await JasaRepository.putJasa( res, token ?? '', {
@@ -418,7 +510,7 @@ class PkbController {
                     action : 0,
                     kodePelanggan : "",
                     alamatPelanggan : "",
-                    namaPelanggan : element.pemilik,
+                    namaPelanggan : element.customer,
                     kotaPelanggan : "",
                     kecamatanPelanggan : "",
                     kelurahanPelanggan : "",
@@ -433,11 +525,13 @@ class PkbController {
                 // return ResponseResult.successGet(res, checkCustomer)
 
                 if ( checkCustomer?.ack == 1 ) {
+                    // return ResponseResult.successGet(res, "ada")
                     const detailCustomer = await CustomerRepository.detail( res, token ?? '', {
                         action : 1,
                         id : checkCustomer?.listPelanggan[ 0 ].id ?? 1
                     } )
 
+                    // return ResponseResult.successGet(res, detailCustomer)
                     dataStore.namaPembawa = detailCustomer?.namaCustomer
                     dataStore.alamatPembawa = detailCustomer?.alamat
                     dataStore.alamatPembawaSaatIni = detailCustomer?.alamat
@@ -447,6 +541,7 @@ class PkbController {
                 }
                 else {
 
+                    // return ResponseResult.successGet(res, element.pemilik)
                     const getArea = await AreaRepository.getListAreaKalBar( res, token ?? "", {
                         kabupaten : element.kotakabupaten,
                         kecamatan : element.kecamatan,
@@ -462,7 +557,7 @@ class PkbController {
                         isUpdateQR : false,
                         kodeCustomer : "",
                         title : 'Mr.',
-                        namaCustomer : element.nama,
+                        namaCustomer : element.customer,
                         noktp : element.no_ktp,
                         noPassport : "",
                         alamat : element.alamat,
@@ -502,9 +597,46 @@ class PkbController {
                         jabatanCustomerID : 0
                     } )
 
-                    // return Re
-                    // return ResponseResult.successGet( res, postDataCustomer )
+                    // return ResponseResult.successGet(res, postDataCustomer)
+
+                    // const checkCustomer1 = await CustomerRepository.get( res, token ?? '', {
+                    //     action : 0,
+                    //     kodePelanggan : postDataCustomer?.customerID,
+                    //     alamatPelanggan : "",
+                    //     namaPelanggan : element.pemilik,
+                    //     kotaPelanggan : "",
+                    //     kecamatanPelanggan : "",
+                    //     kelurahanPelanggan : "",
+                    //     pageNumber : 1,
+                    //     pageSize : 10,
+                    //     totalRow : 100,
+                    //     sortColumn : "ID",
+                    //     sortDirection : 0
+                    // } )
+                    const idCustomer = postDataCustomer?.customerID
+
+                    // return ResponseResult.successGet(res, checkCustomer1)
+
+                    const detailCustomer = await CustomerRepository.detail( res, token ?? '', {
+                        action : 1,
+                        id : Number(idCustomer)
+                    } )
+
+                    // return ResponseResult.successGet(res, detailCustomer)
+
+                    // return
+
+                    dataStore.namaPembawa = detailCustomer?.namaCustomer
+                    dataStore.alamatPembawa = detailCustomer?.alamat
+                    dataStore.alamatPembawaSaatIni = detailCustomer?.alamat
+                    dataStore.kotaPembawa = detailCustomer?.kabupaten
+                    dataStore.handphonePembawa = detailCustomer?.noHp
+
+                    
+
+                    // return ResponseResult.
                 }
+
 
                 // return ResponseResult.successGet( res, dataStore )
                 // console.log(postDataCustomer)
@@ -513,10 +645,10 @@ class PkbController {
                 // Check Kendaraan
                 const checkKendaraan = await KendaraanRepository.get( res, token ?? '', {
                     action : 0,
-                    noPolisi : "",
+                    noPolisi : element.no_polisi,
                     noMesin : element.no_mesin,
                     namaCustomer : "",
-                    noRangka : "",
+                    noRangka : element.no_rangka,
                     pageNumber : 1,
                     pageSize : 10,
                     totalRow : 0,
@@ -527,14 +659,16 @@ class PkbController {
                 // return ResponseResult.successGet( res, checkKendaraan )
 
                 if ( checkKendaraan?.ack == 1 ) {
-
+                    // return ResponseResult.successGet(res, "ada")
+                    
                     dataStore.refEquipmentID = checkKendaraan?.listofKendaraan[ 0 ].id ?? 0
                     dataStore.noSTNK = element.no_stnk
-
+                    
                     // return ResponseResult.successGet( res, dataStore )
-                }
-                else {
+                } else {
+                    // return ResponseResult.successGet(res, "tidak ada")
 
+                    // return ResponseResult.successGet( res, element.no_mesin )
                     // return ResponseResult.successGet( res, element.no_mesin )
 
                     const checkMasterData = await MasterDropDownRepository.masterDropDown( res, token ?? '', {
@@ -547,8 +681,13 @@ class PkbController {
                         ],
                         action : 1
                     } )
+                    
+
+                    // return ResponseResult.successGet( res, checkMasterData )
 
                     const checkMaster : any = await checkMasterData?.listDropDown.filter( ( item : any ) => item.label == element.nama_tipe_kendaraan )
+
+                    // return ResponseResult.successGet( res, checkMaster )
 
                     const checkMasterDataWarna = await MasterDropDownRepository.masterDropDown( res, token ?? '', {
                         listDropDown : [
@@ -560,6 +699,10 @@ class PkbController {
                         ],
                         action : 1
                     } )
+
+                    // return ResponseResult.successGet( res, checkMasterDataWarna )
+
+                    
 
                     const checkWarna : any = await checkMasterDataWarna?.listDropDown.filter( ( item : any ) => item.label == element.warna )
 
@@ -580,7 +723,7 @@ class PkbController {
                         isUpdateQR : false
                     } )
 
-                    // return ResponseResult.successGet(res, storeKendaraan)
+                    return ResponseResult.successGet(res, storeKendaraan)
 
                     // return ResponseResult.successGet( res, element.no_mesin )
                     // return
@@ -612,31 +755,28 @@ class PkbController {
                     tipePIT : element.tipe_antrian
                 } )
 
+                // return ResponseResult.successGet(res, getPit)
+
                 if ( getPit?.ack === 1 ) {
                     // dataStore.
-                }
-                else {
+                    // return ResponseResult.successGet(res, "ada")
+                    dataStore.idPit = getPit?.listOfPIT[ 0 ].id ?? 0
+                } else {
+                    // return ResponseResult.successGet(res, "PIT"+Math.floor(Math.random() * 100).toString())
                     const storePit = await PitRepository.storeData( res, token ?? '', {
-                        action : 0,
-                        id : 0,
-                        kodePIT : "",
-                        tipePIT : element.tipe_antrian,
-                        aktif : true
+                        action: 0,
+                        id: 0,
+                        kodePIT: element.tipe_antrian.toUpperCase()+Math.floor(Math.random() * 100).toString(),
+                        tipePIT: element.tipe_antrian.toUpperCase(),
+                        aktif: true
                     } )
-                }
 
+
+                    dataStore.idPit = storePit?.pitID ?? 0
+                    // return ResponseResult.successGet(res, storePit)
+                }
 
                 // return ResponseResult.successGet(res, getPit)
-                // Check Mekanik
-
-
-                // const getMekanik : any = await MekanikRepository.detail(res, token ?? '', {
-                //     "tipe": 13,
-                //     "namaMekanik": ""
-                // })
-
-                // const checkMekanik = await getMekanik?.listOfMekanik.filter((item : any) => item.namaMekanik ==
-                // element.nama_mekanik)
 
                 // Check SA
                 const getSa : any = await MekanikRepository.detail( res, token ?? '', {
@@ -645,10 +785,15 @@ class PkbController {
                 } )
 
                 // return ResponseResult.successGet(res, getSa)
+                
                 if ( getSa?.ack == 1 ) {
                     dataStore.serviceAdvisorID = getSa?.listDropDown[ 0 ].nilai ?? 0
+
+                    // return ResponseResult.successGet(res, dataStore.serviceAdvisorID)
                 }
                 else {
+                    // return ResponseResult.successGet(res, 'gaada')
+
                     const storeSa = await MekanikRepository.storeData( res, token ?? '', {
                         action : 0,
                         id : 0,
@@ -726,12 +871,16 @@ class PkbController {
                         nik : "000000"
                     } )
 
+                    // return ResponseResult.successGet(res, storeSa)
+
                     // return ResponseResult.successPost()
 
                     const getSa : any = await MekanikRepository.detail( res, token ?? '', {
                         tipe : 24,
                         namaMekanik : element.service_advisor
                     } )
+
+                    // return ResponseResult.successGet( res, getSa )
 
                     dataStore.serviceAdvisorID = getSa?.listDropDown[ 0 ].nilai ?? 0
                 }
