@@ -287,6 +287,99 @@ class PkbController {
                     }
                 }
 
+                //  Datastore by StorePKB
+                // let dataStore :any = {
+                //     "action": 0,
+                //     "idPKB": 0,
+                //     "pkbNo": "",
+                //     "refEquipmentID": 13626,
+                //     "statusPKB": 0,
+                //     "tipePKB": 1,
+                //     "noAntrian": "",
+                //     "kmSekarang": 56000,
+                //     "kmBerikutnya": 58000,
+                //     "namaPembawa": "mauraaaa",
+                //     "alamatPembawa": "jl danau sentaraum",
+                //     "alamatPembawaSaatIni": "jl danau sentaraum",
+                //     "kotaPembawa": "KOTA PONTIANAK",
+                //     "handphonePembawa": "081312341234",
+                //     "hubunganDgPemilikID": 7,
+                //     "alasanIngatServiceID": 4,
+                //     "dealerSendiri": true,
+                //     "keluhan": "-",
+                //     "gejala" : "Gejala",
+                //     "pergantianPart": "false",
+                //     "partBekasDibawaKonsumen": false,
+                //     "refMechanicID": "5",
+                //     "serviceAdvisorID": "1",
+                //     "finalInspectorID": "1",
+                //     "jamMasuk": "2022-12-31T11:35:19+07:00",
+                //     "jamProses": "",
+                //     "jamSelesai": "",
+                //     "uangMuka": 0,
+                //     "idGudang": 0,
+                //     "idPit": 0,
+                //     "listOfPekerjaan": [
+                //         {
+                //             "guid": "5fd4da87",
+                //             "pkbID": 0,
+                //             "pkbPekerjaanID": 0,
+                //             "itemNo": 10,
+                //             "refJobID": 240,
+                //             "nilaiDiskon": 0,
+                //             "nilaiDiskonJasa": 0,
+                //             "persentaseDiskon": 0,
+                //             "persentaseDiskonJasa": 0,
+                //             "totalJasa": 98000,
+                //             "pajakJasa": 0,
+                //             "hargaPekerjaan": 98000,
+                //             "namaPekerjaan": "OctoberFest - Special Matic",
+                //             "isOPL": false,
+                //             "labelisOPL": "Tidak",
+                //             "listOfMaterial": [],
+                //             "listOfMaterialHotline": [],
+                //             "kodeJasa": "OFSMT0001 - OctoberFest - Special Matic (98000)",
+                //             "idJasa": 240,
+                //             "isShowDelete": true,
+                //             "isEditable": true,
+                //             "isFreeService": false,
+                //             "markUpJasa": 0,
+                //             "vendorID": "",
+                //             "flatRate": 45,
+                //             "noClaimC2": "",
+                //             "noBuku": "",
+                //             "isAdditionalPekerjaan": 0
+                //         }
+                //     ],
+                //     "listOfMaterialHotline": [],
+                //     "tanggal": "2022-12-31T11:35:19+07:00",
+                //     "latitude": "",
+                //     "longitude": "",
+                //     "noSTNK": "56123161",
+                //     "indikatorBensin": 0,
+                //     "svPKBReturnID": 0,
+                //     "kodeAntrian": "R",
+                //     "tipeAntrian": "R",
+                //     "activityCapacity": 3,
+                //     "kecamatanPembawa": "",
+                //     "pkbRemove": {
+                //         "listRemovePekerjaan": [],
+                //         "listRemoveMaterial": []
+                //     },
+                //     "tipeComingCustomer": "Milik",
+                //     "isEngineNo": false,
+                //     "isFrameNo": false,
+                //     "isPKBHotline": false,
+                //     "jamEstimasiSelesai": "2022-12-31T02:00:00+07:00",
+                //     "jamKedatanganCustomer": "2022-12-31T02:00:00+07:00",
+                //     "noClaimC2": "",
+                //     "noBuku": "",
+                //     "DataMotorkuX": {
+                //         "VoucherType": 0,
+                //         "VoucherValue": 0
+                //     }
+                // }
+
     //             const dataStore : any = {
     //     "action": 0,
     //     "idPKB": 0,
@@ -635,23 +728,60 @@ class PkbController {
 
 
                 // return ResponseResult.successGet( res, dataStore )
+
+                const checkKendaraan = await KendaraanRepository.get( res, token ?? '', {
+                    action : 0,
+                    noPolisi : element.no_polisi,
+                    noMesin : element.no_mesin,
+                    namaCustomer : "",
+                    noRangka : element.no_rangka,
+                    pageNumber : 1,
+                    pageSize : 10,
+                    totalRow : 0,
+                    sortColumn : "ID",
+                    sortDirection : 0
+                } )
+
+                // return ResponseResult.successGet( res, checkKendaraan )
+
+                if (checkKendaraan?.ack === 1) {
+                    const responseKendaraan = await GetData.getKendaraan( req, res,  {
+                        token : token ?? '',
+                        no_polisi : element.no_polisi,
+                        no_mesin : element.no_mesin,
+                        warna : element.warna,
+                        no_rangka : element.no_rangka,
+                        nama_tipe_kendaraan : element.nama_tipe_kendaraan,
+                        idPelangan : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
+                        idPelanganSTNK : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
+                        tahunRakit : element.tahun_rakit,
+                    })
+                    console.log("ada")
+
+                    dataStore.refEquipmentID = responseKendaraan
+                    dataStore.noSTNK = element.no_stnk
+                }else{
+                    console.log("tidak ada")
+                    const responseKendaraan = await GetData.getKendaraanStore( req, res,  {
+                        token : token ?? '',
+                        no_polisi : element.no_polisi,
+                        no_mesin : element.no_mesin,
+                        warna : element.warna,
+                        no_rangka : element.no_rangka,
+                        nama_tipe_kendaraan : element.nama_tipe_kendaraan,
+                        idPelangan : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
+                        idPelanganSTNK : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
+                        tahunRakit : element.tahun_rakit,
+                    })
+                    dataStore.refEquipmentID = responseKendaraan
+                    dataStore.noSTNK = element.no_stnk
+                }
                 // console.log(postDataCustomer)
 
-                const responseKendaraan = await GetData.getKendaraan( req, res,  {
-                    token : token ?? '',
-                    no_polisi : element.no_polisi,
-                    no_mesin : element.no_mesin,
-                    no_rangka : element.no_rangka,
-                    idPelanggan : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
-                    idPelangganSTNK : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
-                    tahunRakit : element.tahun_rakit,
-                })
+                // return ResponseResult.successGet( res, checkKendaraan )
 
-                // return ResponseResult.successGet( res, "responseKendaraan" )
 
-                dataStore.refEquipmentID = responseKendaraan
-                dataStore.noSTNK = element.no_stnk
-
+                // return ResponseResult.successGet( res, dataStore )
                 // Check Kendaraan
                 // const checkKendaraan = await KendaraanRepository.get( res, token ?? '', {
                 //     action : 0,
