@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ModelUsers from "../db/models/ModelUsers";
 import AuthRepository from "../domain/repository/AuthRepository/AuthRepository";
+import ResponseResult from "../core/response/ResponseResult";
 
 
 class Token {
@@ -67,17 +68,30 @@ class Token {
             }
         } );
 
+        // return ResponseResult.successGet(res, user)
+
         if ( user !== null ) {
             // if ( user?.token !== null ) {
             //     return user.token;
             // }
 
-            // return user.login_data
+            // return ResponseResult.successGet(res, user)
             const checkLogin = await AuthRepository.login( res, {
                 loginData : user.login_data ?? ''
             } )
 
+            // return ResponseResult.successGet(res, checkLogin)
+
             if ( checkLogin !== null ) {
+                
+                await ModelUsers.update({
+                    token : checkLogin.access_token
+                },{
+                    where : {
+                        id : id
+                    }
+                })
+
                 return checkLogin.access_token;
             }
 
