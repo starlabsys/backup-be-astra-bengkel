@@ -189,6 +189,7 @@ class PkbController {
 
                 // console.log(respUser)
 
+
                 // return ResponseResult.successGet(res, respUser)
 
                 if (!respUser) {
@@ -209,6 +210,8 @@ class PkbController {
                         username : element.username
                     }
                 })
+
+                // return ResponseResult.successGet(res, respUser?.id)
 
                 const token = await Token.getTokenNew( req, res, respUser?.id );
 
@@ -537,7 +540,7 @@ class PkbController {
                         namaJasa : "Jasa " + element.kode_jasa,
                         grupJasa : "7",
                         subGrup : "",
-                        hargaJual : element.hargaJual ?? 0,
+                        hargaJual : element.hargaJual ?? 100000,
                         pajakJual : 0,
                         oumKerja : 1,
                         catatan : "",
@@ -567,7 +570,7 @@ class PkbController {
 
 
                     const dataJasa : any = {
-                        guid : "5fd4da87",
+                        guid : "",
                         pkbID : 0,
                         pkbPekerjaanID : 0,
                         itemNo : 10,
@@ -745,6 +748,7 @@ class PkbController {
                 // return ResponseResult.successGet( res, checkKendaraan )
 
                 if (checkKendaraan?.ack === 1) {
+                    // return ResponseResult.successGet( res, "ada" )
                     const responseKendaraan = await GetData.getKendaraan( req, res,  {
                         token : token ?? '',
                         no_polisi : element.no_polisi,
@@ -762,6 +766,8 @@ class PkbController {
                     dataStore.noSTNK = element.no_stnk
                 }else{
                     console.log("tidak ada")
+                    // return ResponseResult.successGet( res, "tidak ada" )
+
                     const responseKendaraan = await GetData.getKendaraanStore( req, res,  {
                         token : token ?? '',
                         no_polisi : element.no_polisi,
@@ -1129,7 +1135,7 @@ class PkbController {
 
                     // return ResponseResult.successGet( res, getInspector )
 
-                    dataStore.finalInspectorID = getInspector?.nilai ?? 0
+                    dataStore.finalInspectorID = getInspector?.listDropDown.nilai ?? 0
                 }
 
                 // return ResponseResult.successGet(res, dataStore)

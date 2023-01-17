@@ -111,6 +111,10 @@ class GetData {
 
             // return ResponseResult.successGet(res, storeKendaraan)
 
+            if (storeKendaraan?.ack === 0) {
+                return "Gagal"
+            }
+
             // return ResponseResult.successGet( res, element.no_mesin )
             // return
             // return Repo
