@@ -785,6 +785,7 @@ class PkbController {
                         idPelanganSTNK : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
                         tahunRakit : element.tahun_rakit,
                     })
+
                     dataStore.refEquipmentID = responseKendaraan
                     dataStore.noSTNK = element.no_stnk
                 }
@@ -1051,10 +1052,12 @@ class PkbController {
 
                 // return ResponseResult.successGet( res, getInspector )
 
-                if ( getInspector?.ack == 1 ) {
+                if ( getInspector?.ack === 1 ) {
+                    // return ResponseResult.successGet( res, "ada" )
                     dataStore.serviceAdvisorID = getInspector?.listDropDown[ 0 ].nilai ?? 0
                 }
                 else {
+                    // return ResponseResult.successGet( res, "Tidak ada" )
                     const storeSa = await MekanikRepository.storeData( res, token ?? '', {
                         action : 0,
                         id : 0,
@@ -1141,7 +1144,7 @@ class PkbController {
 
                     // return ResponseResult.successGet( res, getInspector )
 
-                    dataStore.finalInspectorID = getInspector?.listDropDown.nilai ?? 0
+                    dataStore.finalInspectorID = getInspector?.listDropDown[0].nilai ?? 0
                 }
 
                 // return ResponseResult.successGet(res, dataStore)

@@ -34,6 +34,8 @@ class GetData {
     public getKendaraanStore = async (req : Request, res : Response, element: any) => {
             console.log( "Tidak Adata")
 
+            // return ResponseResult.successGet( res, "Tidak Adata" )
+
             // return ResponseResult.successGet( res, element.no_rangka )
             // const checkKendaraanx = await KendaraanRepository.get( res, element.token ?? '', {
             //         action : 0,
@@ -111,9 +113,9 @@ class GetData {
 
             // return ResponseResult.successGet(res, storeKendaraan)
 
-            if (storeKendaraan?.ack === 0) {
-                return "Gagal"
-            }
+            // if (storeKendaraan?.ack === 0) {
+            //     return "Gagal"
+            // }
 
             // return ResponseResult.successGet( res, element.no_mesin )
             // return
@@ -131,7 +133,7 @@ class GetData {
                 sortDirection : 0
             } )
 
-            // return ResponseResult.successGet( res, checkDataKendaraan )
+            // return ResponseResult.successGet( res, checkDataKendaraanu )
 
             return checkDataKendaraanu?.listofKendaraan[ 0 ].id ?? 1
         
