@@ -49,7 +49,7 @@ class PkbController {
 
                 for( const element of user){
 
-                    if (element.token !== '') {
+                    if (element.token !== '' || element.token !== null || element.token !== undefined) {
                         const resp = await PkbRepository.getData( res, element.token ?? '', data );
     
                         if (resp !== null) {
