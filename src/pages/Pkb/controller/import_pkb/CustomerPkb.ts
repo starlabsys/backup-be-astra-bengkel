@@ -14,8 +14,10 @@ class CustomerPkb {
     public createCustomer = async ( props : ModelParamPkb ) => {
         try {
             const getArea = await GetAreaPkb.getArea( props );
+
             if ( getArea.message === EnumErrorImportPKB.success ) {
                 const area : ModelGetAreaPkb = getArea.data as ModelGetAreaPkb
+
                 const createCustomer = await CustomerRepository.add( props.res, props.token, {
                     action : 0,
                     id : 0,
@@ -61,11 +63,14 @@ class CustomerPkb {
                     aktif : true,
                     jabatanCustomerID : 0
                 } )
+
             }
+
             return ResponseImportPkb( {
                 status : EnumErrorImportPKB.error,
                 error : "Area Tidak Ditemukan"
             } )
+
         } catch ( e : any ) {
             return ResponseImportPkb( {
                 status : EnumErrorImportPKB.error,
@@ -73,6 +78,8 @@ class CustomerPkb {
             } )
         }
     }
+
+
     public checkCustomer = async ( props : ModelParamPkb ) : Promise<ModelResultImportPkb> => {
         if ( props.token === '' ) {
             return ResponseImportPkb( {
@@ -102,10 +109,20 @@ class CustomerPkb {
                         action : 0,
                         id : checkDatCustomer.listPelanggan[ 0 ].id
                     } )
+
+                    if ( detailCustomer !== null ) {
+                        
+                        return ResponseImportPkb( {
+                            status : EnumErrorImportPKB.success,
+                            data : detailCustomer
+                        } )
+                        
+                    }
                 }
                 else {
                     //create customer
-                    await this.createCustomer( props )
+                    // await this.createCustomer( props )
+                    
                 }
             }
             return ResponseImportPkb( {

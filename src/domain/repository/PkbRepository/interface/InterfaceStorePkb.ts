@@ -3,7 +3,7 @@ export interface InterfaceStorePkb {
     idPKB: number,
     pkbNo?: string,
     noPKB: string,
-    tanggalSampai: Date, 
+    tanggalSampai: string, 
     statusPencarianPKB: any, 
     noPolisi: string,
     pageNumber: number,
@@ -41,7 +41,7 @@ export interface InterfaceStorePkb {
     idPit: number,
     listOfPekerjaan: any,
     listOfMaterialHotline: any,
-    tanggal: Date,
+    tanggal: string,
     latitude?: string,
     longitude?: string,
     noSTNK: string,
@@ -61,4 +61,5 @@ export interface InterfaceStorePkb {
     noClaimC2: string,
     noBuku: string,
     DataMotorkuX: any
+    token?: string,
 }
