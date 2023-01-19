@@ -737,15 +737,22 @@ class PkbController {
 
                 }
 
-
-                // return ResponseResult.successGet( res, dataStore )
-
+                // action : 0,
+                //     noPolisi : "",//element.no_polisi
+                //     noMesin : element.no_mesin,
+                //     namaCustomer : "",
+                //     noRangka : "",//element.no_rangka
+                //     pageNumber : 1,
+                //     pageSize : 10,
+                //     totalRow : 0,
+                //     sortColumn : "ID",
+                //     sortDirection : 0
                 const checkKendaraan = await KendaraanRepository.get( res, token ?? '', {
                     action : 0,
-                    noPolisi : "",//element.no_polisi
+                    noPolisi : "",
                     noMesin : element.no_mesin,
                     namaCustomer : "",
-                    noRangka : "",//element.no_rangka
+                    noRangka : "",
                     pageNumber : 1,
                     pageSize : 10,
                     totalRow : 0,
