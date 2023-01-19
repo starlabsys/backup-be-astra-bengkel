@@ -1,4 +1,4 @@
 export interface InterfaceDetailMekanik {
-  tipe: number,
-  namaMekanik: ""
+    tipe : number,
+    namaMekanik : string
 }
