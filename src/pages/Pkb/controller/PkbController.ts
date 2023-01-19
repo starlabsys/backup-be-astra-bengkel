@@ -742,10 +742,10 @@ class PkbController {
 
                 const checkKendaraan = await KendaraanRepository.get( res, token ?? '', {
                     action : 0,
-                    noPolisi : element.no_polisi,
+                    noPolisi : "",//element.no_polisi
                     noMesin : element.no_mesin,
                     namaCustomer : "",
-                    noRangka : element.no_rangka,
+                    noRangka : "",//element.no_rangka
                     pageNumber : 1,
                     pageSize : 10,
                     totalRow : 0,
