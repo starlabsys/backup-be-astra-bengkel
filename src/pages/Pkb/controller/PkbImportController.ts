@@ -397,20 +397,19 @@ class PkbImportController {
                     sortDirection : 0
                 } )
 
-                // return ResponseResult.successGet( res, checkKendaraan )
 
                 if ( checkKendaraan?.ack === 1 ) {
                     // return ResponseResult.successGet( res, "ada" )
                     const responseKendaraan = await GetData.getKendaraan( req, res, {
                         token : token ?? '',
-                        no_polisi : element.no_polisi,
-                        no_mesin : element.no_mesin,
-                        warna : element.warna,
-                        no_rangka : element.no_rangka,
-                        nama_tipe_kendaraan : element.nama_tipe_kendaraan,
-                        idPelangan : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
-                        idPelanganSTNK : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
-                        tahunRakit : element.tahun_rakit,
+                        no_polisi : "",//element.no_polisi
+                        no_mesin : element.no_mesin,//
+                        warna : "",//element.warna
+                        no_rangka : "",//element.no_rangka
+                        nama_tipe_kendaraan : "",//element.nama_tipe_kendaraan
+                        idPelangan : 0,//checkCustomer?.listPelanggan[ 0 ].id ?? 0
+                        idPelanganSTNK : 0,//checkCustomer?.listPelanggan[ 0 ].id ?? 0
+                        tahunRakit : 0,//element.tahun_rakit
                     } )
                     console.log( "ada" )
 
