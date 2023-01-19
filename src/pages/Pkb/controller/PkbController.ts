@@ -38,7 +38,7 @@ class PkbController {
 
                 const data : InterfaceGetPkb = req.body;
 
-                const user : InterfaceDataUser[] = await GetUser.getUser( req, res )
+                // const user : InterfaceDataUser[] = await GetUser.getUser( req, res )
 
                 let arr_data : ModelOfPKB = {
                     ack : 0,
