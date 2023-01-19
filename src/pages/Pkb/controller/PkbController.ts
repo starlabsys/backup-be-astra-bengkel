@@ -27,6 +27,7 @@ import { ModelOfPKB } from "../../../domain/models/Pkb/ModelPkb";
 import { InterfaceProsesPKB } from "../../../domain/repository/PkbRepository/interface/InterfaceProsesPKB";
 import ModelUsers from "../../../db/models/ModelUsers";
 import GetData from "../../../utils/GetData/GetData";
+import { ModelListExcel } from "../model/ModelListExcel";
 
 
 class PkbController {
@@ -37,7 +38,7 @@ class PkbController {
 
                 const data : InterfaceGetPkb = req.body;
 
-                const user : InterfaceDataUser[] = await GetUser.getUser(req, res)
+                const user : InterfaceDataUser[] = await GetUser.getUser( req, res )
 
                 let arr_data : ModelOfPKB = {
                     ack : 0,
@@ -47,20 +48,20 @@ class PkbController {
 
                 // return ResponseResult.successGet( res, user );
 
-                for( const element of user){
+                for ( const element of user ) {
 
-                    if (element.token !== '' || element.token !== null || element.token !== undefined) {
+                    if ( element.token !== '' || element.token !== null || element.token !== undefined ) {
                         const resp = await PkbRepository.getData( res, element.token ?? '', data );
-    
-                        if (resp !== null) {
-                            if (resp.ack === 1) {
-                                arr_data.listOfPKB.push(...resp.listOfPKB)
+
+                        if ( resp !== null ) {
+                            if ( resp.ack === 1 ) {
+                                arr_data.listOfPKB.push( ...resp.listOfPKB )
                                 arr_data.ack = resp.ack
                                 arr_data.message = resp.message
                             }
                         }
                     }
-                        
+
                 }
 
                 return ResponseResult.successGet( res, arr_data );
@@ -175,7 +176,7 @@ class PkbController {
 
     public importPkb = async ( req : Request, res : Response ) => {
         // if (req.app.locals.credential.role === 'admin') {
-        const data = req.body;
+        const data : ModelListExcel [] = req.body;
         // return ResponseResult.successPost(res, data)
         // const user_id = req.params.user_id;
 
@@ -186,36 +187,36 @@ class PkbController {
         let messageResp = '';
         try {
 
-            for ( const element of data) {
-                const respUser = await ModelUsers.findOne({
-                    where :{
+            for ( const element of data ) {
+                const respUser = await ModelUsers.findOne( {
+                    where : {
                         username : element.username
                     }
-                })
+                } )
 
                 // console.log(respUser)
 
 
                 // return ResponseResult.successGet(res, respUser)
 
-                if (!respUser) {
+                if ( !respUser ) {
                     return ResponseResult.error( res, {
                         statusCode : EnumResponseCode.BAD_REQUEST,
                         errorCode : "01",
                         message : "User tidak Ditemukan",
                         data : null
-                    })
+                    } )
                 }
 
             }
 
             for ( const element of data ) {
 
-                const respUser = await ModelUsers.findOne({
-                    where :{
+                const respUser = await ModelUsers.findOne( {
+                    where : {
                         username : element.username
                     }
-                })
+                } )
 
                 // return ResponseResult.successGet(res, respUser?.id)
 
@@ -254,7 +255,7 @@ class PkbController {
                     alasanIngatServiceID : 4,
                     dealerSendiri : true,
                     keluhan : element.keluhan,
-                    gejala : element.gejala == null ? "" : element.gejala,
+                    gejala : element.gejala_analisa_service_advisor == null ? "" : element.gejala_analisa_service_advisor,
                     pergantianPart : "false",
                     partBekasDibawaKonsumen : false,
                     refMechanicID : "5", //mechanicID
@@ -389,97 +390,97 @@ class PkbController {
                 //     }
                 // }
 
-    //             const dataStore : any = {
-    //     "action": 0,
-    //     "idPKB": 0,
-    //     "pkbNo": "",
-    //     "refEquipmentID": 13626,
-    //     "statusPKB": 0,
-    //     "tipePKB": 1,
-    //     "noAntrian": "",
-    //     "kmSekarang": 56000,
-    //     "kmBerikutnya": 58000,
-    //     "namaPembawa": "mauraaaa",
-    //     "alamatPembawa": "jl danau sentaraum",
-    //     "alamatPembawaSaatIni": "jl danau sentaraum",
-    //     "kotaPembawa": "KOTA PONTIANAK",
-    //     "handphonePembawa": "081312341234",
-    //     "hubunganDgPemilikID": 7,
-    //     "alasanIngatServiceID": 4,
-    //     "dealerSendiri": true,
-    //     "keluhan": "-",
-    //     "gejala" : "Gejala",
-    //     "pergantianPart": "false",
-    //     "partBekasDibawaKonsumen": false,
-    //     "refMechanicID": "5",
-    //     "serviceAdvisorID": "1",
-    //     "finalInspectorID": "1",
-    //     "jamMasuk": "2022-12-31T11:35:19+07:00",
-    //     "jamProses": "",
-    //     "jamSelesai": "",
-    //     "uangMuka": 0,
-    //     "idGudang": 0,
-    //     "idPit": 0,
-    //     "listOfPekerjaan": [
-    //         {
-    //             "guid": "5fd4da87",
-    //             "pkbID": 0,
-    //             "pkbPekerjaanID": 0,
-    //             "itemNo": 10,
-    //             "refJobID": 240,
-    //             "nilaiDiskon": 0,
-    //             "nilaiDiskonJasa": 0,
-    //             "persentaseDiskon": 0,
-    //             "persentaseDiskonJasa": 0,
-    //             "totalJasa": 98000,
-    //             "pajakJasa": 0,
-    //             "hargaPekerjaan": 98000,
-    //             "namaPekerjaan": "OctoberFest - Special Matic",
-    //             "isOPL": false,
-    //             "labelisOPL": "Tidak",
-    //             "listOfMaterial": [],
-    //             "listOfMaterialHotline": [],
-    //             "kodeJasa": "OFSMT0001 - OctoberFest - Special Matic (98000)",
-    //             "idJasa": 240,
-    //             "isShowDelete": true,
-    //             "isEditable": true,
-    //             "isFreeService": false,
-    //             "markUpJasa": 0,
-    //             "vendorID": "",
-    //             "flatRate": 45,
-    //             "noClaimC2": "",
-    //             "noBuku": "",
-    //             "isAdditionalPekerjaan": 0
-    //         }
-    //     ],
-    //     "listOfMaterialHotline": [],
-    //     "tanggal": "2022-12-31T11:35:19+07:00",
-    //     "latitude": "",
-    //     "longitude": "",
-    //     "noSTNK": "56123161",
-    //     "indikatorBensin": 0,
-    //     "svPKBReturnID": 0,
-    //     "kodeAntrian": "R",
-    //     "tipeAntrian": "R",
-    //     "activityCapacity": 3,
-    //     "kecamatanPembawa": "",
-    //     "pkbRemove": {
-    //         "listRemovePekerjaan": [],
-    //         "listRemoveMaterial": []
-    //     },
-    //     "tipeComingCustomer": "Milik",
-    //     "isEngineNo": false,
-    //     "isFrameNo": false,
-    //     "isPKBHotline": false,
-    //     "jamEstimasiSelesai": "2022-12-31T02:00:00+07:00",
-    //     "jamKedatanganCustomer": "2022-12-31T02:00:00+07:00",
-    //     "noClaimC2": "",
-    //     "noBuku": "",
-    //     "DataMotorkuX": {
-    //         "VoucherType": 0,
-    //         "VoucherValue": 0
-    //     }
-    // }
+                //             const dataStore : any = {
+                //     "action": 0,
+                //     "idPKB": 0,
+                //     "pkbNo": "",
+                //     "refEquipmentID": 13626,
+                //     "statusPKB": 0,
+                //     "tipePKB": 1,
+                //     "noAntrian": "",
+                //     "kmSekarang": 56000,
+                //     "kmBerikutnya": 58000,
+                //     "namaPembawa": "mauraaaa",
+                //     "alamatPembawa": "jl danau sentaraum",
+                //     "alamatPembawaSaatIni": "jl danau sentaraum",
+                //     "kotaPembawa": "KOTA PONTIANAK",
+                //     "handphonePembawa": "081312341234",
+                //     "hubunganDgPemilikID": 7,
+                //     "alasanIngatServiceID": 4,
+                //     "dealerSendiri": true,
+                //     "keluhan": "-",
+                //     "gejala" : "Gejala",
+                //     "pergantianPart": "false",
+                //     "partBekasDibawaKonsumen": false,
+                //     "refMechanicID": "5",
+                //     "serviceAdvisorID": "1",
+                //     "finalInspectorID": "1",
+                //     "jamMasuk": "2022-12-31T11:35:19+07:00",
+                //     "jamProses": "",
+                //     "jamSelesai": "",
+                //     "uangMuka": 0,
+                //     "idGudang": 0,
+                //     "idPit": 0,
+                //     "listOfPekerjaan": [
+                //         {
+                //             "guid": "5fd4da87",
+                //             "pkbID": 0,
+                //             "pkbPekerjaanID": 0,
+                //             "itemNo": 10,
+                //             "refJobID": 240,
+                //             "nilaiDiskon": 0,
+                //             "nilaiDiskonJasa": 0,
+                //             "persentaseDiskon": 0,
+                //             "persentaseDiskonJasa": 0,
+                //             "totalJasa": 98000,
+                //             "pajakJasa": 0,
+                //             "hargaPekerjaan": 98000,
+                //             "namaPekerjaan": "OctoberFest - Special Matic",
+                //             "isOPL": false,
+                //             "labelisOPL": "Tidak",
+                //             "listOfMaterial": [],
+                //             "listOfMaterialHotline": [],
+                //             "kodeJasa": "OFSMT0001 - OctoberFest - Special Matic (98000)",
+                //             "idJasa": 240,
+                //             "isShowDelete": true,
+                //             "isEditable": true,
+                //             "isFreeService": false,
+                //             "markUpJasa": 0,
+                //             "vendorID": "",
+                //             "flatRate": 45,
+                //             "noClaimC2": "",
+                //             "noBuku": "",
+                //             "isAdditionalPekerjaan": 0
+                //         }
+                //     ],
+                //     "listOfMaterialHotline": [],
+                //     "tanggal": "2022-12-31T11:35:19+07:00",
+                //     "latitude": "",
+                //     "longitude": "",
+                //     "noSTNK": "56123161",
+                //     "indikatorBensin": 0,
+                //     "svPKBReturnID": 0,
+                //     "kodeAntrian": "R",
+                //     "tipeAntrian": "R",
+                //     "activityCapacity": 3,
+                //     "kecamatanPembawa": "",
+                //     "pkbRemove": {
+                //         "listRemovePekerjaan": [],
+                //         "listRemoveMaterial": []
+                //     },
+                //     "tipeComingCustomer": "Milik",
+                //     "isEngineNo": false,
+                //     "isFrameNo": false,
+                //     "isPKBHotline": false,
+                //     "jamEstimasiSelesai": "2022-12-31T02:00:00+07:00",
+                //     "jamKedatanganCustomer": "2022-12-31T02:00:00+07:00",
+                //     "noClaimC2": "",
+                //     "noBuku": "",
+                //     "DataMotorkuX": {
+                //         "VoucherType": 0,
+                //         "VoucherValue": 0
+                //     }
+                // }
 
                 // return ResponseResult.successGet(res, dataStore)
                 // Get Jasa Detail
@@ -536,7 +537,8 @@ class PkbController {
                     dataStore.listOfPekerjaan = [ dataJasa ]
 
                     // return ResponseResult.successGet(res, dataJasa)
-                } else {
+                }
+                else {
                     // return ResponseResult.successGet(res, "nol")
 
                     const respPost : any = await JasaRepository.putJasa( res, token ?? '', {
@@ -546,7 +548,7 @@ class PkbController {
                         namaJasa : "Jasa " + element.kode_jasa,
                         grupJasa : "7",
                         subGrup : "",
-                        hargaJual : element.hargaJual ?? 100000,
+                        hargaJual : Number( element.harga_jual ) ?? 100000,
                         pajakJual : 0,
                         oumKerja : 1,
                         catatan : "",
@@ -663,7 +665,7 @@ class PkbController {
                         kodeCustomer : "",
                         title : 'Mr.',
                         namaCustomer : element.customer,
-                        noktp : element.no_ktp,
+                        noktp : element.no_ktp.toString(),
                         noPassport : "",
                         alamat : element.alamat,
                         gender : element.title == "Tuan" ? "L" : "P",
@@ -724,7 +726,7 @@ class PkbController {
 
                     const detailCustomer = await CustomerRepository.detail( res, token ?? '', {
                         action : 1,
-                        id : Number(idCustomer)
+                        id : Number( idCustomer )
                     } )
 
                     dataStore.namaPembawa = detailCustomer?.namaCustomer
@@ -753,9 +755,9 @@ class PkbController {
 
                 // return ResponseResult.successGet( res, checkKendaraan )
 
-                if (checkKendaraan?.ack === 1) {
+                if ( checkKendaraan?.ack === 1 ) {
                     // return ResponseResult.successGet( res, "ada" )
-                    const responseKendaraan = await GetData.getKendaraan( req, res,  {
+                    const responseKendaraan = await GetData.getKendaraan( req, res, {
                         token : token ?? '',
                         no_polisi : element.no_polisi,
                         no_mesin : element.no_mesin,
@@ -765,16 +767,17 @@ class PkbController {
                         idPelangan : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
                         idPelanganSTNK : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
                         tahunRakit : element.tahun_rakit,
-                    })
-                    console.log("ada")
+                    } )
+                    console.log( "ada" )
 
                     dataStore.refEquipmentID = responseKendaraan
                     dataStore.noSTNK = element.no_stnk
-                }else{
-                    console.log("tidak ada")
+                }
+                else {
+                    console.log( "tidak ada" )
                     // return ResponseResult.successGet( res, "tidak ada" )
 
-                    const responseKendaraan = await GetData.getKendaraanStore( req, res,  {
+                    const responseKendaraan = await GetData.getKendaraanStore( req, res, {
                         token : token ?? '',
                         no_polisi : element.no_polisi,
                         no_mesin : element.no_mesin,
@@ -784,7 +787,7 @@ class PkbController {
                         idPelangan : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
                         idPelanganSTNK : checkCustomer?.listPelanggan[ 0 ].id ?? 0,
                         tahunRakit : element.tahun_rakit,
-                    })
+                    } )
 
                     dataStore.refEquipmentID = responseKendaraan
                     dataStore.noSTNK = element.no_stnk
@@ -819,10 +822,10 @@ class PkbController {
                 //      })
                 //     // return checkKendaraan?.listofKendaraan[0].id
                 //     // // console.log(checkKendaraan?.listofKendaraan[0].id)
-                //     // const idKendaraan = checkKendaraan?.listofKendaraan[0].id 
+                //     // const idKendaraan = checkKendaraan?.listofKendaraan[0].id
                 //     // dataStore.refEquipmentID = idKendaraan,
                 //     // dataStore.noSTNK = element.no_stnk
-                    
+
                 //     // return ResponseResult.successGet( res, dataStore )
                 // } else {
                 //     // return ResponseResult.successGet(res, "tidak ada")
@@ -838,11 +841,12 @@ class PkbController {
                 //         ],
                 //         action : 1
                 //     } )
-                    
+
 
                 //     // return ResponseResult.successGet( res, checkMasterData )
 
-                //     const checkMaster : any = await checkMasterData?.listDropDown.filter( ( item : any ) => item.label == element.nama_tipe_kendaraan )
+                //     const checkMaster : any = await checkMasterData?.listDropDown.filter( ( item : any ) =>
+                // item.label == element.nama_tipe_kendaraan )
 
                 //     // return ResponseResult.successGet( res, checkMaster )
 
@@ -859,9 +863,9 @@ class PkbController {
 
                 //     // return ResponseResult.successGet( res, checkMasterDataWarna )
 
-                    
 
-                //     const checkWarna : any = await checkMasterDataWarna?.listDropDown.filter( ( item : any ) => item.label == element.warna )
+                //     const checkWarna : any = await checkMasterDataWarna?.listDropDown.filter( ( item : any ) =>
+                // item.label == element.warna )
 
                 //     // return ResponseResult.successGet( res, checkWarna )
 
@@ -919,14 +923,15 @@ class PkbController {
                     // dataStore.
                     // return ResponseResult.successGet(res, "ada")
                     dataStore.idPit = getPit?.listOfPIT[ 0 ].id ?? 0
-                } else {
+                }
+                else {
                     // return ResponseResult.successGet(res, "PIT"+Math.floor(Math.random() * 100).toString())
                     const storePit = await PitRepository.storeData( res, token ?? '', {
-                        action: 0,
-                        id: 0,
-                        kodePIT: element.tipe_antrian.toUpperCase()+Math.floor(Math.random() * 100).toString(),
-                        tipePIT: element.tipe_antrian.toUpperCase(),
-                        aktif: true
+                        action : 0,
+                        id : 0,
+                        kodePIT : element.tipe_antrian.toUpperCase() + Math.floor( Math.random() * 100 ).toString(),
+                        tipePIT : element.tipe_antrian.toUpperCase(),
+                        aktif : true
                     } )
 
 
@@ -944,12 +949,13 @@ class PkbController {
                 } )
 
                 // return ResponseResult.successGet(res, getSa)
-                
+
                 if ( getSa?.ack == 1 ) {
                     dataStore.serviceAdvisorID = getSa?.listDropDown[ 0 ].nilai ?? 0
 
                     // return ResponseResult.successGet(res, dataStore.serviceAdvisorID)
-                } else {
+                }
+                else {
                     // return ResponseResult.successGet(res, 'gaada')
 
                     const storeSa = await MekanikRepository.storeData( res, token ?? '', {
@@ -1144,7 +1150,7 @@ class PkbController {
 
                     // return ResponseResult.successGet( res, getInspector )
 
-                    dataStore.finalInspectorID = getInspector?.listDropDown[0].nilai ?? 0
+                    dataStore.finalInspectorID = getInspector?.listDropDown[ 0 ].nilai ?? 0
                 }
 
                 // return ResponseResult.successGet(res, dataStore)
