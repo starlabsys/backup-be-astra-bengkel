@@ -397,7 +397,6 @@ class PkbImportController {
                     sortDirection : 0
                 } )
 
-                // return ResponseResult.successGet( res, checkKendaraan )
 
                 if ( checkKendaraan?.ack === 1 ) {
                     // return ResponseResult.successGet( res, "ada" )
