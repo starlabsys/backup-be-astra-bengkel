@@ -48,21 +48,21 @@ class PkbController {
 
                 // return ResponseResult.successGet( res, user );
 
-                for ( const element of user ) {
-
-                    if ( element.token !== '' || element.token !== null || true ) {
-                        const resp = await PkbRepository.getData( res, element.token ?? '', data );
-
-                        if ( resp !== null ) {
-                            if ( resp.ack === 1 ) {
-                                arr_data.listOfPKB.push( ...resp.listOfPKB )
-                                arr_data.ack = resp.ack
-                                arr_data.message = resp.message
-                            }
-                        }
-                    }
-
-                }
+                // for ( const element of user ) {
+                //
+                //     if ( element.token !== '' || element.token !== null || true ) {
+                //         const resp = await PkbRepository.getData( res, element.token ?? '', data );
+                //
+                //         if ( resp !== null ) {
+                //             if ( resp.ack === 1 ) {
+                //                 arr_data.listOfPKB.push( ...resp.listOfPKB )
+                //                 arr_data.ack = resp.ack
+                //                 arr_data.message = resp.message
+                //             }
+                //         }
+                //     }
+                //
+                // }
 
                 return ResponseResult.successGet( res, arr_data );
 
