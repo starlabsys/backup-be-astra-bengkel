@@ -19,6 +19,12 @@ import { ListOfKaryawanModel } from "../../../../domain/models/Mekanik/ModelMeka
 import { ListofKendaraan } from "../../../../domain/models/Kendaraan/ModelGetListKendaraan";
 import { InterfaceStorePkb } from "../../../../domain/repository/PkbRepository/interface/InterfaceStorePkb";
 import PkbRepository from "../../../../domain/repository/PkbRepository/PkbRepository";
+import { ListDropDown, ModelListMekanikPKB } from "../../../../domain/models/DropDown/ModelListMekanikPKB";
+import FormatDate from "../../../../utils/Format/FormatDate/FormatDate";
+import JasaPkb from "./JasaPkb";
+import { ConvertModelResultJasaPkb, ListofJasa, ModelResultJasaPkb } from "../../model/ModelResultJasaPkb";
+import { ModelResultDataJasaPkb } from "../../model/ModelResultDataJasaPkb";
+import { InterfaceAddDataServices } from "../../model/ModelAddExcelPkb";
 
 
 class PkbImportExcelController {
@@ -29,7 +35,9 @@ class PkbImportExcelController {
 
         try {
 
-            let datasend : InterfaceStorePkb[] = [];
+            let dataSend : InterfaceAddDataServices[] = [];
+
+
             for ( const item of data ) {
                 const respUser = await ModelUsers.findOne( {
                     where : {
@@ -46,7 +54,7 @@ class PkbImportExcelController {
                     } )
                 }
 
-                const checkToken = await Token.getTokenNew( req, res, respUser?.id );
+                const checkToken = await Token.getTokenNew( req, res, Number( respUser?.id?.toString() ) ?? Number( 0 ) );
 
                 if ( checkToken ) {
 
@@ -58,146 +66,206 @@ class PkbImportExcelController {
 
                     const customer : ModelDetailCustomer = checkCustomer.data as ModelDetailCustomer;
 
-                    const checkkendaraanpkb = await KendaraanPkb.checkKendaraan({
+                    const checkKendaraanPkb = await KendaraanPkb.checkKendaraan( {
                         data : item,
                         token : checkToken,
                         res : res,
-                    })
+                    } )
 
-                    const kendaraanpkb : ListofKendaraan = checkkendaraanpkb.data as ListofKendaraan;
+                    const kendaraanPkb : ListofKendaraan = checkKendaraanPkb.data as ListofKendaraan;
 
-                    if (checkkendaraanpkb.message === EnumErrorImportPKB.error) {
-                        return ResponseResult.error(res, {
+                    if ( checkKendaraanPkb.message === EnumErrorImportPKB.error ) {
+                        return ResponseResult.error( res, {
                             statusCode : EnumResponseCode.BAD_REQUEST,
                             errorCode : "01",
-                            message : checkkendaraanpkb.error,
+                            message : checkKendaraanPkb.error,
                             data : null
-                        })
+                        } )
                     }
 
-                    const checkpitpkb = await PitPkb.checkPit({
+                    const checkPitPkb = await PitPkb.checkPit( {
                         data : item,
                         token : checkToken,
                         res : res,
-                    })
+                    } )
 
-                    const pitpkb : ListOfPIT = checkpitpkb.data as ListOfPIT;
+                    const pitPkb : ListOfPIT = checkPitPkb.data as ListOfPIT;
 
-                    if (checkpitpkb.message === EnumErrorImportPKB.error) {
-                        return ResponseResult.error(res, {
+                    if ( checkPitPkb.message === EnumErrorImportPKB.error ) {
+                        return ResponseResult.error( res, {
                             statusCode : EnumResponseCode.BAD_REQUEST,
                             errorCode : "01",
-                            message : checkpitpkb.error,
+                            message : checkPitPkb.error,
                             data : null
-                        })
-                        
+                        } )
+
                     }
 
-                    const checkserviceadvisor = await ServiceAdvisor.checkServiceAdvisor({
+                    const checkServiceAdvisor = await ServiceAdvisor.checkServiceAdvisor( {
                         data : item,
                         token : checkToken,
                         res : res,
-                    })
+                    } )
 
-                    const serviceadvisor : ListOfKaryawanModel = checkserviceadvisor.data as ListOfKaryawanModel;
+                    const serviceAdvisor : ListDropDown = checkServiceAdvisor.data as ListDropDown;
 
-                    if (checkserviceadvisor.message === EnumErrorImportPKB.error) {
-                        return ResponseResult.error(res, {
+                    if ( checkServiceAdvisor.message === EnumErrorImportPKB.error ) {
+                        return ResponseResult.error( res, {
                             statusCode : EnumResponseCode.BAD_REQUEST,
                             errorCode : "01",
-                            message : checkserviceadvisor.error,
+                            message : checkServiceAdvisor.error,
                             data : null
-                        })
-                        
+                        } )
+
                     }
 
-                    const checkfinalinspector = await FinalInspectorPkb.checkFinalInspector({
+                    const checkFinalInspector = await FinalInspectorPkb.checkFinalInspector( {
                         data : item,
                         token : checkToken,
                         res : res,
-                    })
+                    } )
+                    // ModelListMekanikPKB.listDropDown
+                    const finalInspector : ListDropDown = checkFinalInspector.data as ListDropDown;
 
-                    const finalinspector : ListOfKaryawanModel = checkfinalinspector.data as ListOfKaryawanModel;
-
-                    if (checkfinalinspector.message === EnumErrorImportPKB.error) {
-                        return ResponseResult.error(res, {
+                    if ( checkFinalInspector.message === EnumErrorImportPKB.error ) {
+                        return ResponseResult.error( res, {
                             statusCode : EnumResponseCode.BAD_REQUEST,
                             errorCode : "01",
-                            message : checkfinalinspector.error,
+                            message : checkFinalInspector.error,
                             data : null
-                        })
+                        } )
                     }
 
+                    const checkJasa = await JasaPkb.checkJasaPkb( {
+                        data : item,
+                        token : checkToken,
+                        res : res,
+                    } )
 
-                    let dataStore : InterfaceStorePkb = {
-                            token: checkToken,
-                            action : 0,
-                            idPKB : 0,
-                            noPKB : "",
-                            tanggalSampai : item.tanggal,
-                            activityCapacity : 0,
-                            alamatPembawa : "",
-                            alamatPembawaSaatIni: "",
-                            alasanIngatServiceID : 4,
-                            DataMotorkuX: "",
-                            dealerSendiri: true,
-                            handphonePembawa: "",
-                            hubunganDgPemilikID: 7,
-                            kmBerikutnya: item.kilometer_berikutnya,
-                            kmSekarang: item.kilometer_sekarang,
-                            namaPembawa: "",
-                            noAntrian: "",
-                            noPolisi: kendaraanpkb.noPolisi,
-                            finalInspectorID: finalinspector.id.toString(),
-                            gejala: item.gejala_analisa_service_advisor,
-                            kotaPembawa: "",
-                            idGudang: 0,
-                            idPit: pitpkb.id,
-                            indikatorBensin: 0,
-                            isEngineNo: false,
-                            isFrameNo: false,
-                            isFirstLoad: 0,
-                            isPKBHotline: false,
-                            jamEstimasiSelesai: "",
-                            jamKedatanganCustomer: "",
-                            jamSelesai: "",
-                            kecamatanPembawa: "",
-                            keluhan: item.keluhan,
-                            kodeAntrian: "",
-                            listOfMaterialHotline: [],
-                            // listOfMaterialPKB: ,
-                            listOfPekerjaan: [],
-                            noBuku: "",
-                            noClaimC2: "",
-                            noSTNK: item.no_stnk,
-                            pageNumber: 0,
-                            pageSize: 0,
-                            partBekasDibawaKonsumen: false,
-                            pergantianPart: "",
-                            pkbRemove: 0,
-                            refEquipmentID: kendaraanpkb.id,
-                            refMechanicID: "",
-                            serviceAdvisorID: serviceadvisor.id.toString(),
-                            statusPKB: 0,
-                            tipePKB: 1,
-                            sortColumn: "",
-                            sortDirection: 0,
-                            tanggal: item.tanggal,
-                            statusPencarianPKB: 0,
-                            svPKBReturnID: 0,
-                            tipeAntrian: item.tipe_antrian,
-                            tipeComingCustomer: "Milik", //wajib
-                            totalRow: 0,
-                            uangMuka: 0,
-                            jamMasuk: "",
-                            jamProses: "",
-                            latitude: "",
-                            longitude: "",
-                            pkbNo: "",
+                    const jasaPkb : ModelResultDataJasaPkb = checkJasa.data as ModelResultDataJasaPkb;
 
-                        }
+                    // return ResponseResult.successGet( res, jasaPkb )
 
-                    datasend.push(dataStore);
+                    // 2022-12-31T02:00:00+07:00
+
+                    // return ResponseResult.successGet( res, {
+                    //     data :
+                    // } )
+
+
+                    let dataStore : InterfaceAddDataServices = {
+                        token : checkToken,
+                        action : 0,
+                        idPKB : 0,
+                        // tanggalSampai : FormatDate.dateSend( item.tanggal ),
+                        activityCapacity : 0,
+                        alamatPembawa : item.alamat_ktp_pembawa,
+                        alamatPembawaSaatIni : item.alamat_ktp_pembawa,
+                        alasanIngatServiceID : 4,
+                        DataMotorkuX : {
+                            VoucherType : 0,
+                            VoucherValue : 0,
+                        },
+                        dealerSendiri : true,
+                        handphonePembawa : item.handphone_pembawa,
+                        hubunganDgPemilikID : 7,
+                        kmBerikutnya : item.kilometer_berikutnya,
+                        kmSekarang : item.kilometer_sekarang,
+                        namaPembawa : item.nama_pembawa,
+                        noAntrian : "",
+                        // noPolisi : kendaraanPkb.noPolisi,
+                        finalInspectorID : finalInspector.nilai,
+                        gejala : item.gejala_analisa_service_advisor,
+                        kotaPembawa : item.kota_pembawa,
+                        idGudang : 0,
+                        idPit : pitPkb.id,
+                        indikatorBensin : 0,
+                        isEngineNo : false,
+                        isFrameNo : false,
+                        // isFirstLoad : 0,
+                        isPKBHotline : false,
+                        jamEstimasiSelesai : "",
+                        jamKedatanganCustomer : FormatDate.dateSend( item.jam_kedatangan_customer ),
+                        jamSelesai : "",
+                        kecamatanPembawa : item.kecamatan_pembawa,
+                        keluhan : item.keluhan,
+                        kodeAntrian : "",
+                        listOfMaterialHotline : [],
+                        // listOfMaterialPKB: ,
+                        listOfPekerjaan : [
+                            {
+                                guid : '',
+                                pkbID : 0,
+                                pkbPekerjaanID : 0,
+                                itemNo : 0,
+                                refJobID : jasaPkb.id ?? 0,
+                                nilaiDiskon : jasaPkb.nilaiDiskon,
+                                nilaiDiskonJasa : jasaPkb.nilaiDiskon,
+                                persentaseDiskon : jasaPkb.persentaseDiskon,
+                                persentaseDiskonJasa : jasaPkb.persentaseDiskon,
+                                totalJasa : jasaPkb.nilaiDiskon + jasaPkb.persentaseDiskon + jasaPkb.pajakJual + jasaPkb.hargaJual,
+                                pajakJasa : jasaPkb.pajakJual,
+                                hargaPekerjaan : jasaPkb.hargaJual,
+                                namaPekerjaan : jasaPkb.namaJasa,
+                                isOPL : false,
+                                labelisOPL : 'Tidak',
+                                listOfMaterial : [],
+                                // listSparepartTable.map( ( valueData ) : InterfaceListSparePartPKB => {
+                                //     if ( valueData.pekerjaanID === item.idJasa ) {
+                                //         return valueData
+                                //     }
+                                //     return {} as InterfaceListSparePartPKB
+                                // } ),
+                                listOfMaterialHotline : [],
+                                kodeJasa : jasaPkb.kodeJasa,
+                                idJasa : jasaPkb.id,
+                                isShowDelete : true,
+                                isEditable : true,
+                                isFreeService : jasaPkb.isFreeService,
+                                flatRate : 0,
+                                markUpJasa : 0,
+                                vendorID : 0,
+                                noClaimC2 : '',
+                                noBuku : '',
+                                isAdditionalPekerjaan : 0, //ubah
+                            }
+                        ],
+                        noBuku : "",
+                        noClaimC2 : "",
+                        noSTNK : item.no_stnk,
+                        // pageNumber : 0,
+                        // pageSize : 0,
+                        partBekasDibawaKonsumen : false,
+                        pergantianPart : false,
+                        pkbRemove : {
+                            listRemoveMaterial : [],
+                            listRemovePekerjaan : [],
+                        },
+                        refEquipmentID : kendaraanPkb.id,
+                        refMechanicID : "",
+                        serviceAdvisorID : serviceAdvisor.nilai.toString(),
+                        statusPKB : 0,
+                        tipePKB : 1,
+                        // sortColumn : "",
+                        // sortDirection : 0,
+                        tanggal : FormatDate.dateSend( item.tanggal ),
+                        // statusPencarianPKB : 0,
+                        svPKBReturnID : 0,
+                        tipeAntrian : item.tipe_antrian,
+                        tipeComingCustomer : "Milik", //wajib
+                        // totalRow : 0,
+                        uangMuka : 0,
+                        jamMasuk : "",
+                        jamProses : "",
+                        latitude : 0,
+                        longitude : 0,
+                        pkbNo : "",
+
+                    }
+
+                    // return ResponseResult.successGet( res, dataStore )
+
+                    dataSend.push( dataStore );
                 }
                 else {
                     return ResponseResult.error( res, {
@@ -207,21 +275,34 @@ class PkbImportExcelController {
                         data : null,
                     } )
                 }
-                
-                
+
+
             }
 
-            if (datasend.length > 0) {
+            let statusSend : string[] = []
 
-                datasend.forEach(async (item : InterfaceStorePkb) => {
-                    await PkbRepository.storeData( res, item.token ?? '', item )  
-                })
+            if ( dataSend.length > 0 ) {
 
-                return ResponseResult.successPost( res, "Data Berhasil Di Import" )
+                for ( const item of dataSend ) {
+                    await PkbRepository.storeDataExcel( res, item.token ?? '', item )
+                                       .then( ( result ) => {
+                                           if ( result?.ack !== 1 ) {
+                                               statusSend.push( result?.message ?? '' )
+                                           }
+                                       } )
+                }
+
+                return ResponseResult.successGet( res, {
+                    statusSend : statusSend,
+                    data : dataSend,
+                } )
+                // statusSend.length >
+                // 0 ? JSON.stringify( statusSend ) :
+                //     'Success Import Excel'
 
 
-
-            }else{
+            }
+            else {
                 return ResponseResult.error( res, {
                     statusCode : EnumResponseCode.BAD_REQUEST,
                     errorCode : '01',

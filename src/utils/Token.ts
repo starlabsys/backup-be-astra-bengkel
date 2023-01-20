@@ -59,7 +59,7 @@ class Token {
         return null
     }
 
-    public getTokenNew = async ( req : Request, res : Response, user_id : any ) => {
+    public getTokenNew = async ( req : Request, res : Response, user_id : number ) => {
         const id = user_id;
 
         const user = await ModelUsers.findOne( {
@@ -83,14 +83,14 @@ class Token {
             // return ResponseResult.successGet(res, checkLogin)
 
             if ( checkLogin !== null ) {
-                
-                await ModelUsers.update({
+
+                await ModelUsers.update( {
                     token : checkLogin.access_token
-                },{
+                }, {
                     where : {
                         id : id
                     }
-                })
+                } )
 
                 return checkLogin.access_token;
             }
