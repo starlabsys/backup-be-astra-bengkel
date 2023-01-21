@@ -22,7 +22,7 @@ class ServiceAdvisor {
         try {
             const getSa = await MasterDataMekanikRepository.getListMekanik( props.res, props.token ?? '', {
                 tipe : 23,
-                namaMekanik : props.data.service_advisor
+                namaMekanik : ""
             } )
 
             if ( getSa !== null ) {

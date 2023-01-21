@@ -11,7 +11,7 @@ class FinalInspectorPkb {
         try {
             const getInspector = await MasterDataMekanikRepository.getListMekanik( props.res, props.token ?? '', {
                 tipe : 24,
-                namaMekanik : props.data.final_inspector
+                namaMekanik : ""
             } )
 
             if ( getInspector !== null ) {
