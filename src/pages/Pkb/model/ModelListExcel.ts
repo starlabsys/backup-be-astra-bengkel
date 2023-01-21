@@ -50,4 +50,5 @@ export interface ModelListExcel {
     no_hp_1 : string;
     harga_jual : string;
     no_stnk : string;
+    idPelanggan? : number;
 }

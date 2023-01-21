@@ -5,11 +5,16 @@
 //   const modelMekanik = Convert.toModelMekanik(json);
 
 export interface ModelMekanik {
-    listOfKaryawanModel: ListOfKaryawanModel[];
+    listOfKaryawanModel?: ListOfKaryawanModel[];
+    listDropDown?:        any;
     totalRow:            number;
     message:             string;
     ack:                 number;
 }
+
+// export interface listDropDown {
+
+// }
 
 export interface ListOfKaryawanModel {
     action:          number;

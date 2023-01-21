@@ -44,6 +44,19 @@ class MekanikRepository{
         }
         return null;
     }
+
+    public dropdown = async (res: Response, token: string, reqBody: any) => {
+        const resp = await post(res, {
+            url: '/api/Master/GETMekanik',
+            token: token,
+            reqBody: reqBody
+        })
+
+        if (resp !== null) {
+            return ConvertModelMekanik.toModelMekanik(resp);
+        }
+        return null;
+    }
 }
 
 export default new MekanikRepository()
