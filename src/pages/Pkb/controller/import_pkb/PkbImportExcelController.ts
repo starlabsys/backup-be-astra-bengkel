@@ -184,7 +184,7 @@ class PkbImportExcelController {
                         // isFirstLoad : 0,
                         isPKBHotline : false,
                         jamEstimasiSelesai : "",
-                        jamKedatanganCustomer : FormatDate.dateSend( item.jam_kedatangan_customer ),
+                        jamKedatanganCustomer : FormatDate.dateSend( item.tanggal ),
                         jamSelesai : "",
                         kecamatanPembawa : item.kecamatan_pembawa,
                         keluhan : item.keluhan,
