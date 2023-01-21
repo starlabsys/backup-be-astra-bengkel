@@ -1,7 +1,7 @@
 import BaseRoutes from "../../../core/routes/BaseRoutes";
 import { authAdmin, authAll } from "../../../middleware/AdminMiddleware";
 import PkbController from "../controller/PkbController";
-import PkbImportController from "../controller/PkbImportController";
+// import PkbImportController from "../controller/PkbImportController";
 import PkbImportExcelController from "../controller/import_pkb/PkbImportExcelController";
 
 // import PitMekanikController from "../controller/PitMekanikController";

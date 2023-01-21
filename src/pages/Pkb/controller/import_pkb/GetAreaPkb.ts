@@ -36,7 +36,7 @@ class GetAreaPkb {
                     const getAreaKelurahan = await MasterDropDownRepository.masterDropDown( props.res, props.token ?? '', {
                         listDropDown : [
                             {
-                                tipe : 6,
+                                tipe : 7,
                                 label : "sample string 2",
                                 nilai : getAreaKec?.listDropDown[ 0 ]?.nilai ?? '',
                             }
@@ -47,9 +47,9 @@ class GetAreaPkb {
                         return ResponseImportPkb( {
                             status : EnumErrorImportPKB.success,
                             data : {
-                                kabupaten : getAreaKab?.listDropDown[ 0 ]?.nilai ?? '',
-                                kecamatan : getAreaKec?.listDropDown[ 0 ]?.nilai ?? '',
-                                kelurahan : getAreaKelurahan?.listDropDown[ 0 ]?.nilai ?? '',
+                                kabupaten : getAreaKab?.listDropDown[ 0 ]?.nilai ?? 'KOTA PONTIANAK',
+                                kecamatan : getAreaKec?.listDropDown[ 0 ]?.nilai ?? 'PONTIANAK KOTA',
+                                kelurahan : getAreaKelurahan?.listDropDown[ 0 ]?.nilai ?? 'SUNGAIBANGKONG',
                                 zipCode : getAreaKelurahan?.listDropDown[ 0 ]?.additionalNilai ?? '',
                             } as ModelGetAreaPkb
                         } )

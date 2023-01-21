@@ -32,9 +32,9 @@ class CustomerPkb {
                     provinsi : props.data.provinsi,
                     kabupaten : area.kabupaten,
                     tanggalUlangTahun : "",
-                    kecamatan : area.kecamatan,
-                    kelurahan : area.kelurahan,
-                    zipCode : area.zipCode,
+                    kecamatan : area.kecamatan ?? "",
+                    kelurahan : area.kelurahan ?? "",
+                    zipCode : area.zipCode ?? "",
                     noTelepon : "",
                     noHp : props.data.no_hp_1,
                     noFaks : "",
@@ -64,6 +64,10 @@ class CustomerPkb {
                     jabatanCustomerID : 0
                 } )
 
+                return ResponseImportPkb({
+                    status : EnumErrorImportPKB.success,
+                    data : createCustomer
+                })
             }
 
             return ResponseImportPkb( {
@@ -102,6 +106,7 @@ class CustomerPkb {
                 sortColumn : "ID",
                 sortDirection : 0
             } )
+            
 
             if ( checkDatCustomer !== null ) {
                 if ( checkDatCustomer?.listPelanggan?.length > 0 ) {
@@ -122,7 +127,19 @@ class CustomerPkb {
                 else {
                     //create customer
                     // await this.createCustomer( props )
+
+                    const respCustomerStore = await this.createCustomer( props )
+
+                    return ResponseImportPkb( {
+                        status : EnumErrorImportPKB.success,
+                        data : respCustomerStore.data
+                    })
                     
+                    if ( respCustomerStore.message === EnumErrorImportPKB.success ) {
+
+                    }
+
+
                 }
             }
             return ResponseImportPkb( {

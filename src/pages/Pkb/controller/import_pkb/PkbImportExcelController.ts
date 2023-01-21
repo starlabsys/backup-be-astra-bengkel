@@ -25,6 +25,9 @@ import JasaPkb from "./JasaPkb";
 import { ConvertModelResultJasaPkb, ListofJasa, ModelResultJasaPkb } from "../../model/ModelResultJasaPkb";
 import { ModelResultDataJasaPkb } from "../../model/ModelResultDataJasaPkb";
 import { InterfaceAddDataServices } from "../../model/ModelAddExcelPkb";
+import { ModelProsesPkb } from "../../model/ModelProsesPkb";
+import MekanikRepository from "../../../../domain/repository/Mekanik/MekanikRepository";
+import { ModelGetMekanik } from "../../model/ModelGetMekanik";
 
 
 class PkbImportExcelController {
@@ -54,7 +57,7 @@ class PkbImportExcelController {
                     } )
                 }
 
-                const checkToken = await Token.getTokenNew( req, res, Number( respUser?.id?.toString() ) ?? Number( 0 ) );
+                const checkToken = await Token.getTokenNew( req, res, Number( respUser?.id?.toString() ) ?? Number( 0 ).toString() );
 
                 if ( checkToken ) {
 
@@ -66,11 +69,14 @@ class PkbImportExcelController {
 
                     const customer : ModelDetailCustomer = checkCustomer.data as ModelDetailCustomer;
 
+                    item.idPelanggan = customer.id
+
                     const checkKendaraanPkb = await KendaraanPkb.checkKendaraan( {
                         data : item,
                         token : checkToken,
                         res : res,
                     } )
+
 
                     const kendaraanPkb : ListofKendaraan = checkKendaraanPkb.data as ListofKendaraan;
 
@@ -88,6 +94,7 @@ class PkbImportExcelController {
                         token : checkToken,
                         res : res,
                     } )
+
 
                     const pitPkb : ListOfPIT = checkPitPkb.data as ListOfPIT;
 
@@ -143,14 +150,6 @@ class PkbImportExcelController {
                     } )
 
                     const jasaPkb : ModelResultDataJasaPkb = checkJasa.data as ModelResultDataJasaPkb;
-
-                    // return ResponseResult.successGet( res, jasaPkb )
-
-                    // 2022-12-31T02:00:00+07:00
-
-                    // return ResponseResult.successGet( res, {
-                    //     data :
-                    // } )
 
 
                     let dataStore : InterfaceAddDataServices = {
@@ -280,18 +279,105 @@ class PkbImportExcelController {
             }
 
             let statusSend : string[] = []
+            let idPkb : ModelProsesPkb[] = []
+
+            
 
             if ( dataSend.length > 0 ) {
 
                 for ( const item of dataSend ) {
-                    await PkbRepository.storeDataExcel( res, item.token ?? '', item )
-                                       .then( ( result ) => {
-                                           if ( result?.ack !== 1 ) {
+                    const respStore = await PkbRepository.storeDataExcel( res, item.token ?? '', item )
+                                       .then( async ( result ) => {
+                                          if (result !== null) {
+                                             if ( result?.ack !== 1 ) {
                                                statusSend.push( result?.message ?? '' )
+                                           }else{
+                                                  idPkb.push( {
+                                                        idpkb : Number(result?.pkbID),
+                                                        token : item.token??'',
+                                                        tanggal : item.tanggal,
+                                                        refMechanicId : item.refMechanicID
+                                                  } )  
                                            }
+                                          }
                                        } )
+
+
+                    // return ResponseResult.successGet( res, respStore)
                 }
 
+                // console.log( 'idpkb', idPkb )
+                // return ResponseResult.successGet( res, idPkb)
+                if (idPkb.length > 0) {
+                    // console.log(idPkb[0])
+                    for(const item of idPkb){
+                        // return ResponseResult.successGet( res, item)
+
+                        const mechanicID = await MekanikRepository.dropdown( res, item.token ?? '', {
+                                tipe: 13,
+                                namaMekanik: ""
+                            })
+
+
+                            // console.log( 'mechanicID', mechanicID?.listDropDown[0] ?? "0" )
+                            // return ResponseResult.successGet( res, mechanicID?.listDropDown[0].nilai ?? "0")
+                            // return ResponseResult.successGet( res, mechanicIDcheck)
+                            if (mechanicID !== null) {
+
+                                // return ResponseResult.successGet( res, "mekanik not null" + mechanicID ?? "0")
+                                if (mechanicID?.ack === 1) {
+                                    // return ResponseResult.successGet( res, "mekanik ack nu" + mechanicID?.listDropDown[0].nilai ?? "0")
+                                    // statusSend.push(mechanicID?.message ?? '')
+                            // console.log( 'mechanicID', mechanicID?.listDropDown[0].nilai.toString() ?? "0" )
+
+                                    const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                                            id: item.idpkb,
+                                            action: 1,
+                                            waktu: "2023-01-12T01:58:57+07:00",
+                                            refMechanicId: mechanicID?.listDropDown[0].nilai.toString() ?? "1",
+                                            saran: "",
+                                            durasiPengerjaanPKB: "00:00:00:00",
+                                            isOverdue: 1,
+                                            etaOverdue: 158.88,
+                                            alasanPauseId: ""
+                                        })
+
+                                    // return ResponseResult.successGet( res, respPrint)
+
+
+                                        if(respPrint?.ack === 1){
+                                            const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                                                id: item.idpkb,
+                                                action: 2,
+                                                waktu: "2023-01-12T01:58:57+07:00",
+                                                refMechanicId: mechanicID?.listDropDown[0].nilai.toString() ?? "1",
+                                                saran: "",
+                                                durasiPengerjaanPKB: "00:00:00:00",
+                                                isOverdue: 1,
+                                                etaOverdue: 158.88,
+                                                alasanPauseId: ""
+                                            })
+
+                                            // return ResponseResult.successGet( res, respSelesai)
+                                        }
+            
+                                    // return ResponseResult.successGet( res, respPrint)
+                                    // console.log( JSON.stringify(respPrint) )
+                                }
+                            }
+                                
+
+                            // console.log( 'mechanicID', mechanicID?.listOfKaryawanModel[0].id.toString() ?? "0" )
+
+                            // return ResponseResult.successGet( res, mechanicID)
+                            
+
+                        // return ResponseResult.successGet( res, respPrint)
+                    }
+                }
+
+                
+                
                 return ResponseResult.successGet( res, {
                     statusSend : statusSend,
                     data : dataSend,
@@ -311,6 +397,10 @@ class PkbImportExcelController {
                 } )
 
             }
+
+            
+
+            
 
         } catch ( e : any ) {
             return ResponseResult.error( res, {

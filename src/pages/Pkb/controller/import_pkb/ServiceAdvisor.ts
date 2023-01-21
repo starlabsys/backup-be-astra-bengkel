@@ -7,6 +7,17 @@ import MasterDataMekanikRepository from "../../../../domain/repository/MasterDat
 
 
 class ServiceAdvisor {
+
+    // public storeServiceAdvisor = async ( props : ModelParamPkb ) : Promise<ModelResultImportPkb> => {
+    //     try{
+
+    //     }catch(e:any){
+    //         return ResponseImportPkb( {
+    //             status : EnumErrorImportPKB.error,
+    //             error : e
+    //         } )
+    //     }
+    // }
     public checkServiceAdvisor = async ( props : ModelParamPkb ) : Promise<ModelResultImportPkb> => {
         try {
             const getSa = await MasterDataMekanikRepository.getListMekanik( props.res, props.token ?? '', {
@@ -28,6 +39,8 @@ class ServiceAdvisor {
                     // } )
                     // create service advisor todo
                     // TODO: create service advisor
+
+                    
                 }
             }
 
