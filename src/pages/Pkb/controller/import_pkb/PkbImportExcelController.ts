@@ -281,6 +281,8 @@ class PkbImportExcelController {
             let statusSend : string[] = []
             let idPkb : ModelProsesPkb[] = []
 
+            let messageResp : string = ''
+
             
 
             if ( dataSend.length > 0 ) {
@@ -358,6 +360,8 @@ class PkbImportExcelController {
                                                 alasanPauseId: ""
                                             })
 
+                                            messageResp = respSelesai?.message ?? ''
+
                                             // return ResponseResult.successGet( res, respSelesai)
                                         }
             
@@ -377,11 +381,12 @@ class PkbImportExcelController {
                 }
 
                 
+                // const messageRes = {
+                //     statusSend : statusSend,
+                //     data : dataSend,
+                // }
                 
-                return ResponseResult.successGet( res, {
-                    statusSend : statusSend,
-                    data : dataSend,
-                } )
+                return ResponseResult.successPost( res, statusSend.toString() )
                 // statusSend.length >
                 // 0 ? JSON.stringify( statusSend ) :
                 //     'Success Import Excel'
