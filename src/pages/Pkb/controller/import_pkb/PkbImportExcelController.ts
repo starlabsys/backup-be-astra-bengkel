@@ -189,7 +189,7 @@ class PkbImportExcelController {
                         // isFirstLoad : 0,
                         isPKBHotline : false,
                         jamEstimasiSelesai : FormatDate.dateSend( item.tanggal ),
-                        jamKedatanganCustomer : FormatDate.dateSend( item.tanggal ),
+                        jamKedatanganCustomer : FormatDate.dateSend( item.jam_kedatangan_customer ),
                         jamSelesai : "",
                         kecamatanPembawa : item.kecamatan_pembawa,
                         keluhan : item.keluhan,
@@ -334,8 +334,8 @@ class PkbImportExcelController {
 
                             // return ResponseResult.successGet( res, "mekanik not null" + mechanicID ?? "0")
                             if ( mechanicID?.ack === 1 ) {
-                                // return ResponseResult.successGet( res, "mekanik ack nu" + mechanicID?.listDropDown[0].nilai ?? "0")
-                                // statusSend.push(mechanicID?.message ?? '')
+                                // return ResponseResult.successGet( res, "mekanik ack nu" +
+                                // mechanicID?.listDropDown[0].nilai ?? "0") statusSend.push(mechanicID?.message ?? '')
                                 // console.log( 'mechanicID', mechanicID?.listDropDown[0].nilai.toString() ?? "0" )
 
                                 const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
