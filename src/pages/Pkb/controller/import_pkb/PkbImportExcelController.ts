@@ -269,6 +269,7 @@ class PkbImportExcelController {
 
                     // return ResponseResult.successGet( res, dataStore )
 
+                    console.log(dataStore);
                     dataSend.push( dataStore );
                 }
                 else {
