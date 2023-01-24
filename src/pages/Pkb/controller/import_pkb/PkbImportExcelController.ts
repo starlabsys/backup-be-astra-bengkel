@@ -1,13 +1,11 @@
 import { ModelListExcel } from "../../model/ModelListExcel";
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import ResponseResult from "../../../../core/response/ResponseResult";
 import { EnumResponseCode } from "../../../../utils/enum/EnumResponseCode";
-import CustomerRepository from "../../../../domain/repository/CustomerRepository/CustomerRepository";
 import Token from "../../../../utils/Token";
 import ModelUsers from "../../../../db/models/ModelUsers";
 import { ModelResultImportPkb } from "../../model/ModelResultImportPkb";
 import { EnumErrorImportPKB } from "../../utils/enum/EnumErrorImportPKB";
-import { ResponseImportPkb } from "../../utils/ResponseImportPkb/ResponseImportPkb";
 import CustomerPkb from "./CustomerPkb";
 import { ModelDetailCustomer } from "../../../../domain/models/Customer/ModelDetailCustomer";
 import FinalInspectorPkb from "./FinalInspectorPkb";
@@ -15,19 +13,15 @@ import KendaraanPkb from "./KendaraanPkb";
 import PitPkb from "./PitPkb";
 import ServiceAdvisor from "./ServiceAdvisor";
 import { ListOfPIT } from "../../../../domain/models/Pit/ModelPit";
-import { ListOfKaryawanModel } from "../../../../domain/models/Mekanik/ModelMekanik";
 import { ListofKendaraan } from "../../../../domain/models/Kendaraan/ModelGetListKendaraan";
-import { InterfaceStorePkb } from "../../../../domain/repository/PkbRepository/interface/InterfaceStorePkb";
 import PkbRepository from "../../../../domain/repository/PkbRepository/PkbRepository";
-import { ListDropDown, ModelListMekanikPKB } from "../../../../domain/models/DropDown/ModelListMekanikPKB";
+import { ListDropDown } from "../../../../domain/models/DropDown/ModelListMekanikPKB";
 import FormatDate from "../../../../utils/Format/FormatDate/FormatDate";
 import JasaPkb from "./JasaPkb";
-import { ConvertModelResultJasaPkb, ListofJasa, ModelResultJasaPkb } from "../../model/ModelResultJasaPkb";
 import { ModelResultDataJasaPkb } from "../../model/ModelResultDataJasaPkb";
 import { InterfaceAddDataServices } from "../../model/ModelAddExcelPkb";
 import { ModelProsesPkb } from "../../model/ModelProsesPkb";
 import MekanikRepository from "../../../../domain/repository/Mekanik/MekanikRepository";
-import { ModelGetMekanik } from "../../model/ModelGetMekanik";
 
 
 class PkbImportExcelController {
@@ -189,7 +183,7 @@ class PkbImportExcelController {
                         // isFirstLoad : 0,
                         isPKBHotline : false,
                         jamEstimasiSelesai : FormatDate.dateSend( item.tanggal ),
-                        jamKedatanganCustomer : FormatDate.dateSend( item.tanggal ),
+                        jamKedatanganCustomer : FormatDate.dateSend( item.jam_kedatangan_customer ),
                         jamSelesai : "",
                         kecamatanPembawa : item.kecamatan_pembawa,
                         keluhan : item.keluhan,
@@ -334,8 +328,8 @@ class PkbImportExcelController {
 
                             // return ResponseResult.successGet( res, "mekanik not null" + mechanicID ?? "0")
                             if ( mechanicID?.ack === 1 ) {
-                                // return ResponseResult.successGet( res, "mekanik ack nu" + mechanicID?.listDropDown[0].nilai ?? "0")
-                                // statusSend.push(mechanicID?.message ?? '')
+                                // return ResponseResult.successGet( res, "mekanik ack nu" +
+                                // mechanicID?.listDropDown[0].nilai ?? "0") statusSend.push(mechanicID?.message ?? '')
                                 // console.log( 'mechanicID', mechanicID?.listDropDown[0].nilai.toString() ?? "0" )
 
                                 const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
