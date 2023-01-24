@@ -31,6 +31,10 @@ class KendaraanPkb {
                 const checkMaster : any = await checkMasterData?.listDropDown.filter( item => item.label.includes(props.data.nama_tipe_kendaraan) )
 
                 // Check Medi
+                // return ResponseImportPkb({
+                //     status : EnumErrorImportPKB.success,
+                //     data : checkMaster[0].nilai
+                // })
                 if (!checkMaster[0] !== null ) {
 
                     const checkMasterDataWarna = await MasterDropDownRepository.masterDropDown( props.res, props.token ?? '', {
@@ -50,9 +54,13 @@ class KendaraanPkb {
                         //     status : EnumErrorImportPKB.success,
                         //     data : checkMasterDataWarna?.listDropDown[0].label.toLocaleLowerCase()
                         // })
-                        const checkWarna : any = await checkMasterDataWarna?.listDropDown.filter( item => item.label.toLocaleLowerCase() === props.data.warna.toLocaleLowerCase() )
+                        // const checkWarna : any = await checkMasterDataWarna?.listDropDown.filter( item => item.label.toLocaleLowerCase() === props.data.warna.toLocaleLowerCase() )
 
-                        if (checkWarna[0] !== null) {
+                        // return ResponseImportPkb( {
+                        //     status : EnumErrorImportPKB.success,
+                        //     data : checkWarna[0].nilai
+                        // })
+                        if (checkMasterDataWarna?.listDropDown[0] !== null) {
                             const storeKendaraan = await KendaraanRepository.addKendaraan( props.res, props.token ?? '', {
                                     action : 0,
                                     id : 0,
@@ -63,12 +71,17 @@ class KendaraanPkb {
                                     noPolisi : props.data.no_polisi,
                                     noRangka : props.data.no_rangka,
                                     noMesin : props.data.no_mesin,
-                                    warna : checkWarna[ 0 ].nilai,
+                                    warna : checkMasterDataWarna?.listDropDown[0].nilai.toString() ?? "0",
                                     tipe : checkMaster[ 0 ].nilai,
                                     tahunRakit : props.data.tahun_rakit + "-01-01T00:00:00+07:00",
                                     aktif : true,
                                     isUpdateQR : false
                                 } )
+
+                                // return ResponseImportPkb({
+                                //     status : EnumErrorImportPKB.success,
+                                //     data : storeKendaraan
+                                // })
 
                                 if (storeKendaraan?.ack === 1) { 
                                     
