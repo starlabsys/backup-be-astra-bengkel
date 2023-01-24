@@ -77,7 +77,7 @@ class PkbImportExcelController {
                         res : res,
                     } )
 
-                    // return ResponseResult.successGet(res, checkKendaraanPkb)
+                    // return ResponseResult.successGet(res, checkKendaraanPkb).
 
 
                     const kendaraanPkb : ListofKendaraan = checkKendaraanPkb.data as ListofKendaraan;
