@@ -19,7 +19,7 @@ export interface InterfaceAddDataServices {
     dealerSendiri : boolean;
     keluhan : string;
     gejala : string;
-    pergantianPart : string;
+    pergantianPart : boolean;
     partBekasDibawaKonsumen : boolean;
     refMechanicID : string;
     serviceAdvisorID : string;
@@ -28,7 +28,7 @@ export interface InterfaceAddDataServices {
     jamProses : string;
     jamSelesai : string;
     uangMuka : number;
-    idGudang : number;
+    idGudang : string;
     idPit : number;
     listOfPekerjaan : ListOfPekerjaan[];
     listOfMaterialHotline : any[];

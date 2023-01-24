@@ -11,7 +11,12 @@ class FormatDate {
         const monthFormat = Number( month ) < 10 ? '0' + month : month;
         
         // return `${ year }-${ monthFormat }-${ day }T${ timeData }+07:00`;
-        return `${ year }-${ day }-${ monthFormat }T${ timeData }+07:00`;
+        if (day.length === 1) {
+            return `${ year }-0${ day }-${ monthFormat }T${ timeData }+07:00`;
+        }else{
+            return `${ year }-${ day }-${ monthFormat }T${ timeData }+07:00`;
+
+        }
     }
 }
 

@@ -25,9 +25,14 @@ class JasaPkb {
 
                 const jasa : any = ConvertModelResultJasaPkb.toModelResultJasaPkb( JSON.stringify( checkJasaPkb ) )
 
+                const detailJasa = await JasaRepository.detailJasa( props.res, props.token ?? '', {
+                    action : 1,
+                    id : jasa.listofJasa[ 0 ].id, 
+                })
+
                 return ResponseImportPkb( {
                     status : EnumErrorImportPKB.success,
-                    data : jasa.listofJasa[ 0 ]
+                    data : detailJasa
                 } )
             }
             else {
