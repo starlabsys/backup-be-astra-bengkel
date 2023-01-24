@@ -147,9 +147,13 @@ class PkbImportExcelController {
 
                     // return ResponseResult.successGet( res, checkJasa )
 
-                    const jasaPkb : ModelResultDataJasaPkb = checkJasa.data as ModelResultDataJasaPkb;
+                    const jasaPkb : ModelResultDataJasaPkb | undefined = checkJasa.data as ModelResultDataJasaPkb;
 
                     // return ResponseResult.successGet( res, FormatDate.dateSend( item.tanggal ) )
+                    const nilaiDiskon = jasaPkb.nilaiDiskon ?? 0;
+                    const persentaseDiskon = jasaPkb.persentaseDiskon ?? 0;
+                    const pajakJual = jasaPkb.pajakJual ?? 0;
+                    const hargaJual = jasaPkb.hargaJual ?? 0;
 
                     let dataStore : InterfaceAddDataServices = {
                         token : checkToken,
@@ -197,13 +201,13 @@ class PkbImportExcelController {
                                 pkbPekerjaanID : 0,
                                 itemNo : 0,
                                 refJobID : jasaPkb.id ?? 0,
-                                nilaiDiskon : jasaPkb.nilaiDiskon ?? 0,
+                                nilaiDiskon : nilaiDiskon,
                                 nilaiDiskonJasa : jasaPkb.nilaiDiskon ?? 0,
-                                persentaseDiskon : jasaPkb.persentaseDiskon ?? 0,
+                                persentaseDiskon : persentaseDiskon,
                                 persentaseDiskonJasa : jasaPkb.persentaseDiskon ?? 0,
-                                totalJasa : jasaPkb.nilaiDiskon + jasaPkb.persentaseDiskon + jasaPkb.pajakJual + jasaPkb.hargaJual ?? 0,
-                                pajakJasa : jasaPkb.pajakJual ?? 0,
-                                hargaPekerjaan : jasaPkb.hargaJual ?? 0,
+                                totalJasa : persentaseDiskon + nilaiDiskon + pajakJual + hargaJual,
+                                pajakJasa : pajakJual,
+                                hargaPekerjaan : hargaJual,
                                 namaPekerjaan : jasaPkb.namaJasa ?? '',
                                 isOPL : false,
                                 labelisOPL : 'Tidak',
@@ -215,7 +219,7 @@ class PkbImportExcelController {
                                 //     return {} as InterfaceListSparePartPKB
                                 // } ),
                                 listOfMaterialHotline : [],
-                                kodeJasa : jasaPkb.label,
+                                kodeJasa : jasaPkb.kodeJasa,
                                 idJasa : jasaPkb.id,
                                 isShowDelete : true,
                                 isEditable : true,
