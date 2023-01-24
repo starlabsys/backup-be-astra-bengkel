@@ -123,16 +123,21 @@ class KendaraanPkb {
         try{
             const checkKendaraan = await KendaraanRepository.get( props.res, props.token ?? '', {
                     action : 0,
-                    noPolisi : props.data.no_polisi,
+                    noPolisi : "",
                     noMesin : props.data.no_mesin,
                     namaCustomer : "",
-                    noRangka : props.data.no_rangka,
+                    noRangka : "",
                     pageNumber : 1,
                     pageSize : 10,
                     totalRow : 0,
                     sortColumn : "ID",
                     sortDirection : 0
                 } )
+
+                // return ResponseImportPkb({
+                //     status : EnumErrorImportPKB.success,
+                //     data : checkKendaraan
+                // })
 
                 if( checkKendaraan !== null ){
                     if (checkKendaraan.ack === 1) {
