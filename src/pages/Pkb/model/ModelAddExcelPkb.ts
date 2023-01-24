@@ -19,7 +19,7 @@ export interface InterfaceAddDataServices {
     dealerSendiri : boolean;
     keluhan : string;
     gejala : string;
-    pergantianPart : boolean;
+    pergantianPart : string;
     partBekasDibawaKonsumen : boolean;
     refMechanicID : string;
     serviceAdvisorID : string;
@@ -33,8 +33,8 @@ export interface InterfaceAddDataServices {
     listOfPekerjaan : ListOfPekerjaan[];
     listOfMaterialHotline : any[];
     tanggal : string;
-    latitude : number;
-    longitude : number;
+    latitude : string;
+    longitude : string;
     noSTNK : string;
     indikatorBensin : number;
     svPKBReturnID : number;
@@ -83,7 +83,7 @@ export interface ListOfPekerjaan {
     isEditable : boolean;
     isFreeService : boolean;
     markUpJasa : number;
-    vendorID : number;
+    vendorID : string;
     flatRate : number;
     noClaimC2 : string;
     noBuku : string;
