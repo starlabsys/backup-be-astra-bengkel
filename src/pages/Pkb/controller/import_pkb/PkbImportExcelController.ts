@@ -160,7 +160,7 @@ class PkbImportExcelController {
                         action : 0,
                         idPKB : 0,
                         // tanggalSampai : FormatDate.dateSend( item.tanggal ),
-                        activityCapacity : 0,
+                        activityCapacity : 3,
                         alamatPembawa : item.alamat_ktp_pembawa,
                         alamatPembawaSaatIni : item.alamat_ktp_pembawa,
                         alasanIngatServiceID : 4,
@@ -191,12 +191,12 @@ class PkbImportExcelController {
                         jamSelesai : "",
                         kecamatanPembawa : item.kecamatan_pembawa,
                         keluhan : item.keluhan,
-                        kodeAntrian : "",
+                        kodeAntrian : "R",
                         listOfMaterialHotline : [],
                         // listOfMaterialPKB: ,
                         listOfPekerjaan : [
                             {
-                                guid : '',
+                                guid : '5fd4da87',
                                 pkbID : 0,
                                 pkbPekerjaanID : 0,
                                 itemNo : 0,
@@ -265,7 +265,7 @@ class PkbImportExcelController {
 
                     }
 
-                    // return ResponseResult.successGet( res, dataStore )
+                    return ResponseResult.successGet( res, dataStore )
 
                     dataSend.push( dataStore );
                 }
