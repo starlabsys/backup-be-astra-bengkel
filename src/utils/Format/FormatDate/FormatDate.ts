@@ -12,10 +12,10 @@ class FormatDate {
 
         // return `${ year }-${ monthFormat }-${ day }T${ timeData }+07:00`;
         if ( day.length === 1 ) {
-            return `${ year }-${ day }-${ monthFormat }T${ timeData }+07:00`;
+            return `${ year }-${ monthFormat }-${ day }T${ timeData }+07:00`;
         }
         else {
-            return `${ year }-${ day }-${ monthFormat }T${ timeData }+07:00`;
+            return `${ year }-${ monthFormat }-${ day }T${ timeData }+07:00`;
 
         }
     }
