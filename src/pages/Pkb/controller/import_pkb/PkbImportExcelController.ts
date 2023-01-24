@@ -339,7 +339,7 @@ class PkbImportExcelController {
                                 const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
                                     id : item.idpkb,
                                     action : 1,
-                                    waktu : "2023-01-12T01:58:57+07:00",
+                                    waktu : FormatDate.dateSend( item.tanggal ),
                                     refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
                                     saran : "",
                                     durasiPengerjaanPKB : "00:00:00:00",
@@ -355,7 +355,7 @@ class PkbImportExcelController {
                                     const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
                                         id : item.idpkb,
                                         action : 2,
-                                        waktu : "2023-01-12T01:58:57+07:00",
+                                        waktu : FormatDate.dateSend( item.tanggal ),
                                         refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
                                         saran : "",
                                         durasiPengerjaanPKB : "00:00:00:00",
