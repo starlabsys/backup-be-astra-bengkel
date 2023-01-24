@@ -188,7 +188,7 @@ class PkbImportExcelController {
                         isFrameNo : false,
                         // isFirstLoad : 0,
                         isPKBHotline : false,
-                        jamEstimasiSelesai : FormatDate.dateSend( item.tanggal),
+                        jamEstimasiSelesai : FormatDate.dateSend( item.tanggal ),
                         jamKedatanganCustomer : FormatDate.dateSend( item.tanggal ),
                         jamSelesai : "",
                         kecamatanPembawa : item.kecamatan_pembawa,
@@ -269,7 +269,7 @@ class PkbImportExcelController {
 
                     // return ResponseResult.successGet( res, dataStore )
 
-                    console.log(dataStore);
+                    console.log( dataStore );
                     dataSend.push( dataStore );
                 }
                 else {
@@ -289,26 +289,26 @@ class PkbImportExcelController {
 
             let messageResp : string = ''
 
-            
 
             if ( dataSend.length > 0 ) {
 
                 for ( const item of dataSend ) {
                     const respStore = await PkbRepository.storeDataExcel( res, item.token ?? '', item )
-                                       .then( async ( result ) => {
-                                          if (result !== null) {
-                                             if ( result?.ack !== 1 ) {
-                                               statusSend.push( result?.message ?? '' )
-                                           }else{
-                                                  idPkb.push( {
-                                                        idpkb : Number(result?.pkbID),
-                                                        token : item.token??'',
-                                                        tanggal : item.tanggal,
-                                                        refMechanicId : item.refMechanicID
-                                                  } )  
-                                           }
-                                          }
-                                       } )
+                                                         .then( async ( result ) => {
+                                                             if ( result !== null ) {
+                                                                 if ( result?.ack !== 1 ) {
+                                                                     statusSend.push( result?.message ?? '' )
+                                                                 }
+                                                                 else {
+                                                                     idPkb.push( {
+                                                                         idpkb : Number( result?.pkbID ),
+                                                                         token : item.token ?? '',
+                                                                         tanggal : item.tanggal,
+                                                                         refMechanicId : item.refMechanicID
+                                                                     } )
+                                                                 }
+                                                             }
+                                                         } )
 
 
                     // return ResponseResult.successGet( res, respStore)
@@ -316,86 +316,90 @@ class PkbImportExcelController {
 
                 // console.log( 'idpkb', idPkb )
                 // return ResponseResult.successGet( res, idPkb)
-                if (idPkb.length > 0) {
+                if ( idPkb.length > 0 ) {
                     // console.log(idPkb[0])
-                    for(const item of idPkb){
+                    for ( const item of idPkb ) {
                         // return ResponseResult.successGet( res, item)
 
                         const mechanicID = await MekanikRepository.dropdown( res, item.token ?? '', {
-                                tipe: 13,
-                                namaMekanik: ""
-                            })
+                            tipe : 13,
+                            namaMekanik : ""
+                        } )
 
 
-                            // console.log( 'mechanicID', mechanicID?.listDropDown[0] ?? "0" )
-                            // return ResponseResult.successGet( res, mechanicID?.listDropDown[0].nilai ?? "0")
-                            // return ResponseResult.successGet( res, mechanicIDcheck)
-                            if (mechanicID !== null) {
+                        // console.log( 'mechanicID', mechanicID?.listDropDown[0] ?? "0" )
+                        // return ResponseResult.successGet( res, mechanicID?.listDropDown[0].nilai ?? "0")
+                        // return ResponseResult.successGet( res, mechanicIDcheck)
+                        if ( mechanicID !== null ) {
 
-                                // return ResponseResult.successGet( res, "mekanik not null" + mechanicID ?? "0")
-                                if (mechanicID?.ack === 1) {
-                                    // return ResponseResult.successGet( res, "mekanik ack nu" + mechanicID?.listDropDown[0].nilai ?? "0")
-                                    // statusSend.push(mechanicID?.message ?? '')
-                            // console.log( 'mechanicID', mechanicID?.listDropDown[0].nilai.toString() ?? "0" )
+                            // return ResponseResult.successGet( res, "mekanik not null" + mechanicID ?? "0")
+                            if ( mechanicID?.ack === 1 ) {
+                                // return ResponseResult.successGet( res, "mekanik ack nu" + mechanicID?.listDropDown[0].nilai ?? "0")
+                                // statusSend.push(mechanicID?.message ?? '')
+                                // console.log( 'mechanicID', mechanicID?.listDropDown[0].nilai.toString() ?? "0" )
 
-                                    const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
-                                            id: item.idpkb,
-                                            action: 1,
-                                            waktu: "2023-01-12T01:58:57+07:00",
-                                            refMechanicId: mechanicID?.listDropDown[0].nilai.toString() ?? "1",
-                                            saran: "",
-                                            durasiPengerjaanPKB: "00:00:00:00",
-                                            isOverdue: 1,
-                                            etaOverdue: 158.88,
-                                            alasanPauseId: ""
-                                        })
+                                const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                                    id : item.idpkb,
+                                    action : 1,
+                                    waktu : "2023-01-12T01:58:57+07:00",
+                                    refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
+                                    saran : "",
+                                    durasiPengerjaanPKB : "00:00:00:00",
+                                    isOverdue : 1,
+                                    etaOverdue : 158.88,
+                                    alasanPauseId : ""
+                                } )
 
-                                    // return ResponseResult.successGet( res, respPrint)
+                                // return ResponseResult.successGet( res, respPrint)
 
 
-                                        if(respPrint?.ack === 1){
-                                            const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
-                                                id: item.idpkb,
-                                                action: 2,
-                                                waktu: "2023-01-12T01:58:57+07:00",
-                                                refMechanicId: mechanicID?.listDropDown[0].nilai.toString() ?? "1",
-                                                saran: "",
-                                                durasiPengerjaanPKB: "00:00:00:00",
-                                                isOverdue: 1,
-                                                etaOverdue: 158.88,
-                                                alasanPauseId: ""
-                                            })
+                                if ( respPrint?.ack === 1 ) {
+                                    const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                                        id : item.idpkb,
+                                        action : 2,
+                                        waktu : "2023-01-12T01:58:57+07:00",
+                                        refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
+                                        saran : "",
+                                        durasiPengerjaanPKB : "00:00:00:00",
+                                        isOverdue : 1,
+                                        etaOverdue : 158.88,
+                                        alasanPauseId : ""
+                                    } )
 
-                                            messageResp = respSelesai?.message ?? ''
+                                    messageResp = respSelesai?.message ?? ''
 
-                                            // return ResponseResult.successGet( res, respSelesai)
-                                        }
-            
-                                    // return ResponseResult.successGet( res, respPrint)
-                                    // console.log( JSON.stringify(respPrint) )
+                                    // return ResponseResult.successGet( res, respSelesai)
                                 }
+
+                                // return ResponseResult.successGet( res, respPrint)
+                                // console.log( JSON.stringify(respPrint) )
                             }
-                                
+                        }
 
-                            // console.log( 'mechanicID', mechanicID?.listOfKaryawanModel[0].id.toString() ?? "0" )
 
-                            // return ResponseResult.successGet( res, mechanicID)
-                            
+                        // console.log( 'mechanicID', mechanicID?.listOfKaryawanModel[0].id.toString() ?? "0" )
+
+                        // return ResponseResult.successGet( res, mechanicID)
+
 
                         // return ResponseResult.successGet( res, respPrint)
                     }
                 }
 
-                
+
                 // const messageRes = {
                 //     statusSend : statusSend,
                 //     data : dataSend,
                 // }
-                
-                return ResponseResult.successPost( res, statusSend.toString() )
+
+                if ( statusSend.length > 0 ) {
+                    return ResponseResult.successPost( res, JSON.stringify( statusSend ) )
+                }
+                else {
+                    return ResponseResult.successPost( res, 'Success Import Excel' )
+                }
                 // statusSend.length >
-                // 0 ? JSON.stringify( statusSend ) :
-                //     'Success Import Excel'
+                // 0 ?
 
 
             }
@@ -409,9 +413,6 @@ class PkbImportExcelController {
 
             }
 
-            
-
-            
 
         } catch ( e : any ) {
             return ResponseResult.error( res, {
