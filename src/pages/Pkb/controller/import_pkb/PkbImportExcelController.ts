@@ -151,6 +151,8 @@ class PkbImportExcelController {
                         res : res,
                     } )
 
+                    // return ResponseResult.successGet( res, checkJasa )
+
                     const jasaPkb : ModelResultDataJasaPkb = checkJasa.data as ModelResultDataJasaPkb;
 
                     // return ResponseResult.successGet( res, FormatDate.dateSend( item.tanggal ) )
@@ -179,8 +181,8 @@ class PkbImportExcelController {
                         finalInspectorID : finalInspector.nilai,
                         gejala : item.gejala_analisa_service_advisor,
                         kotaPembawa : item.kota_pembawa,
-                        idGudang : 0,
-                        idPit : pitPkb.id,
+                        idGudang : "",
+                        idPit : 0,
                         indikatorBensin : 0,
                         isEngineNo : false,
                         isFrameNo : false,
@@ -196,7 +198,7 @@ class PkbImportExcelController {
                         // listOfMaterialPKB: ,
                         listOfPekerjaan : [
                             {
-                                guid : '5fd4da87',
+                                guid : '',
                                 pkbID : 0,
                                 pkbPekerjaanID : 0,
                                 itemNo : 0,
@@ -219,12 +221,12 @@ class PkbImportExcelController {
                                 //     return {} as InterfaceListSparePartPKB
                                 // } ),
                                 listOfMaterialHotline : [],
-                                kodeJasa : jasaPkb.kodeJasa,
+                                kodeJasa : jasaPkb.label,
                                 idJasa : jasaPkb.id,
                                 isShowDelete : true,
                                 isEditable : true,
                                 isFreeService : jasaPkb.isFreeService,
-                                flatRate : 0,
+                                flatRate : jasaPkb.flatRate,
                                 markUpJasa : 0,
                                 vendorID : "",
                                 noClaimC2 : '',
@@ -238,7 +240,7 @@ class PkbImportExcelController {
                         // pageNumber : 0,
                         // pageSize : 0,
                         partBekasDibawaKonsumen : false,
-                        pergantianPart : "false",
+                        pergantianPart : false,
                         pkbRemove : {
                             listRemoveMaterial : [],
                             listRemovePekerjaan : [],

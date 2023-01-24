@@ -17,4 +17,5 @@ export interface ModelResultDataJasaPkb {
     labelGrupJasa : string;
     nilaiDiskon : number;
     persentaseDiskon : number;
+    flatRate : number;
 }
