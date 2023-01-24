@@ -153,6 +153,7 @@ class PkbImportExcelController {
 
                     const jasaPkb : ModelResultDataJasaPkb = checkJasa.data as ModelResultDataJasaPkb;
 
+                    // return ResponseResult.successGet( res, FormatDate.dateSend( item.tanggal ) )
 
                     let dataStore : InterfaceAddDataServices = {
                         token : checkToken,
@@ -185,7 +186,7 @@ class PkbImportExcelController {
                         isFrameNo : false,
                         // isFirstLoad : 0,
                         isPKBHotline : false,
-                        jamEstimasiSelesai : "",
+                        jamEstimasiSelesai : FormatDate.dateSend( item.tanggal),
                         jamKedatanganCustomer : FormatDate.dateSend( item.tanggal ),
                         jamSelesai : "",
                         kecamatanPembawa : item.kecamatan_pembawa,
@@ -225,7 +226,7 @@ class PkbImportExcelController {
                                 isFreeService : jasaPkb.isFreeService,
                                 flatRate : 0,
                                 markUpJasa : 0,
-                                vendorID : 0,
+                                vendorID : "",
                                 noClaimC2 : '',
                                 noBuku : '',
                                 isAdditionalPekerjaan : 0, //ubah
@@ -237,7 +238,7 @@ class PkbImportExcelController {
                         // pageNumber : 0,
                         // pageSize : 0,
                         partBekasDibawaKonsumen : false,
-                        pergantianPart : false,
+                        pergantianPart : "false",
                         pkbRemove : {
                             listRemoveMaterial : [],
                             listRemovePekerjaan : [],
@@ -256,10 +257,10 @@ class PkbImportExcelController {
                         tipeComingCustomer : "Milik", //wajib
                         // totalRow : 0,
                         uangMuka : 0,
-                        jamMasuk : "",
+                        jamMasuk : FormatDate.dateSend( item.tanggal ),
                         jamProses : "",
-                        latitude : 0,
-                        longitude : 0,
+                        latitude : "",
+                        longitude : "",
                         pkbNo : "",
 
                     }

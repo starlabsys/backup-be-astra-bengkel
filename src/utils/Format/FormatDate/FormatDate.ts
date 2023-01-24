@@ -9,7 +9,9 @@ class FormatDate {
         const month = dateData.split( '-' )[ 1 ];
         const day = dateData.split( '-' )[ 0 ];
         const monthFormat = Number( month ) < 10 ? '0' + month : month;
-        return `${ year }-${ monthFormat }-${ day }T${ timeData }+07:00`;
+        
+        // return `${ year }-${ monthFormat }-${ day }T${ timeData }+07:00`;
+        return `${ year }-${ day }-${ monthFormat }T${ timeData }+07:00`;
     }
 }
 
