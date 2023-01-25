@@ -315,55 +315,55 @@ class PkbImportExcelController {
 
                 console.log( 'idpkb', idPkb )
                 
-                if ( idPkb[0].ack === '1' ) {
-                    for ( const item of idPkb ) {
+                // if ( idPkb[0].ack === '1' ) {
+                //     for ( const item of idPkb ) {
 
-                        const mechanicID = await MekanikRepository.dropdown( res, item.token ?? '', {
-                            tipe : 13,
-                            namaMekanik : ""
-                        } )
+                //         const mechanicID = await MekanikRepository.dropdown( res, item.token ?? '', {
+                //             tipe : 13,
+                //             namaMekanik : ""
+                //         } )
 
-                        if (mechanicID !== null) {
+                //         if (mechanicID !== null) {
                             
-                            console.log('mechanicID', mechanicID?.listDropDown[0].nilai)
-                            const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
-                                id : item.idpkb,
-                                action : 1,
-                                waktu : FormatDate.dateSend( item.tanggal ),
-                                refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
-                                saran : "",
-                                durasiPengerjaanPKB : "00:00:00:00",
-                                isOverdue : 1,
-                                etaOverdue : 158.88,
-                                alasanPauseId : ""
-                            } )
+                //             console.log('mechanicID', mechanicID?.listDropDown[0].nilai)
+                //             const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                //                 id : item.idpkb,
+                //                 action : 1,
+                //                 waktu : FormatDate.dateSend( item.tanggal ),
+                //                 refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
+                //                 saran : "",
+                //                 durasiPengerjaanPKB : "00:00:00:00",
+                //                 isOverdue : 1,
+                //                 etaOverdue : 158.88,
+                //                 alasanPauseId : ""
+                //             } )
 
-                            // console.log( 'respPrint', respPrint )
-                            // return ResponseResult.successGet( res, "Resprint"+respPrint )
+                //             // console.log( 'respPrint', respPrint )
+                //             // return ResponseResult.successGet( res, "Resprint"+respPrint )
 
-                            if ( respPrint?.ack === 1 ) {
-                                const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
-                                    id : item.idpkb,
-                                    action : 2,
-                                    waktu : FormatDate.dateSend( item.tanggal ),
-                                    refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
-                                    saran : "",
-                                    durasiPengerjaanPKB : "00:00:00:00",
-                                    isOverdue : 1,
-                                    etaOverdue : 158.88,
-                                    alasanPauseId : ""
-                                } )
+                //             if ( respPrint?.ack === 1 ) {
+                //                 const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                //                     id : item.idpkb,
+                //                     action : 2,
+                //                     waktu : FormatDate.dateSend( item.tanggal ),
+                //                     refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
+                //                     saran : "",
+                //                     durasiPengerjaanPKB : "00:00:00:00",
+                //                     isOverdue : 1,
+                //                     etaOverdue : 158.88,
+                //                     alasanPauseId : ""
+                //                 } )
 
-                                messageResp = respSelesai?.message ?? ''
+                //                 messageResp = respSelesai?.message ?? ''
 
-                                console.log( 'respSelesai', respSelesai )
+                //                 console.log( 'respSelesai', respSelesai )
 
-                                // return ResponseResult.successGet( res, respSelesai)
-                            }
+                //                 // return ResponseResult.successGet( res, respSelesai)
+                //             }
 
-                        }
-                    }
-                }
+                //         }
+                //     }
+                // }
 
                 if ( statusSend.length > 0 ) {
                     return ResponseResult.successPost( res, JSON.stringify( statusSend ) )
