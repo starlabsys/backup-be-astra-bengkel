@@ -302,7 +302,8 @@ class PkbImportExcelController {
                                                                          idpkb : Number( result?.pkbID ),
                                                                          token : item.token ?? '',
                                                                          tanggal : item.tanggal,
-                                                                         refMechanicId : item.refMechanicID
+                                                                         refMechanicId : item.refMechanicID,
+                                                                         ack : '1'
                                                                      } )
                                                                  }
                                                              }
@@ -312,33 +313,38 @@ class PkbImportExcelController {
                     // return ResponseResult.successGet( res, respStore)
                 }
 
-                // console.log( 'idpkb', idPkb )
-                // return ResponseResult.successGet( res, idPkb)
-                if ( idPkb.length > 0 ) {
-                    // console.log(idPkb[0])
+                console.log( 'idpkb', idPkb )
+                
+                if ( idPkb[0].ack === '1' ) {
                     for ( const item of idPkb ) {
-                        // return ResponseResult.successGet( res, item)
 
                         const mechanicID = await MekanikRepository.dropdown( res, item.token ?? '', {
                             tipe : 13,
                             namaMekanik : ""
                         } )
 
+                        if (mechanicID !== null) {
+                            
+                            console.log('mechanicID', mechanicID?.listDropDown[0].nilai)
+                            const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                                id : item.idpkb,
+                                action : 1,
+                                waktu : FormatDate.dateSend( item.tanggal ),
+                                refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
+                                saran : "",
+                                durasiPengerjaanPKB : "00:00:00:00",
+                                isOverdue : 1,
+                                etaOverdue : 158.88,
+                                alasanPauseId : ""
+                            } )
 
-                        // console.log( 'mechanicID', mechanicID?.listDropDown[0] ?? "0" )
-                        // return ResponseResult.successGet( res, mechanicID?.listDropDown[0].nilai ?? "0")
-                        // return ResponseResult.successGet( res, mechanicIDcheck)
-                        if ( mechanicID !== null ) {
+                            // console.log( 'respPrint', respPrint )
+                            // return ResponseResult.successGet( res, "Resprint"+respPrint )
 
-                            // return ResponseResult.successGet( res, "mekanik not null" + mechanicID ?? "0")
-                            if ( mechanicID?.ack === 1 ) {
-                                // return ResponseResult.successGet( res, "mekanik ack nu" +
-                                // mechanicID?.listDropDown[0].nilai ?? "0") statusSend.push(mechanicID?.message ?? '')
-                                // console.log( 'mechanicID', mechanicID?.listDropDown[0].nilai.toString() ?? "0" )
-
-                                const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                            if ( respPrint?.ack === 1 ) {
+                                const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
                                     id : item.idpkb,
-                                    action : 1,
+                                    action : 2,
                                     waktu : FormatDate.dateSend( item.tanggal ),
                                     refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
                                     saran : "",
@@ -348,47 +354,16 @@ class PkbImportExcelController {
                                     alasanPauseId : ""
                                 } )
 
-                                // return ResponseResult.successGet( res, respPrint)
+                                messageResp = respSelesai?.message ?? ''
 
+                                console.log( 'respSelesai', respSelesai )
 
-                                if ( respPrint?.ack === 1 ) {
-                                    const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
-                                        id : item.idpkb,
-                                        action : 2,
-                                        waktu : FormatDate.dateSend( item.tanggal ),
-                                        refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
-                                        saran : "",
-                                        durasiPengerjaanPKB : "00:00:00:00",
-                                        isOverdue : 1,
-                                        etaOverdue : 158.88,
-                                        alasanPauseId : ""
-                                    } )
-
-                                    messageResp = respSelesai?.message ?? ''
-
-                                    // return ResponseResult.successGet( res, respSelesai)
-                                }
-
-                                // return ResponseResult.successGet( res, respPrint)
-                                // console.log( JSON.stringify(respPrint) )
+                                // return ResponseResult.successGet( res, respSelesai)
                             }
+
                         }
-
-
-                        // console.log( 'mechanicID', mechanicID?.listOfKaryawanModel[0].id.toString() ?? "0" )
-
-                        // return ResponseResult.successGet( res, mechanicID)
-
-
-                        // return ResponseResult.successGet( res, respPrint)
                     }
                 }
-
-
-                // const messageRes = {
-                //     statusSend : statusSend,
-                //     data : dataSend,
-                // }
 
                 if ( statusSend.length > 0 ) {
                     return ResponseResult.successPost( res, JSON.stringify( statusSend ) )
