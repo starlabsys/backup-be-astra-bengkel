@@ -11,7 +11,8 @@ class FormatDate {
         const day = dateData.split( '-' )[ 0 ];
         const monthFormat = Number( month ) < 10 ? month : month;
 
-        return `${ year }-${ monthFormat }-${ day }T${ timeData }+07:00`;
+        // return `${ year }-${ monthFormat }-${ day }T${ timeData }+07:00`;
+        return `${ day }-${ monthFormat }-${ year }T${ timeData }+07:00`;
         // if ( day.length === 1 ) {
         //     return `${ year }-${ monthFormat }-${ day }T${ timeData }+07:00`;
         // }
