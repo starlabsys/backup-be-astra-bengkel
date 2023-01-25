@@ -315,55 +315,73 @@ class PkbImportExcelController {
 
                 console.log( 'idpkb', idPkb )
                 
-                // if ( idPkb[0].ack === '1' ) {
-                //     for ( const item of idPkb ) {
+                if ( idPkb[0].ack === '1' ) {
+                    for ( const item of idPkb ) {
 
-                //         const mechanicID = await MekanikRepository.dropdown( res, item.token ?? '', {
-                //             tipe : 13,
-                //             namaMekanik : ""
-                //         } )
+                        // console.log();
+                        
+                        const mechanicID = await MekanikRepository.dropdown( res, item.token ?? '', {
+                            tipe : 13,
+                            namaMekanik : ""
+                        } )
 
-                //         if (mechanicID !== null) {
+                        if (mechanicID !== null) {
                             
-                //             console.log('mechanicID', mechanicID?.listDropDown[0].nilai)
-                //             const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
-                //                 id : item.idpkb,
-                //                 action : 1,
-                //                 waktu : FormatDate.dateSend( item.tanggal ),
-                //                 refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
-                //                 saran : "",
-                //                 durasiPengerjaanPKB : "00:00:00:00",
-                //                 isOverdue : 1,
-                //                 etaOverdue : 158.88,
-                //                 alasanPauseId : ""
-                //             } )
+                            console.log('mechanicID', mechanicID?.listDropDown[0].nilai) // Keluar nilai nnya
+                            // const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                            //     id : item.idpkb,
+                            //     action : 1,
+                            //     waktu : FormatDate.dateSend( item.tanggal ),
+                            //     refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
+                            //     saran : "",
+                            //     durasiPengerjaanPKB : "00:00:00:00",
+                            //     isOverdue : 1,
+                            //     etaOverdue : 158.88,
+                            //     alasanPauseId : ""
+                            // } )
+                            let data = {
+                                id : item.idpkb,
+                                action : 1,
+                                waktu : item.tanggal ,
+                                refMechanicId : mechanicID?.listDropDown[ 0 ].nilai ?? "1",
+                                saran : "",
+                                durasiPengerjaanPKB : "00:00:00:00",
+                                isOverdue : 1,
+                                etaOverdue : 0,
+                                alasanPauseId : ""
+                            }
 
-                //             // console.log( 'respPrint', respPrint )
-                //             // return ResponseResult.successGet( res, "Resprint"+respPrint )
+                            console.log('data', data);
+                            
 
-                //             if ( respPrint?.ack === 1 ) {
-                //                 const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
-                //                     id : item.idpkb,
-                //                     action : 2,
-                //                     waktu : FormatDate.dateSend( item.tanggal ),
-                //                     refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
-                //                     saran : "",
-                //                     durasiPengerjaanPKB : "00:00:00:00",
-                //                     isOverdue : 1,
-                //                     etaOverdue : 158.88,
-                //                     alasanPauseId : ""
-                //                 } )
+                            const respPrint = await PkbRepository.prosesPKB( res, item.token ?? '', data)
 
-                //                 messageResp = respSelesai?.message ?? ''
+                            console.log( 'respPrint', respPrint?.message )
+                            // return ResponseResult.successGet( res, "Resprint"+respPrint )
 
-                //                 console.log( 'respSelesai', respSelesai )
+                            if ( respPrint?.ack === 1 ) {
+                                const respSelesai = await PkbRepository.prosesPKB( res, item.token ?? '', {
+                                    id : item.idpkb,
+                                    action : 2,
+                                    waktu : item.tanggal,
+                                    refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
+                                    saran : "",
+                                    durasiPengerjaanPKB : "00:00:00:00",
+                                    isOverdue : 1,
+                                    etaOverdue : 158.88,
+                                    alasanPauseId : ""
+                                } )
 
-                //                 // return ResponseResult.successGet( res, respSelesai)
-                //             }
+                                messageResp = respSelesai?.message ?? ''
 
-                //         }
-                //     }
-                // }
+                                console.log( 'respSelesai', respSelesai )
+
+                                // return ResponseResult.successGet( res, respSelesai)
+                            }
+
+                        }
+                    }
+                }
 
                 if ( statusSend.length > 0 ) {
                     return ResponseResult.successPost( res, JSON.stringify( statusSend ) )
