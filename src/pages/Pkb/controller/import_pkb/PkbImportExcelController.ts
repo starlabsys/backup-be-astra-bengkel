@@ -148,8 +148,19 @@ class PkbImportExcelController {
                     // return ResponseResult.successGet( res, checkJasa )
 
                     const jasaPkb : ModelResultDataJasaPkb | undefined = checkJasa.data as ModelResultDataJasaPkb;
+                    // return ResponseResult.successGet( res, jasaPkb)
 
+                    if ( checkJasa.message === EnumErrorImportPKB.error ) {
+                        
+                        return ResponseResult.error( res, {
+                            statusCode : EnumResponseCode.BAD_REQUEST,
+                            errorCode : "01",
+                            message : checkJasa.error,
+                            data : null
+                        } )
+                    }
                     // return ResponseResult.successGet( res, FormatDate.dateSend( item.tanggal ) )
+
                     const nilaiDiskon = jasaPkb.nilaiDiskon ?? 0;
                     const persentaseDiskon = jasaPkb.persentaseDiskon ?? 0;
                     const pajakJual = jasaPkb.pajakJual ?? 0;

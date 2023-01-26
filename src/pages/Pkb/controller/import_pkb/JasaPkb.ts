@@ -21,7 +21,7 @@ class JasaPkb {
                 sortDirection : 0
             } )
 
-            if ( checkJasaPkb !== null ) {
+            if ( checkJasaPkb?.ack == 1 ) {
 
                 const jasa : any = ConvertModelResultJasaPkb.toModelResultJasaPkb( JSON.stringify( checkJasaPkb ) )
 
@@ -36,7 +36,12 @@ class JasaPkb {
                 } )
             }
             else {
-                //Todo:: Create Jasa Or Something
+
+                console.log("Data Jasa Tidak Ditemukan")
+                return ResponseImportPkb({
+                    status : EnumErrorImportPKB.error,
+                    error : 'Data Jasa Tidak Ditemukan',
+                })
             }
 
             return ResponseImportPkb( {
