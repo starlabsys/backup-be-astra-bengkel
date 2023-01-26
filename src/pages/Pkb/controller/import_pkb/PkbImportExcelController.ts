@@ -333,7 +333,9 @@ class PkbImportExcelController {
                     // return ResponseResult.successGet( res, respStore)
                 }
 
-                console.log( 'idpkb', idPkb )
+                console.log( 'countidPkb', idPkb.length )
+                console.log( 'countStatusError', statusError.length )
+                console.log('countStatusSend', statusSend.length)
 
                 if (statusError.length > 0) {
                     
@@ -353,13 +355,15 @@ class PkbImportExcelController {
                             isFirstLoad: true
                         })
 
-                        console.log('detailPKB', detailPkb)
+                        // console.log('detailPKB', detailPkb?.listOfPKB.length)
                         statusSend.push(
-                            "Nomor PKB " + val.idPkb + " tidak ditemukan"
+                            "Nomor PKB " +val.idPkb+ " tidak ditemukan"
                         )
                         // return ResponseResult.successGet(res, detailPkb?.listOfPKB[0].id)
 
-                        if (detailPkb?.ack === 1) {
+                        if (detailPkb?.ack !== 1) {
+
+                            // return ResponseResult.successGet(res, "detailPkb?.listOfPKB[0].id")
 
                             const mechanicID = await MekanikRepository.dropdown( res, val.token ?? '', {
                                                 tipe : 13,
@@ -368,7 +372,7 @@ class PkbImportExcelController {
 
                             if (mechanicID !== null) {
                                 const respPrint = await PkbRepository.prosesPKB( res, val.token ?? '', {
-                                    id : detailPkb?.listOfPKB[0].id,
+                                    id : Number(detailPkb?.listOfPKB[0].id),
                                     action : 1,
                                     waktu : val.tanggal,
                                     refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
@@ -383,7 +387,7 @@ class PkbImportExcelController {
 
                                 if (respPrint?.ack === 1) {
                                     const respSelesai = await PkbRepository.prosesPKB( res, val.token ?? '', {
-                                        id : detailPkb?.listOfPKB[0].id,
+                                        id : Number(detailPkb?.listOfPKB[0].id),
                                         action : 2,
                                         waktu : val.tanggal,
                                         refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
@@ -403,17 +407,12 @@ class PkbImportExcelController {
                             }
                             // console.log(detailPkb)
                         }
-                    }
-                    // return ResponseResult.error(res, "Terdapat Proses yang berhasil diselesaikan, mohon import kembali file excel")
-                    // return ResponseResult.error(res, {
-                    //     statusCode : EnumResponseCode.RETRY,
-                    //     errorCode : '01',
-                    //     message : 'Terdapat Proses yang berhasil diselesaikan, mohon import kembali file excel',
-                    //     data : null,
-                    // })                    
+                    }              
                 }
                 
                 if ( idPkb.length > 0 ) {
+
+                    console.log("idpkblength", idPkb.length)
                     for ( const item of idPkb ) {
 
                         // console.log();
@@ -482,7 +481,9 @@ class PkbImportExcelController {
                     }
                 }
 
+                // console.log('statusSend', statusSend)
                 if ( statusSend.length > 0 ) {
+
                     return ResponseResult.error( res, {
                         statusCode : EnumResponseCode.BAD_REQUEST,
                         errorCode : '01',
@@ -513,7 +514,7 @@ class PkbImportExcelController {
             return ResponseResult.error( res, {
                 errorCode : '01',
                 statusCode : EnumResponseCode.FORBIDDEN,
-                message : e,
+                message : e.message,
                 data : null,
             } );
         }
