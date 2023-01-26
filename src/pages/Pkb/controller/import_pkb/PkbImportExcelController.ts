@@ -283,6 +283,7 @@ class PkbImportExcelController {
             }
 
             let statusSend : string[] = []
+            let statusError : any[] = []
             let idPkb : ModelProsesPkb[] = []
 
             let messageResp : string = ''
@@ -296,6 +297,16 @@ class PkbImportExcelController {
                                                              if ( result !== null ) {
                                                                  if ( result?.ack !== 1 ) {
                                                                      statusSend.push( result?.message ?? '' )
+                                                                     let message = result?.message ?? ''
+                                                                     let message1 = message.replace('Kendaraan ini masih ada PKB yang outstanding. (','')
+                                                                     let message2 = message1.replace(')\n', '')
+                                                                    //  console.log('message2', message2)
+                                                                     statusError.push({
+                                                                        token: item.token ?? '',
+                                                                        idPkb: message2,
+                                                                        ack: result?.ack ?? '0',
+                                                                        tanggal: item.tanggal,
+                                                                     })
                                                                  }
                                                                  else {
                                                                      idPkb.push( {
@@ -308,17 +319,88 @@ class PkbImportExcelController {
                                                                  }
                                                              }
                                                          } )
-
-
                     // return ResponseResult.successGet( res, respStore)
                 }
 
                 console.log( 'idpkb', idPkb )
+
+                if (statusError.length > 0) {
+                    
+                    for(const val of statusError){
+                        const detailPkb = await PkbRepository.getData(res, val.token ?? '', {
+                            action: 0,
+                            noPKB: val.idPkb,
+                            tanggal: "2022-11-01T00:00:00+07:00",
+                            tanggalSampai: val.tanggal,
+                            statusPencarianPKB: "1",
+                            noPolisi: "",
+                            pageNumber: 1,
+                            pageSize: 10,
+                            totalRow: 100,
+                            sortColumn: "ID",
+                            sortDirection: 0,
+                            isFirstLoad: true
+                        })
+
+                        console.log('detailPKB', detailPkb)
+                        // return ResponseResult.successGet(res, detailPkb?.listOfPKB[0].id)
+
+                        if (detailPkb?.ack === 1) {
+
+                            const mechanicID = await MekanikRepository.dropdown( res, val.token ?? '', {
+                                                tipe : 13,
+                                                namaMekanik : ""
+                                            } )
+
+                            if (mechanicID !== null) {
+                                const respPrint = await PkbRepository.prosesPKB( res, val.token ?? '', {
+                                    id : detailPkb?.listOfPKB[0].id,
+                                    action : 1,
+                                    waktu : val.tanggal,
+                                    refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
+                                    saran : "",
+                                    durasiPengerjaanPKB : "00:00:00:00",
+                                    isOverdue : 1,
+                                    etaOverdue : 158.88,
+                                    alasanPauseId : ""
+                                })
+
+                                console.log('RespPrintError', respPrint)
+
+                                if (respPrint?.ack === 1) {
+                                    const respSelesai = await PkbRepository.prosesPKB( res, val.token ?? '', {
+                                        id : detailPkb?.listOfPKB[0].id,
+                                        action : 2,
+                                        waktu : val.tanggal,
+                                        refMechanicId : mechanicID?.listDropDown[ 0 ].nilai.toString() ?? "1",
+                                        saran : "",
+                                        durasiPengerjaanPKB : "00:00:00:00",
+                                        isOverdue : 1,
+                                        etaOverdue : 158.88,
+                                        alasanPauseId : ""
+                                    })
+
+                                    console.log( 'respSelesaiErr', respSelesai )
+
+                                }
+                            }
+                            // console.log(detailPkb)
+                        }
+                    }
+                    // return ResponseResult.error(res, "Terdapat Proses yang berhasil diselesaikan, mohon import kembali file excel")
+                    return ResponseResult.error(res, {
+                        statusCode : EnumResponseCode.RETRY,
+                        errorCode : '01',
+                        message : 'Terdapat Proses yang berhasil diselesaikan, mohon import kembali file excel',
+                        data : null,
+                    })                    
+                }
                 
                 if ( idPkb[0].ack === '1' ) {
                     for ( const item of idPkb ) {
 
                         // console.log();
+                        // return ResponseResult.successGet( res, "item" )
                         
                         const mechanicID = await MekanikRepository.dropdown( res, item.token ?? '', {
                             tipe : 13,
