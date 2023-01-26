@@ -343,6 +343,9 @@ class PkbImportExcelController {
                         })
 
                         console.log('detailPKB', detailPkb)
+                        statusSend.push(
+                            "Nomor PKB " + val.idPkb + " tidak ditemukan"
+                        )
                         // return ResponseResult.successGet(res, detailPkb?.listOfPKB[0].id)
 
                         if (detailPkb?.ack === 1) {
@@ -382,21 +385,24 @@ class PkbImportExcelController {
 
                                     console.log( 'respSelesaiErr', respSelesai )
 
+                                    statusSend.push(
+                                        "Nomor PKB " + val.idPkb + " berhasil diselesaikan"
+                                    )
                                 }
                             }
                             // console.log(detailPkb)
                         }
                     }
                     // return ResponseResult.error(res, "Terdapat Proses yang berhasil diselesaikan, mohon import kembali file excel")
-                    return ResponseResult.error(res, {
-                        statusCode : EnumResponseCode.RETRY,
-                        errorCode : '01',
-                        message : 'Terdapat Proses yang berhasil diselesaikan, mohon import kembali file excel',
-                        data : null,
-                    })                    
+                    // return ResponseResult.error(res, {
+                    //     statusCode : EnumResponseCode.RETRY,
+                    //     errorCode : '01',
+                    //     message : 'Terdapat Proses yang berhasil diselesaikan, mohon import kembali file excel',
+                    //     data : null,
+                    // })                    
                 }
                 
-                if ( idPkb[0].ack === '1' ) {
+                if ( idPkb.length > 0 ) {
                     for ( const item of idPkb ) {
 
                         // console.log();
@@ -466,7 +472,12 @@ class PkbImportExcelController {
                 }
 
                 if ( statusSend.length > 0 ) {
-                    return ResponseResult.successPost( res, JSON.stringify( statusSend ) )
+                    return ResponseResult.error( res, {
+                        statusCode : EnumResponseCode.BAD_REQUEST,
+                        errorCode : '01',
+                        message : statusSend.toString(),
+                        data : null,
+                    } )
                 }
                 else {
                     return ResponseResult.successPost( res, 'Success Import Excel' )
