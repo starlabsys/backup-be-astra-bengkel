@@ -22,6 +22,7 @@ export interface ModelJasa {
     labelGrupJasa : string;
     nilaiDiskon : number;
     persentaseDiskon : number;
+    ack? : number;
 }
 
 // Converts JSON strings to/from your types

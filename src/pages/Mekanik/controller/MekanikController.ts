@@ -31,7 +31,7 @@ class MekanikController {
 
                     if ( resp !== null ) {
                         if ( resp.ack === 1 ) {
-                            arr_data.listOfKaryawanModel.push( ...resp.listOfKaryawanModel )
+                            arr_data.listOfKaryawanModel?.push( ...resp.listOfKaryawanModel ?? [] )
                             arr_data.ack = resp.ack
                             arr_data.message = resp.message
                             arr_data.totalRow = resp.totalRow

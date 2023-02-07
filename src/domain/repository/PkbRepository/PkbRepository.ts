@@ -6,6 +6,7 @@ import { InterfaceStorePkb } from "./interface/InterfaceStorePkb";
 import { InterfaceDetailPkb } from "./interface/InterfaceDetailPkb";
 import { InterfaceProsesPKB } from "./interface/InterfaceProsesPKB";
 import { ConvertModelResult, ModelResult } from "../../models/Result/ModelResult";
+import { InterfaceAddDataServices } from "../../../pages/Pkb/model/ModelAddExcelPkb";
 // import { InterfaceGetPitMekanik } from "./interface/InterfaceGetPitMekanik";
 // import { ModelPitMekanik,ConvertGetPitMekanik } from "../../models/PitMekanik/ModelPitMekanik";
 // import { InterfaceStorePitMekanik } from "./interface/InterfaceStorePitMekanik";
@@ -24,6 +25,18 @@ class PkbRepository {
     }
 
     public storeData = async ( res : Response, token : string, reqBody : InterfaceStorePkb ) : Promise<ModelOfPKB | null> => {
+        const resp = await post( res, {
+            url : '/api/Service/PUTPKB',
+            token : token,
+            reqBody : reqBody
+        } )
+        if ( resp !== null ) {
+            return Convert.toModelOfPKB( resp );
+        }
+        return null;
+    }
+
+    public storeDataExcel = async ( res : Response, token : string, reqBody : InterfaceAddDataServices ) : Promise<ModelOfPKB | null> => {
         const resp = await post( res, {
             url : '/api/Service/PUTPKB',
             token : token,

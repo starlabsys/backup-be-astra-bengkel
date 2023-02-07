@@ -7,6 +7,7 @@
 export interface ModelResult {
     message : string;
     ack : number;
+    customerID? : number;
 }
 
 // Converts JSON strings to/from your types

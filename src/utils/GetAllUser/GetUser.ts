@@ -26,6 +26,11 @@ class GetUser {
                     name : user[ index ]?.nama_bengkel ?? '',
                     token : checkLogin?.access_token,
                 } )
+            }else{
+                arr_user.push( {
+                    name : user[ index ]?.nama_bengkel ?? '',
+                    token : '',
+                } )
             }
 
         }

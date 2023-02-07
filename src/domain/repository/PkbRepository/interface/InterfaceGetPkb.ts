@@ -1,8 +1,8 @@
 export interface InterfaceGetPkb {
     action: number,
     noPKB: string,
-    tanggal: Date,
-    tanggalSampai: Date,
+    tanggal: string,
+    tanggalSampai: string,
     statusPencarianPKB: string,
     noPolisi: string,
     pageNumber: number,
