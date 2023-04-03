@@ -265,7 +265,7 @@ class PkbImportExcelController {
                         refMechanicID: "",
                         serviceAdvisorID: serviceAdvisor.nilai.toString(),
                         statusPKB: 0,
-                        tipePKB: checkTipe,
+                        tipePKB: checkTipe ?? 21,
                         // sortColumn : "",
                         // sortDirection : 0,
                         tanggal: FormatDate.dateSend(item.tanggal),
