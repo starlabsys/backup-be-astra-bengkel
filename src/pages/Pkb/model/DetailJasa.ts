@@ -1,10 +1,10 @@
-
-export interface ModelDetailJasa {
-    listSparePart: any[];
+export interface DetailJasa {
+    listSparePart: ListSparePart[];
     id: number;
     kodeJasa: string;
     namaJasa: string;
     grupJasa: number;
+    subGrup: string;
     hargaJual: number;
     pajakJual: number;
     flatRate: number;
@@ -23,13 +23,26 @@ export interface ModelDetailJasa {
     ack: number;
 }
 
+export interface ListSparePart {
+    idRefMaterial: number;
+    namaSparepart: string;
+    kodeSparepart: string;
+    hargaJual: number;
+    quantity: number;
+    aktif: boolean;
+    isDisabel: boolean;
+    labelAktif: string;
+    stok: number;
+    isFreeService: boolean;
+}
+
 // Converts JSON strings to/from your types
-export class ConvertModelDetailJasa {
-    public static toModelDetailJasa(json: string): ModelDetailJasa {
+export class Convert {
+    public static toDetailJasa(json: string): DetailJasa {
         return JSON.parse(json);
     }
 
-    public static modelDetailJasaToJson(value: ModelDetailJasa): string {
+    public static detailJasaToJson(value: DetailJasa): string {
         return JSON.stringify(value);
     }
 }

@@ -2,7 +2,7 @@ class TipeKedatangan {
     public switchTipe = async (props: any): Promise<any> => {
         const tipeK = props.nama
 
-        switch (tipeK){
+        switch (tipeK) {
             case "Walk-in AHASS / Non Promotion":
                 return 1;
                 break;

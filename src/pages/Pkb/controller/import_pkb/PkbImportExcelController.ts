@@ -23,6 +23,7 @@ import { InterfaceAddDataServices } from "../../model/ModelAddExcelPkb";
 import { ModelProsesPkb } from "../../model/ModelProsesPkb";
 import MekanikRepository from "../../../../domain/repository/Mekanik/MekanikRepository";
 import TipeKedatangan from "./TipeKedatangan";
+import DetailJasa from "./DetailJasa";
 
 
 class PkbImportExcelController {
@@ -145,11 +146,10 @@ class PkbImportExcelController {
                         token: checkToken,
                         res: res,
                     })
-
-                    // return ResponseResult.successGet( res, checkJasa )
+                    // 
+                    // return ResponseResult.successGet(res, checkJasa.data)
 
                     const jasaPkb: ModelResultDataJasaPkb | undefined = checkJasa.data as ModelResultDataJasaPkb;
-                    // return ResponseResult.successGet( res, jasaPkb)
 
                     if (checkJasa.message === EnumErrorImportPKB.error) {
 
@@ -159,7 +159,59 @@ class PkbImportExcelController {
                             message: checkJasa.error,
                             data: null
                         })
+                        // return ResponseResult.successGet(res, jasaPkb.)
                     }
+
+                    let listSparepart: any = []
+                    if (checkJasa.data.listSparePart.length > 0) {
+
+                        // return ResponseResult.successGet(res, checkJasa.data.listSparePart.idRefMaterial)
+                        for (let index = 0; index < checkJasa.data.listSparePart.length; index++) {
+                            let data = {
+                                "idRefMaterial": checkJasa.data.listSparePart[index].idRefMaterial,
+                                "namaSparepart": checkJasa.data.listSparePart[index].namaSparepart,
+                                "kodeSparepart": checkJasa.data.listSparePart[index].kodeSparepart,
+                                "hargaJual": checkJasa.data.listSparePart[index].hargaJual,
+                                "quantity": checkJasa.data.listSparePart[index].quantity,
+                                "aktif": checkJasa.data.listSparePart[index].aktif,
+                                "isDisabel": checkJasa.data.listSparePart[index].isDisabel,
+                                "labelAktif": checkJasa.data.listSparePart[index].labelAktif,
+                                "stok": checkJasa.data.listSparePart[index].stok,
+                                "isFreeService": checkJasa.data.listSparePart[index].isFreeService,
+                                "guid": "4cdf53b5",
+                                "refMaterialId": checkJasa.data.listSparePart[index].idRefMaterial,
+                                "hargaJualMaterial": checkJasa.data.listSparePart[index].hargaJual,
+                                "totalMaterial": checkJasa.data.listSparePart[index].hargaJual,
+                                "namaMaterial": checkJasa.data.listSparePart[index].namaSparepart,
+                                "refNo": 0,
+                                "itemNoMaterial": 0,
+                                "isEditable": true,
+                                "refNoLabel": "0 - GANTI SARINGAN UDARA",
+                                "isAdditionalMaterial": 0
+                            }
+
+                            listSparepart.push(data)
+
+                        }
+
+                        // return ResponseResult.successGet(res, listSparepart)
+
+                    }
+
+                    // return ResponseResult.successGet(res, [])
+
+
+
+                    // const detailJasa = await JasaPkb.dete
+
+                    // return ResponseResult.successGet(res, jasaPkb)
+
+
+                    // const detailJasa = await DetailJasa.getDetailJasa({
+                    //     data: checkJasa,
+                    //     token: checkToken,
+                    //     res: res,
+                    // })
 
                     const checkTipe = await TipeKedatangan.switchTipe({
                         nama: item.tipe_kedatangan
@@ -197,7 +249,7 @@ class PkbImportExcelController {
                         finalInspectorID: finalInspector.nilai,
                         gejala: item.gejala_analisa_service_advisor,
                         kotaPembawa: item.kota_pembawa,
-                        idGudang: "",
+                        idGudang: 51,
                         idPit: 0,
                         indikatorBensin: 0,
                         isEngineNo: false,
@@ -229,7 +281,7 @@ class PkbImportExcelController {
                                 namaPekerjaan: jasaPkb.namaJasa ?? '',
                                 isOPL: false,
                                 labelisOPL: 'Tidak',
-                                listOfMaterial: [],
+                                listOfMaterial: listSparepart ?? [],
                                 // listSparepartTable.map( ( valueData ) : InterfaceListSparePartPKB => {
                                 //     if ( valueData.pekerjaanID === item.idJasa ) {
                                 //         return valueData
@@ -283,9 +335,10 @@ class PkbImportExcelController {
 
                     }
 
-                    // return ResponseResult.successGet( res, dataStore )
 
                     console.log(dataStore);
+                    // return ResponseResult.successGet(res, dataStore)
+
                     dataSend.push(dataStore);
                 }
                 else {
