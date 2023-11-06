@@ -1,25 +1,25 @@
 {
   "development" : {
-    "username" : "u425050440_bengkel",
+    "username" : "root",
     "password" : "$Mpp@123456",
-    "database" : "u425050440_bengkel",
-    "host" : "31.220.110.201",
+    "database" : "dbastra",
+    "host" : "localhost",
     "dialect" : "mysql",
     "port" : 3306
   },
   "test" : {
-    "username" : "u425050440_bengkel",
+    "username" : "root",
     "password" : "$Mpp@123456",
-    "database" : "u425050440_bengkel",
-    "host" : "31.220.110.201",
+    "database" : "dbastra",
+    "host" : "localhost",
     "dialect" : "mysql",
     "port" : 3306
   },
   "production" : {
-    "username" : "u425050440_bengkel",
+    "username" : "root",
     "password" : "$Mpp@123456",
-    "database" : "u425050440_bengkel",
-    "host" : "31.220.110.201",
+    "database" : "dbastra",
+    "host" : "localhost",
     "dialect" : "mysql",
     "port" : 3306
   }
