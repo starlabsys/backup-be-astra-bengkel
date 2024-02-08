@@ -86,7 +86,7 @@ class App {
 }
 
 
-const port : number = 8087;
+const port : number = 3000;
 const app = new App().app;
 
 app.listen( port, () => {
