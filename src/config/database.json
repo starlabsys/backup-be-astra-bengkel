@@ -3,7 +3,7 @@
     "username" : "root",
     "password" : "Database167669123",
     "database" : "dbastra",
-    "host" : "127.0.0.1",
+    "host" : "http://159.223.34.84",
     "dialect" : "mysql",
     "port" : 3306
   },
@@ -11,7 +11,7 @@
     "username" : "root",
     "password" : "Database167669123",
     "database" : "dbastra",
-    "host" : "127.0.0.1",
+    "host" : "http://159.223.34.84",
     "dialect" : "mysql",
     "port" : 3306
   },
@@ -19,7 +19,7 @@
     "username" : "root",
     "password" : "Database167669123",
     "database" : "dbastra",
-    "host" : "127.0.0.1",
+    "host" : "http://159.223.34.84",
     "dialect" : "mysql",
     "port" : 3306
   }
