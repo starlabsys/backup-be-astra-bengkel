@@ -3,7 +3,7 @@
     "username" : "qyra",
     "password" : "$Mpp@123456",
     "database" : "dbastra",
-    "host" : "localhost",
+    "host" : "host.docker.internal",
     "dialect" : "mysql",
     "port" : 3306
   },
@@ -11,7 +11,7 @@
     "username" : "qyra",
     "password" : "$Mpp@123456",
     "database" : "dbastra",
-    "host" : "localhost",
+    "host" : "host.docker.internal",
     "dialect" : "mysql",
     "port" : 3306
   },
@@ -19,7 +19,7 @@
     "username" : "qyra",
     "password" : "$Mpp@123456",
     "database" : "dbastra",
-    "host" : "localhost",
+    "host" : "host.docker.internal",
     "dialect" : "mysql",
     "port" : 3306
   }
