@@ -29,8 +29,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build . -t ${{ secrets.DOCKER_USERNAME }}/be-astra-bengkel:canary-v0.0.1
-          docker push ${{ secrets.DOCKER_USERNAME }}/be-astra-bengkel:canary-v0.0.1
+          docker build . -t ${{ secrets.DOCKER_USERNAME }}/be-astra-bengkel:canary-v0.0.2
+          docker push ${{ secrets.DOCKER_USERNAME }}/be-astra-bengkel:canary-v0.0.2
 
   deploy:
     needs: build

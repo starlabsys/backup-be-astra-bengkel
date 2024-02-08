@@ -56,7 +56,7 @@ class App {
 
     protected routes() : void {
         // console.log(process.env.NODE_ENV)
-        this.app.route( "/" ).post( ( req : Request, res : Response ) => {
+        this.app.route( "/" ).get( ( req : Request, res : Response ) => {
             return res.status( 200 ).json( {
                 "message" : "success"
             } )
