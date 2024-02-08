@@ -1,26 +1,26 @@
 {
   "development" : {
-    "username" : "qyra",
-    "password" : "$Mpp@123456",
+    "username" : "doadmin",
+    "password" : "AVNS_1mQyGV0FGXG_ykNqDWO",
     "database" : "dbastra",
-    "host" : "159.223.34.84",
+    "host" : "db-mysql-sgp1-47066-do-user-15779306-0.c.db.ondigitalocean.com",
     "dialect" : "mysql",
-    "port" : 3306
+    "port" : 25060
   },
   "test" : {
-    "username" : "qyra",
-    "password" : "$Mpp@123456",
+    "username" : "doadmin",
+    "password" : "AVNS_1mQyGV0FGXG_ykNqDWO",
     "database" : "dbastra",
-    "host" : "159.223.34.84",
+    "host" : "db-mysql-sgp1-47066-do-user-15779306-0.c.db.ondigitalocean.com",
     "dialect" : "mysql",
-    "port" : 3306
+    "port" : 25060
   },
   "production" : {
-    "username" : "qyra",
-    "password" : "$Mpp@123456",
+    "username" : "doadmin",
+    "password" : "AVNS_1mQyGV0FGXG_ykNqDWO",
     "database" : "dbastra",
-    "host" : "159.223.34.84",
+    "host" : "db-mysql-sgp1-47066-do-user-15779306-0.c.db.ondigitalocean.com",
     "dialect" : "mysql",
-    "port" : 3306
+    "port" : 25060
   }
 }
