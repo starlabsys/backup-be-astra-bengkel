@@ -19,6 +19,7 @@ import MekanikRoutes from './pages/Mekanik/routes/MekanikRoutes';
 import PkbRoutes from './pages/Pkb/routes/PkbRoutes';
 import LaporanRoutes from './pages/Laporan/routes/LaporanRoutes';
 import AdminRoute from "./pages/Admin/routes/AdminRoute";
+import TestingRoute from "./pages/Testing/routes/TestingRoute";
 
 
 class App {
@@ -79,12 +80,13 @@ class App {
 
         this.app.use( "/api/laporan", LaporanRoutes )
         this.app.use( "/api/admin", AdminRoute )
+        this.app.use( "/api/testing", TestingRoute )
     }
 
 }
 
 
-const port : number = 8080;
+const port : number = 8087;
 const app = new App().app;
 
 app.listen( port, () => {
