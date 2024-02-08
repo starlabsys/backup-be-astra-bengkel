@@ -1,25 +1,25 @@
 {
   "development" : {
-    "username" : "root",
-    "password" : "Database167669123",
+    "username" : "qyra",
+    "password" : "$Mpp@123456",
     "database" : "dbastra",
-    "host" : "159.223.34.84",
+    "host" : "localhost",
     "dialect" : "mysql",
     "port" : 3306
   },
   "test" : {
-    "username" : "root",
-    "password" : "Database167669123",
+    "username" : "qyra",
+    "password" : "$Mpp@123456",
     "database" : "dbastra",
-    "host" : "159.223.34.84",
+    "host" : "localhost",
     "dialect" : "mysql",
     "port" : 3306
   },
   "production" : {
-    "username" : "root",
-    "password" : "Database167669123",
+    "username" : "qyra",
+    "password" : "$Mpp@123456",
     "database" : "dbastra",
-    "host" : "159.223.34.84",
+    "host" : "localhost",
     "dialect" : "mysql",
     "port" : 3306
   }
