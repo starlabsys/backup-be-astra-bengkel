@@ -46,4 +46,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/be-astra-bengkel:canary-v0.0.4
             docker stop be-astra-bengkel || true
             docker rm be-astra-bengkel || true
-            docker run -d --name be-astra-bengkel -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/be-astra-bengkel:canary-v0.0.4
+            docker run -d --name be-astra-bengkel -p 8080:3000 ${{ secrets.DOCKER_USERNAME }}/be-astra-bengkel:canary-v0.0.4
